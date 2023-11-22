@@ -19,3 +19,4 @@ jobs:
 
       - name: Run commitlint 🟩
         uses: Dune-Global/actions/quality-checks/commitlint@main
+
