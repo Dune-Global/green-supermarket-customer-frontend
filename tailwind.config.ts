@@ -23,11 +23,32 @@ export default {
         "2xl": "1400px",
       },
     },
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+    colors: {
+      gray: {
+        0: "var(--gray-0)",
+        50: "var(--gray-50)",
+        200: "var(--gray-200)",
+        400: "var(--gray-400)",
+        600: "var(--gray-600)",
+        800: "var(--gray-800)",
+        900: "var(--gray-900)",
+      },
+      orange: {
+        200: "var(--orange-200)",
+        400: "var(--orange-400)",
+        600: "var(--orange-600)",
+      },
+      red: {
+        200: "var(--red-200)",
+        400: "var(--red-400)",
+        600: "var(--red-600)",
+      },
+      green: {
+        0: "var(--green-0)",
+        200: "var(--green-200)",
+        400: "var(--green-400)",
+        600: "var(--green-600)",
+        800: "var(--green-800)",
       },
     },
   },
