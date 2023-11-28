@@ -18,15 +18,15 @@ html::-webkit-scrollbar {
 }
 
 html::-webkit-scrollbar-thumb {
-  background-color: var(--blue-50);
+  background-color: hsl(var(--green-200));
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background-color: var(--blue-400);
+  background-color: hsl(var(--green-400));
 }
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: var(--blue-800);
+  scrollbar-color: hsl(var(--green-800));
   scrollbar-width: thin;
 }
