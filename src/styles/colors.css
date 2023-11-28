@@ -1,27 +1,52 @@
-:root {
+@tailwind base;
+
+@layer base {
+  :root {
     /* Gray */
-    --gray-0: #FFFFFF;
-    --gray-50: #E6E6E6;
-    --gray-200: #999999;
-    --gray-400: #808080;
-    --gray-600: #4C4C4C;
-    --gray-800: #333333;
-    --gray-900: #191919;
+    --gray-0: 0 0% 100%;
+    --gray-50: 0 0% 90%;
+    --gray-200: 0 0% 60%;
+    --gray-400: 0 0% 50%;
+    --gray-600: 0 0% 30%;
+    --gray-800: 0 0% 20%;
+    --gray-900: 0 0% 10%;
 
     /* orange */
-    --orange-200: #FFB966;
-    --orange-400: #FF8A00;
-    --orange-600: #CC6E00;
+    --orange-200: 33 100% 70%;
+    --orange-400: 32 100% 50%;
+    --orange-600: 32 100% 40%;
 
     /* Red */
-    --red-200: #F5A5A4;
-    --red-400: #EA4B48;
-    --red-600: #E51E1A;
+    --red-200: 41 80% 80%;
+    --red-400: 1 79% 60%;
+    --red-600: 1 80% 50%;
 
     /* Green */
-    --green-0: #EDF2EE;
-    --green-200: #618062;
-    --green-400: #00B207;
-    --green-600: #2C742F;
-    --green-800: #002603;
+    --green-0: 132 16% 94%;
+    --green-200: 122 14% 44%;
+    --green-400: 122 100% 35%;
+    --green-600: 122 45% 31%;
+    --green-800: 25 100% 7%;
+
+    /* --background: var(--gray-0);
+    --foreground: var(--gray-900);
+    --card: var(--gray-0);
+    --card-foreground: var(--gray-900);
+    --popover: var(--gray-0);
+    --popover-foreground: var(--gray-900);
+    --primary: var(--green-400);
+    --primary-foreground: var(--gray-0);
+    --secondary: var(--gray-50);
+    --secondary-foreground: var(--gray-800);
+    --muted: var(--gray-200);
+    --muted-foreground: var(--gray-400);
+    --accent: var(--gray-50);
+    --accent-foreground: var(--gray-800);
+    --destructive: var(--red-400);
+    --destructive-foreground: var(--gray-50);
+    --border: var(--gray-200);
+    --input: var(--gray-200);
+    --ring: var(--green-400); */
+    --radius: 0.5rem;
+  }
 }
