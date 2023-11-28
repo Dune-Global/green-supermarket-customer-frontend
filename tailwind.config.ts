@@ -1,55 +1,66 @@
-/* eslint-disable import/no-anonymous-default-export */
 /** @type {import('tailwindcss').Config} */
-
-export default {
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    screens: {
-      xs: "320px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      xxl: "1536px",
-    },
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
+    extend: {
+      container: {
+        center: true,
+        padding: "2rem",
+        screens: {
+          "2xl": "1400px",
+        },
       },
-    },
-    colors: {
-      gray: {
-        0: "var(--gray-0)",
-        50: "var(--gray-50)",
-        200: "var(--gray-200)",
-        400: "var(--gray-400)",
-        600: "var(--gray-600)",
-        800: "var(--gray-800)",
-        900: "var(--gray-900)",
+      colors: {
+        gray: {
+          0: "hsl(var(--gray-0))",
+          50: "hsl(var(--gray-50))",
+          200: "hsl(var(--gray-200))",
+          400: "hsl(var(--gray-400))",
+          600: "hsl(var(--gray-600))",
+          800: "hsl(var(--gray-800))",
+          900: "hsl(var(--gray-900))",
+        },
+        orange: {
+          200: "hsl(var(--orange-200))",
+          400: "hsl(var(--orange-400))",
+          800: "hsl(var(--orange-600))",
+        },
+        red: {
+          0: "hsl(var(--red-200))",
+          400: "hsl(var(--red-400))",
+          600: "hsl(var(--red-600))",
+        },
+        green: {
+          0: "hsl(var(--green-0))",
+          200: "hsl(var(--green-200))",
+          400: "hsl(var(--green-400))",
+          600: "hsl(var(--green-600))",
+          800: "hsl(var(--green-800))",
+        },
+        transparent: "transparent",
       },
-      orange: {
-        200: "var(--orange-200)",
-        400: "var(--orange-400)",
-        600: "var(--orange-600)",
+
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
       },
-      red: {
-        200: "var(--red-200)",
-        400: "var(--red-400)",
-        600: "var(--red-600)",
-      },
-      green: {
-        0: "var(--green-0)",
-        200: "var(--green-200)",
-        400: "var(--green-400)",
-        600: "var(--green-600)",
-        800: "var(--green-800)",
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
+  plugins: [require("tailwindcss-animate")],
 };
