@@ -3,27 +3,27 @@ import { INavigationText } from "@/types";
 const offers: INavigationText[] = [
   {
     title: "Best Deals",
-    href: "/",
+    href: "#best-deals",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Uncover unbeatable bargains on a variety of high-quality grocery items.",
   },
   {
     title: "Organic Sale",
-    href: "/",
+    href: "#organic-sale",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Embrace a healthier lifestyle with our special discounts on premium organic products.",
   },
   {
     title: "Seasonal Offers",
-    href: "/",
+    href: "#seasonal-offers",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Enjoy exclusive savings on seasonal delights, ensuring freshness and variety in every purchase.",
   },
   {
-    title: "Meat Discount",
-    href: "/",
+    title: "Fresh Meat Specials",
+    href: "#fresh-meat-specials",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Indulge in mouthwatering savings with discounts on our finest cuts of meat and poultry.",
   },
 ];
 

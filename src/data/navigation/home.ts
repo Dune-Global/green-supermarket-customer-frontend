@@ -5,37 +5,37 @@ const home: INavigationText[] = [
     title: "Featured",
     href: "#featured",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Discover premium-quality groceries handpicked for their freshness and exceptional taste.",
   },
   {
     title: "Best Selling",
     href: "#best-selling",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Explore our top-rated grocery essentials loved by customers for their quality and value.",
   },
   {
     title: "Deals",
     href: "#deals",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Save big on exclusive offers and discounts, making your grocery shopping experience even better.",
   },
   {
     title: "Categories",
     href: "#categories",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Easily navigate through a wide array of grocery categories, ensuring a seamless and convenient shopping journey.",
   },
   {
     title: "Testimonials",
     href: "#testimonials",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Hear what our satisfied customers have to say about their delightful experiences with us.",
   },
   {
     title: "Newsletter",
     href: "#newsletter",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      " Stay updated on the latest deals, new arrivals, and insider tips by subscribing to our newsletter.",
   },
 ];
 
