@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Container } from "@/components/common";
+import { Container, Button } from "@/components/green-supermarket-common-ui";
+
 
 export default function Home() {
   return (
