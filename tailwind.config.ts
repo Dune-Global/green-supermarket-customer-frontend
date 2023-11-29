@@ -8,43 +8,41 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {
-      container: {
-        center: true,
-        padding: "2rem",
-        screens: {
-          "2xl": "1400px",
-        },
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
       },
-      colors: {
-        gray: {
-          0: "hsl(var(--gray-0))",
-          50: "hsl(var(--gray-50))",
-          200: "hsl(var(--gray-200))",
-          400: "hsl(var(--gray-400))",
-          600: "hsl(var(--gray-600))",
-          800: "hsl(var(--gray-800))",
-          900: "hsl(var(--gray-900))",
-        },
-        orange: {
-          200: "hsl(var(--orange-200))",
-          400: "hsl(var(--orange-400))",
-          800: "hsl(var(--orange-600))",
-        },
-        red: {
-          0: "hsl(var(--red-200))",
-          400: "hsl(var(--red-400))",
-          600: "hsl(var(--red-600))",
-        },
-        green: {
-          0: "hsl(var(--green-0))",
-          200: "hsl(var(--green-200))",
-          400: "hsl(var(--green-400))",
-          600: "hsl(var(--green-600))",
-          800: "hsl(var(--green-800))",
-        },
-        transparent: "transparent",
+    },
+    colors: {
+      gray: {
+        0: "hsl(var(--gray-0))",
+        50: "hsl(var(--gray-50))",
+        200: "hsl(var(--gray-200))",
+        400: "hsl(var(--gray-400))",
+        600: "hsl(var(--gray-600))",
+        800: "hsl(var(--gray-800))",
+        900: "hsl(var(--gray-900))",
       },
+      orange: {
+        200: "hsl(var(--orange-200))",
+        400: "hsl(var(--orange-400))",
+        800: "hsl(var(--orange-600))",
+      },
+      red: {
+        200: "hsl(var(--red-200))",
+        400: "hsl(var(--red-400))",
+        600: "hsl(var(--red-600))",
+      },
+      green: {
+        0: "hsl(var(--green-0))",
+        200: "hsl(var(--green-200))",
+        400: "hsl(var(--green-400))",
+        600: "hsl(var(--green-600))",
+        800: "hsl(var(--green-800))",
+      },
+      transparent: "transparent",
 
       keyframes: {
         "accordion-down": {
