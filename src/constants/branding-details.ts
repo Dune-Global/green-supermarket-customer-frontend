@@ -6,3 +6,4 @@ export const email = "customercare@greensupermarket.lk";
 export const phone = "+94 77 123 4567";
 export const address =
   "NSBM Green University, Mahenwatte, Pitipana North, Homagama.";
+export const developers = "Dune"
