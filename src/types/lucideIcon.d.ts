@@ -1,5 +1,5 @@
 export interface ILucideIcon {
-  color: any;
+  color?: any;
   strokeWidth: any;
-  className: any;
+  className?: any;
 }

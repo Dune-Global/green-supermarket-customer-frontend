@@ -4,26 +4,24 @@ const footerlinks: IFooterLinks[] = [
     {
         id: 1, 
         name: "My Account",
-        link: "/",
-        
-        
+        link: "/profile",
     },
     {
         id: 2, 
         name: "Privacy Policy",
-        link: "/",
+        link: "/privacy-policy",
         
     },
     {
         id: 3, 
         name: "Cookie Policy",
-        link: "/",
+        link: "/cookie-policy",
         
     },
     {
         id: 4, 
         name: "Terms & Conditions",
-        link: "/",
+        link: "/terms-and-conditions",
         
     },
 ];
