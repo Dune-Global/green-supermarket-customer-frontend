@@ -7,7 +7,7 @@ import { DateMonthYear } from "@/helpers";
 export default function CookiePolicy() {
   return (
     <Container>
-      <div className="items-center">
+      <div className="items-center break-words">
         <h1 className="text-center font-medium text-md md:text-xl">
           Cookie Policy
         </h1>
@@ -105,7 +105,7 @@ export default function CookiePolicy() {
           our website may not work properly, and your experience may be less
           personalized and enjoyable.
         </p>
-        <p>
+        <p className="break-words">
           For more information on how to manage your cookie preferences, please
           visit the help pages of your browser or visit
           https://www.aboutcookies.org, which provides detailed guidance for all
@@ -120,7 +120,7 @@ export default function CookiePolicy() {
         <div>
           <ul className="list-disc list-inside text-left">
             <li>Phone: {phone}</li>
-            <li>Email: {email}</li>
+            <li className="break-words">Email: {email}</li>
             <li>
               Address: Green Supermarket, No. 123, Main Street, Pitipana,
               Western Province, Sri Lanka.

@@ -3,7 +3,10 @@ import { poppins } from "@/styles/fonts";
 import { MainData } from "@/data";
 import "@/styles/globals.css";
 import { cn } from "@/utils/shad-utils";
-import { Navigation } from "@/components/green-supermarket-common-ui/layout";
+import {
+  Navigation,
+  Footer,
+} from "@/components/green-supermarket-common-ui/layout";
 
 export const metadata: Metadata = {
   title: MainData.title,
@@ -22,6 +25,7 @@ export default function RootLayout({
         <main className="relative flex flex-col min-h-screen">
           <Navigation />
           <div>{children}</div>
+          <Footer />
         </main>
       </body>
     </html>

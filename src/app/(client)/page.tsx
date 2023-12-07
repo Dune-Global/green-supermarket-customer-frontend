@@ -12,9 +12,6 @@ import NavigationMenuTextDropdown from "@/components/green-supermarket-common-ui
 
 export default function Home() {
   return (
-    <ClientOnly>
-      
-      <Footer />
-    </ClientOnly>
+    <></>
   );
 }

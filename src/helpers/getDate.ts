@@ -3,3 +3,5 @@ export const DateMonthYear = new Date().toLocaleDateString("en-US", {
   month: "short",
   year: "numeric",
 });
+
+export const Year = new Date().getFullYear();

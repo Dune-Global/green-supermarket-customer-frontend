@@ -1,1 +1,1 @@
-export { DateMonthYear } from "./getDate";
+export { DateMonthYear, Year } from "./getDate";
