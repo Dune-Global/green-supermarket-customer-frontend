@@ -7,8 +7,8 @@ import {
   BrandIcon,
   Footer,
   ClientOnly,
-} from "@/components/green-supermarket-common-ui";
-import NavigationMenuTextDropdown from "@/components/green-supermarket-common-ui/navigation-menu/nav-text-dropdown";
+} from "@/components/common";
+import NavigationMenuTextDropdown from "@/components/common/navigation-menu/nav-text-dropdown";
 
 export default function Home() {
   return (
