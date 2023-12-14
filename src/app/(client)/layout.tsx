@@ -6,6 +6,7 @@ import { cn } from "@/utils/shad-utils";
 import {
   Navigation,
   Footer,
+  UpperFooter,
 } from "@/components/green-supermarket-common-ui/layout";
 
 export const metadata: Metadata = {
@@ -25,7 +26,9 @@ export default function RootLayout({
         <main className="relative flex flex-col min-h-screen">
           <Navigation />
           <div>{children}</div>
+          <UpperFooter/>
           <Footer />
+          
         </main>
       </body>
     </html>
