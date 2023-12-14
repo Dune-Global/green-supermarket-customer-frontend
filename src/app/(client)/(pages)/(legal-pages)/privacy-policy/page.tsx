@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/green-supermarket-common-ui";
+import { Container } from "@/components/common";
 import { email, phone } from "@/constants";
 import Link from "next/link";
 import { DateMonthYear } from "@/helpers";
