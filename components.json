@@ -10,7 +10,7 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@/components/green-supermarket-common-ui",
+    "components": "@/components/common",
     "utils": "@/utils/shad-utils"
   }
 }
