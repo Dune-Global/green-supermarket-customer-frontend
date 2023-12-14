@@ -7,7 +7,7 @@ import {
   Navigation,
   Footer,
   UpperFooter,
-} from "@/components/green-supermarket-common-ui/layout";
+} from "@/components/common/layout";
 
 export const metadata: Metadata = {
   title: MainData.title,
@@ -26,7 +26,7 @@ export default function RootLayout({
         <main className="relative flex flex-col min-h-screen">
           <Navigation />
           <div>{children}</div>
-          <UpperFooter/>
+          {/* <UpperFooter/> */}
           <Footer />
           
         </main>
