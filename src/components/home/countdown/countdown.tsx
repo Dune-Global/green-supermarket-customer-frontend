@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Countdown() {
   const [endTime, setEndTime] = useState(false);
@@ -45,41 +45,40 @@ export default function Countdown() {
 
   return (
     <div>
-
       {endTime ? (
-        <>
+        <div>
           <h1>Best Sale Ended!</h1>
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <div className="flex justify-center">
             <div className={`${style.box}`}>
-                <div className={`${style.text1}`}>{days}</div>
-                <div className={`${style.text2}`}>DAYS</div>
+              <div className={`${style.text1}`}>{days}</div>
+              <div className={`${style.text2}`}>DAYS</div>
             </div>
             <div className={`${style.colon}`}>
-                <span>:</span>
+              <span>:</span>
             </div>
             <div className={`${style.box}`}>
-            <div className={`${style.text1}`}>{hours}</div>
-                <div className={`${style.text2}`}>HOURS</div>
+              <div className={`${style.text1}`}>{hours}</div>
+              <div className={`${style.text2}`}>HOURS</div>
             </div>
             <div className={`${style.colon}`}>
-                <span>:</span>
+              <span>:</span>
             </div>
             <div className={`${style.box}`}>
-            <div className={`${style.text1}`}>{minutes}</div>
-                <div className={`${style.text2}`}>MINS</div>
+              <div className={`${style.text1}`}>{minutes}</div>
+              <div className={`${style.text2}`}>MINS</div>
             </div>
             <div className={`${style.colon}`}>
-                <span>:</span>
+              <span>:</span>
             </div>
             <div className={`${style.box}`}>
-            <div className={`${style.text1}`}>{seconds}</div>
-                <div className={`${style.text2}`}>SECS</div>
+              <div className={`${style.text1}`}>{seconds}</div>
+              <div className={`${style.text2}`}>SECS</div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

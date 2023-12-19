@@ -45,7 +45,7 @@ const Testimonials = () => {
     ],
   };
   return (
-    <div className="bg-green-0 p-12 grid grid-cols-1">
+    <div className="bg-green-0 p-12 grid grid-cols-1 my-10">
       <div className="">
         <h2 className="uppercase text-green-400 m-2 text-center">
           Client Testimonials

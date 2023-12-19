@@ -13,7 +13,7 @@ export const Testimonials: ITestimonials[] = [
   {
     id: 2,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus. Fusce eget velit a nibh bibendum consequat Integer condimentum .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus. Fusce eget velit a nibh bibendum consequat Integer condimentum .Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus. Fusce eget velit a nibh bibendum consequat Integer condimentum .",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus.",
     image: "/assets/images/testimonials/person2.jpg",
     name: "Aiony Haust",
     role: "Customer",
@@ -22,7 +22,7 @@ export const Testimonials: ITestimonials[] = [
   {
     id: 3,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus. Fusce eget velit a nibh bibendum consequat Integer condimentum .",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus.",
     image: "/assets/images/testimonials/person3.jpg",
     name: "Emily Johnson",
     role: "Customer",
@@ -31,7 +31,7 @@ export const Testimonials: ITestimonials[] = [
   {
     id: 4,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus. Fusce eget velit a nibh bibendum consequat Integer condimentum .",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id risus lacus.",
     image: "/assets/images/testimonials/person4.jpg",
     name: "Elizeu Dias",
     role: "Customer",

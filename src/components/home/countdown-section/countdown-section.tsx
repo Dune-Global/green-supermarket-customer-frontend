@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function CountdownSec() {
   return (
-    <>
+    <div>
       <div className="bg-green-0 flex flex-col md:flex-row items-center justify-center text-center">
         <div className="px-8 pt-8 visible md:invisible lg:visible">
           <Image
@@ -39,6 +39,6 @@ export default function CountdownSec() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }

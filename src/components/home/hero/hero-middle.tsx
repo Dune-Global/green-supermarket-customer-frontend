@@ -6,7 +6,7 @@ import Container from "@/components/common/container";
 export default function HeroMiddle() {
   return (
     <Container>
-      <div className="flex flex-col md:flex-row justify-between p-8 shadow-md rounded-lg">
+      <div className="flex flex-col md:flex-row justify-between p-8 shadow-lg shadow-gray-50/40 rounded-lg">
         {HeroMid.map((components) => (
           <div key={components.id} className="flex flex-row p-4">
             <div className="flex items-center pr-4">
