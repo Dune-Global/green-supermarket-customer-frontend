@@ -19,6 +19,8 @@
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -26,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-slick": "^0.23.12",
     "autoprefixer": "^10.0.1",
     "commitlint": "^18.4.3",
     "eslint": "^8",
