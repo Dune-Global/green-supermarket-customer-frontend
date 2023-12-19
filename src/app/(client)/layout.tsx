@@ -8,6 +8,9 @@ import {
   Footer,
   UpperFooter,
 } from "@/components/common/layout";
+import AboutUs from "./(pages)/about-us/page";
+import { Contact } from "lucide-react";
+import ContactUs from "./(pages)/contact-us/page";
 
 export const metadata: Metadata = {
   title: MainData.title,
@@ -26,6 +29,9 @@ export default function RootLayout({
         <main className="relative flex flex-col min-h-screen">
           <Navigation />
           <div>{children}</div>
+          
+          <AboutUs/>
+
           {/* <UpperFooter/> */}
           <Footer />
           
