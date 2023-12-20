@@ -45,12 +45,12 @@ const Testimonials = () => {
     ],
   };
   return (
-    <div className="bg-green-0 p-12 grid grid-cols-1 my-10">
+    <div className="bg-green-0 p-12 grid grid-cols-1">
       <div className="">
         <h2 className="uppercase text-green-400 m-2 text-center">
           Client Testimonials
         </h2>
-        <h1 className="text-gray-900 text-4xl font-medium m-2 text-center">
+        <h1 className="text-gray-900 text-2xl md:text-4xl font-semibold m-4 text-center">
           What our Clients Say
         </h1>
         <Slider {...settings}>
