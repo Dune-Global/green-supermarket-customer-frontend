@@ -23,7 +23,7 @@ export default function HeroDown() {
                 height={40}
                 objectFit="cover"
                 objectPosition="center"
-                className="rounded-lg"
+                className="rounded-lg max-h-[550px]"
               />
               <div className="absolute flex flex-col items-center pt-10">
                 <div className="text-gray-0 text-center">

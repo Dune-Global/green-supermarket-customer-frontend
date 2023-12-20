@@ -10,7 +10,7 @@ export default function HeroUp() {
         <div className="w-full h-1/3 md:h-auto lg:w-2/3 relative overflow-hidden">
           <div className="h-full py-10">
             <Image
-              src="/assets/images/hero-up-card1-bg.png"
+              src="/assets/images/hero/hero-up-card1-bg.png"
               alt="hero1"
               layout="fill"
               objectFit="cover"
@@ -46,7 +46,7 @@ export default function HeroUp() {
           <div
             className="w-full h-64 rounded-lg bg-cover"
             style={{
-              backgroundImage: "url('/assets/images/hero-up-card2-bg.png')",
+              backgroundImage: "url('/assets/images/hero/hero-up-card2-bg.png')",
             }}
           >
             <div className="text-[14px] pl-10 font-medium pt-8">
@@ -67,7 +67,7 @@ export default function HeroUp() {
           <div
             className="flex items-center justify-center w-full h-64 rounded-lg bg-cover"
             style={{
-              backgroundImage: "url('/assets/images/hero-up-card3-bg.png')",
+              backgroundImage: "url('/assets/images/hero/hero-up-card3-bg.png')",
             }}
           >
             <div className="flex flex-col items-center text-gray-0 w-full h-full justify-center px-4">

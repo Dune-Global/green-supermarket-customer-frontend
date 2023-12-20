@@ -16,7 +16,7 @@ export default function CountdownSec() {
           />
         </div>
         <div>
-          <div className="text-green-400 text-sm pt-11">BEST DEALS</div>
+          <div className="uppercase text-green-400 pt-11">BEST DEALS</div>
           <div className="text-2xl md:text-4xl font-semibold pt-4">
             <p className="pb-2">Our Special Products</p>
             <p>Deal of the Month</p>
