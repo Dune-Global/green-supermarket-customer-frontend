@@ -14,11 +14,12 @@ const buttonVariants = cva(
         outline:
           "border border-green-400 bg-green-400/0 text-green-400 hover:bg-transparent hover:border-green-",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-secondary text-green-400 hover:bg-secondary/80",
         ghost:
           "bg-green-400/10 hover:bg-green-400/20 text-green-400 hover:text-accent-foreground",
         link: "text-green-400 underline-offset-4 hover:underline",
         nav: "text-gray-800 hover:text-green-400 font-normal",
+        white: "bg-gray-0 text-green-400 hover:bg-green-100",
       },
       size: {
         default: "h-10 px-6 py-2",

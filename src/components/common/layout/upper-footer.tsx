@@ -11,7 +11,7 @@ type Props = {};
 const UpperFooter = (props: Props) => {
   const style = {
     icon: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-400/10 text-green-400  bg-opacity-20 ",
-    border: "border-green-400/20 px-5 py-5 flex flex-col rounded-lg border-2",
+    border: "border-green-400/20 px-5 py-5 flex flex-col rounded-lg border-[1.5px]",
   };
 
   return (
@@ -59,7 +59,7 @@ const UpperFooter = (props: Props) => {
             <div className=" flex-col flex gap-2 md:gap-0 md:flex-row md:relative mt-5 md:mt-0">
               <Input
                 type="email"
-                className="md:pr-32"
+                className="md:pr-32 font-light"
                 placeholder="Enter Your Email Address"
               />
               <Button className="md:absolute right-0  ">Subscribe</Button>
