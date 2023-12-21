@@ -1,7 +1,7 @@
 "use client";
 
 import { ShoppingCart } from "lucide-react";
-import ClientOnly from "../client-only";
+import { ClientOnly } from "@/components/common";
 import {
   Sheet,
   SheetContent,
