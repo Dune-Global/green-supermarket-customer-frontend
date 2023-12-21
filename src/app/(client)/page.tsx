@@ -1,17 +1,19 @@
 "use client";
 
 import {
-  Container,
-  Button,
-  Navigation,
-  BrandIcon,
-  Footer,
-  ClientOnly,
-} from "@/components/common";
-import NavigationMenuTextDropdown from "@/components/common/navigation-menu/nav-text-dropdown";
+  TestimonialsSection,
+  HeroSection,
+  CountdownSection,
+  Categories
+} from "@/components";
 
 export default function Home() {
   return (
-    <></>
+    <div>
+      <HeroSection />
+      <CountdownSection />
+      <Categories />
+      <TestimonialsSection />
+    </div>
   );
 }

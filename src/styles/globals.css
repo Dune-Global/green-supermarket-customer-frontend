@@ -4,3 +4,10 @@
 
 @import "colors.css";
 @import "scrollbar.css";
+
+
+/* center the slides inside react-slick */
+.slick-track{
+    display: flex !important;
+    align-items: center;
+}
