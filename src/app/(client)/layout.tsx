@@ -7,6 +7,7 @@ import {
   Navigation,
   Footer,
   UpperFooter,
+  TopMenu,
 } from "@/components/common/layout";
 
 export const metadata: Metadata = {
@@ -24,11 +25,13 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={cn("relative h-full antialiased", poppins.className)}>
         <main className="relative flex flex-col min-h-screen">
-          <Navigation />
+          <div className="sticky top-0 z-50">
+            <TopMenu />
+            <Navigation />
+          </div>
           <div>{children}</div>
-          {/* <UpperFooter/> */}
+
           <Footer />
-          
         </main>
       </body>
     </html>

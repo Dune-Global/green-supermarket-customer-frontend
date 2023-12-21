@@ -9,7 +9,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
+  NavigationMenuTriggerStyle,
 } from "@/components/common/navigation-menu";
 
 import {
@@ -19,9 +19,12 @@ import {
   PageLinks,
 } from "@/data";
 
+import { Container } from "@/components/common";
+
 const style = {
-  navMenu: "z-10 grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
-}
+  navMenu:
+    "z-10 grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]",
+};
 
 export default function NavigationMenuTextDropdown() {
   return (
@@ -29,9 +32,9 @@ export default function NavigationMenuTextDropdown() {
       <NavigationMenuList>
         {/* Home dropdown */}
         <NavigationMenuItem>
-          {/* <Link href={PageLinks[0].path}> */}
+          <Link href={PageLinks[0].path}>
             <NavigationMenuTrigger>{PageLinks[0].title}</NavigationMenuTrigger>
-          {/* </Link> */}
+          </Link>
           <NavigationMenuContent>
             <ul className={`${style.navMenu}`}>
               {HomeNavDetails.map((components) => (
@@ -46,7 +49,6 @@ export default function NavigationMenuTextDropdown() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-
         {/* Offers dropdown */}
         <NavigationMenuItem>
           <Link href={PageLinks[1].path}>
@@ -66,7 +68,6 @@ export default function NavigationMenuTextDropdown() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-
         {/* Profile dropdown */}
         <NavigationMenuItem>
           <Link href={PageLinks[2].path}>
@@ -86,20 +87,18 @@ export default function NavigationMenuTextDropdown() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-
         {/* About us dropdown */}
         <NavigationMenuItem>
           <Link href={PageLinks[3].path} legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className={NavigationMenuTriggerStyle()}>
               {PageLinks[3].title}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-
         {/* Contact us dropdown */}
         <NavigationMenuItem>
           <Link href={PageLinks[4].path} legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className={NavigationMenuTriggerStyle()}>
               {PageLinks[4].title}
             </NavigationMenuLink>
           </Link>

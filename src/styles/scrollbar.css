@@ -1,6 +1,7 @@
 @tailwind utilities;
 
 @layer utilities {
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -8,8 +9,10 @@
 
   /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }
 
@@ -22,7 +25,11 @@ html::-webkit-scrollbar-thumb {
 }
 
 html::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(var(--green-400));
+  background-color: hsl(var(--green-200));
+}
+
+html::-webkit-scrollbar-track {
+  background: hsl(var(--gray-50));
 }
 
 html {
