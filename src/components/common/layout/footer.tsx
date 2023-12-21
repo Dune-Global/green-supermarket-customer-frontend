@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { BrandIcon, Button, Container } from "@/components/common";
 import { description, email, developers, name } from "@/constants";
@@ -5,10 +7,13 @@ import { FooterLinks, FooterLogos } from "@/data";
 import UpperFooter from "./upper-footer";
 import Link from "next/link";
 import { Year } from "@/helpers";
+import { useMediaQuery } from "@/hooks";
 
 type Props = {};
 
 const Footer = (props: Props) => {
+  const isMobile = useMediaQuery("(max-width: 1024px)");
+
   return (
     <footer className="mt-16 sticky top-full">
       <UpperFooter />
@@ -18,19 +23,27 @@ const Footer = (props: Props) => {
             <div className="divide-y-[1px] divide-gray-800">
               <div className="grid lg:grid-cols-3 grid-cols-1 py-10 gap-y-14">
                 {/* GREEN SUPERMARKET */}
-                <div className="flex flex-col lg:w-full gap-5 text-center lg:text-left">
-                  <BrandIcon mode="light" size="small" />
-                  <p className="text-sm text-gray-200">{description}</p>
+                <div className="flex flex-col lg:w-full gap-5 !text-center lg:text-left">
+                  {isMobile && (
+                    <BrandIcon mode="light" size="small" align="center" />
+                  )}
+                  {!isMobile && (
+                    <BrandIcon mode="light" size="small" align="left" />
+                  )}
+
+                  <p className="text-sm lg:text-left text-gray-200">
+                    {description}
+                  </p>
                   <Link
                     href={`mailto:${email}`}
-                    className="text-gray-0 hover:text-gray-200 text-sm break-words"
+                    className="text-gray-0 hover:text-gray-200 text-sm lg:text-left break-words"
                   >
                     {email}
                   </Link>
                 </div>
                 {/* useful list */}
                 <div className="flex flex-col lg:ml-28 gap-5 text-center">
-                  <h2 className="font-semibold uppercase ">useful links</h2>
+                  <h2 className="font-medium uppercase ">useful links</h2>
                   <div className="text-gray-200 flex flex-col gap-y-2">
                     {FooterLinks.map((item) => (
                       <div
@@ -49,7 +62,7 @@ const Footer = (props: Props) => {
                 </div>
 
                 <div className="flex flex-col gap-4 text-center lg:text-right list-none  ">
-                  <h2 className="font-semibold uppercase">follow us on</h2>
+                  <h2 className="font-medium uppercase">follow us on</h2>
                   <div className=" flex justify-center lg:justify-end gap-5 z-50">
                     {FooterLogos.map((item) => (
                       <Link href={item.link} key={item.id}>

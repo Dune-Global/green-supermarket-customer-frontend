@@ -6,7 +6,7 @@ export default function ContactUs() {
     <>
       <div className="items-center flex flex-col py-5 ">
         <Container>
-          <div className="flex flex-col text-center md:text-left gap-2">
+          <div className="flex flex-col text-center md:text-left gap-2 p-12 shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] rounded-xl my-12">
             <div className="font-semibold">We are here to help you!</div>
             <div className="md:w-[500px] text-left  text-sm">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam

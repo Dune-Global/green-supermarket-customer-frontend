@@ -7,7 +7,7 @@ import { DateMonthYear } from "@/helpers";
 export default function TermsAndConditions() {
   return (
     <Container>
-      <div>
+      <div className="my-6 md:my-8">
         <div className="items-center">
           <h1 className="text-center font-medium text-md md:text-xl">
             Terms & Conditions
@@ -26,15 +26,14 @@ export default function TermsAndConditions() {
           <br />
           <p>Last Updated: {DateMonthYear}</p>
           <br />
-          <div>
+          <div className="space-y-4">
             {Tos.map((components) => (
-              <div key={components.id}>
+              <div key={components.id} className="space-y-2">
                 <p className="font-semibold">
                   <span>{components.id}. </span>
                   <span>{components.title}</span>
                 </p>
                 <p>{components.description}</p>
-                <br />
               </div>
             ))}
           </div>

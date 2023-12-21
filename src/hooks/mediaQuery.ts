@@ -25,23 +25,3 @@ const useMediaQuery = (query: string) => {
 };
 
 export default useMediaQuery;
-
-// import { useState, useEffect } from "react";
-
-// const useMediaQuery = (query: string) => {
-//   const [matches, setMatches] = useState(window.innerWidth <= 1024); // 1024px is typically the breakpoint for large screens
-
-//   useEffect(() => {
-//     const media = window.matchMedia(query);
-//     if (media.matches !== matches) {
-//       setMatches(media.matches);
-//     }
-//     const listener = (event: MediaQueryListEvent) => setMatches(event.matches);
-//     media.addEventListener("change", listener);
-//     return () => media.removeEventListener("change", listener);
-//   }, [matches, query]);
-
-//   return matches;
-// };
-
-// export default useMediaQuery;

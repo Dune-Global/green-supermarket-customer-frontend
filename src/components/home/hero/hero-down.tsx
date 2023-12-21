@@ -9,12 +9,7 @@ export default function HeroDown() {
     <Container>
       <div className="flex flex-col md:flex-row gap-4 justify-between my-[60px]">
         {HeroDow.map((components) => (
-          <div
-            key={components.id}
-            className={`flex flex-row ${
-              components.id === 1 ? "text-gray-900" : "text-gray-0"
-            }`}
-          >
+          <div key={components.id} className="flex flex-row">
             <div className="flex items-start justify-center">
               <Image
                 src={components.image}
@@ -26,7 +21,11 @@ export default function HeroDown() {
                 className="rounded-lg max-h-[550px]"
               />
               <div className="absolute flex flex-col items-center pt-10">
-                <div className="text-gray-0 text-center">
+                <div
+                  className={`text-center ${
+                    components.id === 1 ? "text-gray-900" : "text-gray-0"
+                  }`}
+                >
                   <h1 className="text-sm font-medium">{components.title}</h1>
                   <p className="mt-4 text-4xl md:text-xl lg:text-4xl">
                     {components.description1}

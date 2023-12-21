@@ -32,7 +32,7 @@ export default function NavigationMenuHamburger() {
       </button>
 
       <div
-        className={`absolute right-0 mt-64 w-48 rounded-md shadow-lg bg-white ring-1 ring-green-200/70 transition-all duration-200 ease-in-out ${
+        className={`absolute right-0 mt-64 w-48 rounded-md shadow-lg bg-gray-0 z-50 ring-1 ring-green-200/70 transition-all duration-200 ease-in-out ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >

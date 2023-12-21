@@ -8,7 +8,7 @@ import { DateMonthYear } from "@/helpers";
 export default function PrivacyPolicy() {
   return (
     <Container>
-      <div>
+      <div className="my-6 md:my-8">
         <div className="items-center">
           <h1 className="text-center font-medium text-md md:text-xl">
             Privacy Policy
@@ -93,9 +93,7 @@ export default function PrivacyPolicy() {
 
           <p>{phone}</p>
 
-          <Link href={`mailto:${email}`}>
-            {email}
-          </Link>
+          <Link href={`mailto:${email}`}>{email}</Link>
 
           <br />
 

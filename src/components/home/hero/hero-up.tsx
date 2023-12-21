@@ -46,7 +46,8 @@ export default function HeroUp() {
           <div
             className="w-full h-64 rounded-lg bg-cover"
             style={{
-              backgroundImage: "url('/assets/images/hero/hero-up-card2-bg.png')",
+              backgroundImage:
+                "url('/assets/images/hero/hero-up-card2-bg.png')",
             }}
           >
             <div className="text-[14px] pl-10 font-medium pt-8">
@@ -67,7 +68,8 @@ export default function HeroUp() {
           <div
             className="flex items-center justify-center w-full h-64 rounded-lg bg-cover"
             style={{
-              backgroundImage: "url('/assets/images/hero/hero-up-card3-bg.png')",
+              backgroundImage:
+                "url('/assets/images/hero/hero-up-card3-bg.png')",
             }}
           >
             <div className="flex flex-col items-center text-gray-0 w-full h-full justify-center px-4">

@@ -9,7 +9,7 @@ export default function CountdownSec() {
       <div className="bg-green-0 flex flex-col md:flex-row items-center justify-center text-center">
         <div className="px-8 pt-8 visible md:invisible lg:visible">
           <Image
-            src="/assets/images/countdown-left.png"
+            src="/assets/images/countdown/countdown-left.png"
             alt="countdown-left"
             width={600}
             height={600}
@@ -32,7 +32,7 @@ export default function CountdownSec() {
         </div>
         <div className="px-10 visible md:invisible lg:visible">
           <Image
-            src="/assets/images/countdown-right.png"
+            src="/assets/images/countdown/countdown-right.png"
             alt="countdown-right"
             width={500}
             height={100}
