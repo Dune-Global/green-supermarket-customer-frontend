@@ -19,7 +19,7 @@ const Footer = (props: Props) => {
               <div className="grid lg:grid-cols-3 grid-cols-1 py-10 gap-y-14">
                 {/* GREEN SUPERMARKET */}
                 <div className="flex flex-col lg:w-full gap-5 text-center lg:text-left">
-                  <BrandIcon mode="light" />
+                  <BrandIcon mode="light" size="small" />
                   <p className="text-sm text-gray-200">{description}</p>
                   <Link
                     href={`mailto:${email}`}

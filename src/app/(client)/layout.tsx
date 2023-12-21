@@ -3,7 +3,12 @@ import { poppins } from "@/styles/fonts";
 import { MainData } from "@/data";
 import "@/styles/globals.css";
 import { cn } from "@/utils/shad-utils";
-import { Navigation, Footer, UpperFooter } from "@/components/common/layout";
+import {
+  Navigation,
+  Footer,
+  UpperFooter,
+  TopMenu,
+} from "@/components/common/layout";
 
 export const metadata: Metadata = {
   title: MainData.title,
@@ -20,7 +25,10 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={cn("relative h-full antialiased", poppins.className)}>
         <main className="relative flex flex-col min-h-screen">
-          <Navigation />
+          <div className="sticky top-0 z-50">
+            <TopMenu />
+            <Navigation />
+          </div>
           <div>{children}</div>
           <Footer />
         </main>
