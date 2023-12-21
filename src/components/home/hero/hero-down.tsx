@@ -16,9 +16,7 @@ export default function HeroDown() {
                 alt={components.title}
                 width={1000}
                 height={40}
-                objectFit="cover"
-                objectPosition="center"
-                className="rounded-lg max-h-[550px]"
+                className="rounded-lg object-cover object-center max-h-[550px]"
               />
               <div className="absolute flex flex-col items-center pt-10">
                 <div

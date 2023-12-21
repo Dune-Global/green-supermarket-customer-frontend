@@ -12,10 +12,8 @@ export default function HeroUp() {
             <Image
               src="/assets/images/hero/hero-up-card1-bg.png"
               alt="hero1"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              className="rounded-lg"
+              fill
+              className="rounded-lg object-center object-cover"
               style={{ zIndex: -1 }}
             />
             <div className="flex flex-col items-start justify-center text-left text-gray-0 pl-10 h-full pb-4">
