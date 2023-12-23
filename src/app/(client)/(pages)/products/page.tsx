@@ -15,6 +15,8 @@ export default function Products() {
             name={product.name}
             imageSrc={product.imageSrc}
             price={product.price}
+            isStock={product.isStock}
+            discount={product.discount}
             strikedPrice={product.strikedPrice}
             per={product.per}
             variant="default"
