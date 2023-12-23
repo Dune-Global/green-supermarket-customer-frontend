@@ -17,6 +17,9 @@ import Link from "next/link";
 import { Button } from "@/components/common/buttons";
 import Image from "next/image";
 import { useBreakpoint, useMediaQuery } from "@/hooks";
+import { ProductCard } from "../products";
+import { ProductDetails } from "@/data";
+import productDetails from "@/data/products/productDetails";
 
 const Cart = () => {
   const itemCount = 2;
@@ -65,19 +68,28 @@ const Cart = () => {
                   <SheetHeader className="space-y-2.5 pr-6">
                     <SheetTitle>Shopping Cart ({itemCount})</SheetTitle>
                   </SheetHeader>
-                  <div className="flex w-full flex-col pr-6">
+                  <div className="flex w-full flex-col pr-6 overflow-y-auto max-h-[calc(100vh-230px)] md:max-h-[calc(100vh-250px)]">
                     {/* TODO: Cart logic */}
-                    cart items
+                    {ProductDetails.map((product, index) => (
+                      <div key={index}>
+                        <ProductCard
+                          variant="cart"
+                          imageSrc={product.imageSrc}
+                          name={product.name}
+                          price={product.price}
+                        />
+                        <Separator className="bg-gray-50" />
+                      </div>
+                    ))}
                   </div>
-                  <Separator className="bg-gray-50" />
                 </div>
                 <div className="space-y-4 pr-6">
                   <div className="space-y-1.5 text-sm">
-                    <div className="flex">
-                      <span className="flex-1">Shipping</span>
+                    <div className="flex text-xs md:text-sm">
+                      <span className=" flex-1">Shipping</span>
                       <span>Free</span>
                     </div>
-                    <div className="flex">
+                    <div className="flex text-xs md:text-sm">
                       <span className="flex-1">Total</span>
                       <span>{formatPrice(total)}</span>
                     </div>
