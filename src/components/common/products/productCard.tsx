@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShoppingCart, Trash2, X } from "lucide-react";
+import { ShoppingCart, X } from "lucide-react";
 import { Button } from "@/components/common/buttons";
 import Image from "next/image";
 import { formatPrice } from "@/utils/shad-utils";
@@ -10,8 +10,10 @@ type CardProps = {
   name: string;
   imageSrc: string;
   price: number;
+  discount?: string;
   strikedPrice?: number;
   per?: string;
+  isStock?: string;
   variant?: "default" | "cart";
 };
 
@@ -19,24 +21,67 @@ const ProductCard: React.FC<CardProps> = ({
   name,
   imageSrc,
   price,
+  discount,
   strikedPrice,
   per,
+  isStock,
   variant = "default",
 }: CardProps) => {
+  const showOutOfStock = isStock === "Out of Stock";
+
   return (
     <div>
       {variant === "default" && (
         <div className="flex cursor-pointer flex-col justify-evenly items-center border border-gray-50 hover:border-green-400 max-w-[325px] min-h-[280px] lg:min-h-[350px] rounded-md shadow-sm hover:shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] hover:shadow-green-400/30 group transition-all p-4">
-          <Button
-            size="sicon"
-            className="hidden sm:inline-flex bg-gray-0 transition-all duration-200 group-hover:bg-green-400 hover:text-gray-0 self-end"
-          >
-            <ShoppingCart
-              strokeWidth={1.3}
-              size={17}
-              className=" text-gray-600 transition-all duration-200 group-hover:text-gray-0 "
-            />
-          </Button>
+          {showOutOfStock ? (
+            <div className="flex justify-center sm:justify-between items-center w-full">
+              <span className="bg-gray-800 text-gray-0 text-[10px] px-[6px] py-[3px] rounded-[4px] ">
+                {isStock}
+              </span>
+              <Button
+                size="sicon"
+                className="hidden sm:inline-flex bg-gray-0 transition-all duration-200 group-hover:bg-green-400 hover:text-gray-0 self-end"
+              >
+                <ShoppingCart
+                  strokeWidth={1.3}
+                  size={17}
+                  className=" text-gray-600 transition-all duration-200 group-hover:text-gray-0 "
+                />
+              </Button>
+            </div>
+          ) : (
+            <>
+              {discount && (
+                <div className="flex justify-center sm:justify-between items-center w-full">
+                  <span className=" bg-red-400 text-gray-0 text-[10px] px-[6px] py-[3px] rounded-[4px] uppercase">
+                    {discount}
+                  </span>
+                  <Button
+                    size="sicon"
+                    className="hidden sm:inline-flex bg-gray-0 transition-all duration-200 group-hover:bg-green-400 hover:text-gray-0 self-end"
+                  >
+                    <ShoppingCart
+                      strokeWidth={1.3}
+                      size={17}
+                      className=" text-gray-600 transition-all duration-200 group-hover:text-gray-0 "
+                    />
+                  </Button>
+                </div>
+              )}
+              {!discount && (
+                <Button
+                  size="sicon"
+                  className="hidden sm:inline-flex bg-gray-0 transition-all duration-200 group-hover:bg-green-400 hover:text-gray-0 self-end"
+                >
+                  <ShoppingCart
+                    strokeWidth={1.3}
+                    size={17}
+                    className=" text-gray-600 transition-all duration-200 group-hover:text-gray-0 "
+                  />
+                </Button>
+              )}
+            </>
+          )}
 
           <Image
             className="object-contain max-h-[120px] sm:max-h-[140px] md:max-h-[150px] lg:max-h-[250px] min-w-[200px]"
