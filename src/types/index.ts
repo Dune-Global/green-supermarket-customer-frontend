@@ -5,3 +5,4 @@ export * from "./footer-logo";
 export * from "./legalPages";
 export * from "./productDetails";
 export * from "./testimonials";
+export * from './main-category';

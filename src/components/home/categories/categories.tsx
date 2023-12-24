@@ -1,9 +1,45 @@
 import { Container } from "@/components/common";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Category } from "@/data/categories";
 import Link from "next/link";
+import { getMainCategories } from "@/helpers";
+import { Skeleton } from "@/components/common/ui/skeleton";
+import { IMainCategoryData } from "@/types";
 
 export default function Categories() {
+  const [categories, setCategories] = useState<IMainCategoryData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const fetchedCategories: IMainCategoryData[] =
+          await getMainCategories();
+        setCategories(fetchedCategories);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const renderSkeletons = (): JSX.Element[] => {
+    return Array.from({ length: 10 }).map((_, index) => (
+      <div
+        key={index}
+        className="border border-gray-50 rounded-lg flex flex-col items-center p-4 py-6"
+      >
+        <Skeleton className="w-auto h-24 md:h-32" />
+        <Skeleton
+          className="text-center text-md pt-4"
+          style={{ width: "80%" }}
+        />
+      </div>
+    ));
+  };
+
   return (
     <Container>
       <div className="py-[60px]">
@@ -14,24 +50,26 @@ export default function Categories() {
           </p>
         </div>
         <div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {Category.map((components) => (
-                <div key={components.id}>
-                    <Link href={components.link}>
-                    <div className="border border-gray-50 hover:border-green-400 hover:shadow-md hover:shadow-green-400/20 rounded-lg flex flex-col items-center p-4 py-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {loading
+              ? renderSkeletons()
+              : categories.map((component) => (
+                  <div key={component.mainCategoryId}>
+                    <Link href={component.slug}>
+                      <div className="border border-gray-50 hover:border-green-400 hover:shadow-md hover:shadow-green-400/20 rounded-lg flex flex-col items-center p-4 py-6">
                         <img
-                        src={components.image}
-                        alt={components.title}
-                        className="w-auto h-24 md:h-32"
+                          src={component.imgUrl}
+                          alt={component.mainCategoryName}
+                          className="w-auto h-24 md:h-32"
                         />
                         <p className="text-center text-md pt-4">
-                        {components.title}
+                          {component.mainCategoryName}
                         </p>
-                    </div>
+                      </div>
                     </Link>
-                </div>
+                  </div>
                 ))}
-            </div>
+          </div>
         </div>
       </div>
     </Container>
