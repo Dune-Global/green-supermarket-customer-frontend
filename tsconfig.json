@@ -13,6 +13,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
+    "baseUrl": "./",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "pretty": true,

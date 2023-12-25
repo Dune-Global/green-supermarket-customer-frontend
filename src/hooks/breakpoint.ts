@@ -36,6 +36,8 @@ const useBreakpoint = () => {
       window.addEventListener("resize", resizeHandler);
       return () => window.removeEventListener("resize", resizeHandler);
     }
+    // Add a return statement here
+    return () => {};
   }, []);
 
   return breakpoints;

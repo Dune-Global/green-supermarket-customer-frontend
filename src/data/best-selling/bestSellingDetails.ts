@@ -13,6 +13,10 @@ const bestSellingDetails: IProductDetails[] = [
     per: "/Unit",
     imageSrc: "/assets/images/products/sera-festiva-noodles-325g.png",
     link: "/products/sera-festiva-noodles-325g",
+    category: "Food",
+    subCategory1: "Noodles",
+    subCategory2: "Instant Noodles",
+    rate: 4.5,
   },
 
   {
@@ -27,6 +31,10 @@ const bestSellingDetails: IProductDetails[] = [
     per: "/Unit",
     imageSrc: "/assets/images/products/kotmale-fresh-milk-1l.png",
     link: "/products/kotmale-fresh-milk-1l",
+    category: "Beverages",
+    subCategory1: "Dairy",
+    subCategory2: "Milk",
+    rate: 4.8,
   },
   {
     id: 3,
@@ -40,6 +48,10 @@ const bestSellingDetails: IProductDetails[] = [
     per: "/Unit",
     imageSrc: "/assets/images/products/laojee-tea-pouch-200g.png",
     link: "/products/laojee-tea-pouch-200g",
+    category: "Beverages",
+    subCategory1: "Tea",
+    subCategory2: "Tea Bags",
+    rate: 4.2,
   },
   {
     id: 4,
@@ -53,6 +65,10 @@ const bestSellingDetails: IProductDetails[] = [
     per: "/Unit",
     imageSrc: "/assets/images/products/surf-excel-washing-powder-1kg.png",
     link: "/products/surf-excel-washing-powder-1kg",
+    category: "Household",
+    subCategory1: "Laundry",
+    subCategory2: "Detergent",
+    rate: 4.6,
   },
 ];
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getMainCategories } from "@/helpers";
 import { Skeleton } from "@/components/common/ui/skeleton";
 import { IMainCategoryData } from "@/types";
+import Image from "next/image";
 
 export default function Categories() {
   const [categories, setCategories] = useState<IMainCategoryData[]>([]);
@@ -57,10 +58,12 @@ export default function Categories() {
                   <div key={component.mainCategoryId}>
                     <Link href={component.slug}>
                       <div className="border border-gray-50 hover:border-green-400 hover:shadow-md hover:shadow-green-400/20 rounded-lg flex flex-col items-center p-4 py-6">
-                        <img
+                        <Image
                           src={component.imgUrl}
                           alt={component.mainCategoryName}
                           className="w-auto h-24 md:h-32"
+                          width={1000}
+                          height={1000}
                         />
                         <p className="text-center text-md pt-4">
                           {component.mainCategoryName}
