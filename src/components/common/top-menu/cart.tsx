@@ -19,12 +19,14 @@ import Image from "next/image";
 import { useBreakpoint, useMediaQuery } from "@/hooks";
 import { ProductCard } from "../products";
 import { ProductDetails } from "@/data";
-import productDetails from "@/data/products/productDetails";
 
 const Cart = () => {
   const itemCount = 2;
 
-  const total = 1677;
+  const totalPrice = ProductDetails.reduce(
+    (total, product) => total + product.price,
+    0
+  );
 
   const isMobile = useMediaQuery("(max-width: 1024px)");
 
@@ -41,10 +43,10 @@ const Cart = () => {
                   strokeWidth={1.2}
                 />
                 <span className=" flex justify-center items-center bg-green-600 rounded-full w-4 h-4 ml-2 text-[8px] text-end font-medium text-gray-50 group-hover:text-gray-0 absolute -top-[6px] -right-[8px]">
-                  {itemCount}
+                  {ProductDetails.length}
                 </span>
               </div>
-              <span className="text-xs pl-4">{formatPrice(total)}</span>
+              <span className="text-xs pl-4">{formatPrice(totalPrice)}</span>
             </SheetTrigger>
           )}
           {isMobile && (
@@ -56,17 +58,19 @@ const Cart = () => {
               />
               {isMobile && (
                 <span className=" flex justify-center items-center bg-green-600 rounded-full w-4 h-4 ml-2 text-[8px] text-end font-medium text-gray-50 group-hover:text-gray-0 absolute top-[33px] -right-[1px]">
-                  {itemCount}
+                  {ProductDetails.length}
                 </span>
               )}
             </SheetTrigger>
           )}
           <SheetContent className="flex justify-between w-full flex-col pr-0 sm:max-w-lg">
-            {itemCount > 0 ? (
+            {ProductDetails.length > 0 ? (
               <>
                 <div>
                   <SheetHeader className="space-y-2.5 pr-6">
-                    <SheetTitle>Shopping Cart ({itemCount})</SheetTitle>
+                    <SheetTitle>
+                      Shopping Cart ({ProductDetails.length})
+                    </SheetTitle>
                   </SheetHeader>
                   <div className="flex w-full flex-col pr-6 overflow-y-auto max-h-[calc(100vh-230px)] md:max-h-[calc(100vh-250px)]">
                     {/* TODO: Cart logic */}
@@ -91,7 +95,7 @@ const Cart = () => {
                     </div>
                     <div className="flex text-xs md:text-sm">
                       <span className="flex-1">Total</span>
-                      <span>{formatPrice(total)}</span>
+                      <span>{formatPrice(totalPrice)}</span>
                     </div>
                   </div>
                   <div className="h-full flex flex-col w-full">
@@ -113,7 +117,9 @@ const Cart = () => {
             ) : (
               <>
                 <SheetHeader className="space-y-2.5 pr-6">
-                  <SheetTitle>Shopping Cart ({itemCount})</SheetTitle>
+                  <SheetTitle>
+                    Shopping Cart ({ProductDetails.length})
+                  </SheetTitle>
                 </SheetHeader>
                 <div className="flex h-full flex-col items-center justify-center space-y-1">
                   <div
