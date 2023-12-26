@@ -75,6 +75,7 @@ const Cart = () => {
                     {ProductList.map((product, index) => (
                       <div key={index}>
                         <ProductCard
+                          mainCategoryId={product.mainCategory.mainCategoryId}
                           productId={product.productId}
                           variant="cart"
                           productImage={product.productImage}

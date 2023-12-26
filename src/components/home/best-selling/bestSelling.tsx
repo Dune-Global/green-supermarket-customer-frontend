@@ -18,6 +18,7 @@ export default function BestSelling() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {BestSellingDetails.map((product, index) => (
             <ProductCard
+              mainCategoryId={product.mainCategory.mainCategoryId}
               productId={product.productId}
               key={index}
               productName={product.productName}
