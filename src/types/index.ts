@@ -6,3 +6,4 @@ export * from "./legalPages";
 export * from "./productDetails";
 export * from "./testimonials";
 export * from './main-category';
+export * from "./side-menu";
