@@ -8,3 +8,5 @@ export * from "./testimonials";
 export * from "./side-menu";
 export * from "./main-category";
 export * from "./main-category-nav";
+export * from "./product-details";
+export * from "./best-selling-details";
