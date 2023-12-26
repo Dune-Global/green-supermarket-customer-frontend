@@ -18,12 +18,12 @@ export default function ContactUs() {
                 <Input
                   type="/"
                   placeholder="First Name"
-                  className="rounded-md md:w-[300px] hover:border-green-400  "
+                  className="rounded-md md:w-[300px] focus-visible:outline-green-400/40  "
                 />
                 <Input
                   type="/"
                   placeholder="Last Name"
-                  className="rounded-md md:w-[300px] hover:border-green-400 "
+                  className="rounded-md md:w-[300px] focus-visible:outline-green-400/40 "
                 />
               </div>
 
@@ -32,7 +32,7 @@ export default function ContactUs() {
                   <Input
                     type="email"
                     placeholder="Email"
-                    className="rounded-md hover:border-green-400    "
+                    className="rounded-md focus-visible:outline-green-400/40   "
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -40,7 +40,7 @@ export default function ContactUs() {
                     id="message"
                     name="message"
                     placeholder="Message"
-                    className=" md:w-[610px] h-[100px] rounded-md border  md:h-28  outline-none items-center md:py-1 md:px-3 resize-none leading-6 p-2 hover:border-green-400 "
+                    className=" md:w-[610px] h-[100px] rounded-md   md:h-28  outline-none items-center md:py-1 md:px-3 resize-none leading-6 p-2 focus-visible:outline-green-400/40 "
                   ></textarea>
 
                   <div className="">
