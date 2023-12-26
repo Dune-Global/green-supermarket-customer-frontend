@@ -4,7 +4,8 @@ export interface IBestSellingDetailsData {
   productDescription: string;
   productImage: string;
   measuringUnit: string;
-  originalPrice: number;
+  originalPrice?: number;
+  currentPrice: number;
   stockKeepingUnits: number;
   stockAvailableUnits: number;
   brand: {

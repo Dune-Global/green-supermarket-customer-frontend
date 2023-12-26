@@ -16,13 +16,13 @@ import { formatPrice } from "@/utils/shad-utils";
 import Link from "next/link";
 import { Button } from "@/components/common";
 import Image from "next/image";
-import { useBreakpoint, useMediaQuery } from "@/hooks";
+import { useMediaQuery } from "@/hooks";
 import { ProductCard } from "../products";
-import { ProductDetails, ProductList } from "@/data";
+import { ProductList } from "@/data";
 
 const Cart = () => {
   const totalPrice = ProductList.reduce(
-    (total, product) => total + product.originalPrice,
+    (total, product) => total + product.currentPrice,
     0
   );
 
@@ -75,10 +75,11 @@ const Cart = () => {
                     {ProductList.map((product, index) => (
                       <div key={index}>
                         <ProductCard
+                          productId={product.productId}
                           variant="cart"
                           productImage={product.productImage}
                           productName={product.productName}
-                          originalPrice={product.originalPrice}
+                          currentPrice={product.currentPrice}
                         />
                         <Separator className="bg-gray-50" />
                       </div>

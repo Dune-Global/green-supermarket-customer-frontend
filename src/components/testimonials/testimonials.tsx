@@ -87,7 +87,7 @@ const Testimonials = () => {
                       </div>
                     </div>
                     <div className="flex flex-row grow lg:justify-end pt-2 lg:pt-0 xl:pt-2 xxl:pt-0 xl:justify-start xxl:justify-end xl:pl-4 items-center pl-5 lg:pl-0 xxl:pl-0">
-                      <StarRating rate={item.rate} />
+                      <StarRating rating={item.rate} />
                     </div>
                   </div>
                 </div>

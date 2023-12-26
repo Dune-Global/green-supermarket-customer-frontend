@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build ",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "npx tsc --noEmit && next lint",
     "postinstall": "yarn husky install && npm install -g @commitlint/cli @commitlint/config-conventional && chmod u+x ./.husky/commit-msg",
     "commitlint": "commitlint --edit"
   },

@@ -18,12 +18,14 @@ export default function BestSelling() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {BestSellingDetails.map((product, index) => (
             <ProductCard
+              productId={product.productId}
               key={index}
               productName={product.productName}
               productImage={product.productImage}
+              currentPrice={product.currentPrice}
               originalPrice={product.originalPrice}
               stockAvailableUnits={product.stockAvailableUnits}
-              discountDescription={product.discount?.discountDescription}
+              discountRate={product.discount?.discountRate}
               measuringUnit={product.measuringUnit}
               variant="default"
             />

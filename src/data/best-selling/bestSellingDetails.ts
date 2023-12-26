@@ -8,6 +8,7 @@ const bestSellingDetails: IBestSellingDetailsData[] = [
     productImage: "/assets/images/products/sera-festiva-noodles-325g.png",
     measuringUnit: "Unit",
     originalPrice: 252,
+    currentPrice: 176.4,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -47,6 +48,7 @@ const bestSellingDetails: IBestSellingDetailsData[] = [
     productImage: "/assets/images/products/dilmah-tea-bags-100nos.png",
     measuringUnit: "1KG",
     originalPrice: 1425,
+    currentPrice: 997.5,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -86,6 +88,7 @@ const bestSellingDetails: IBestSellingDetailsData[] = [
     productImage: "/assets/images/products/kotmale-fresh-milk-1l.png",
     measuringUnit: "/Unit",
     originalPrice: 392,
+    currentPrice: 274.4,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -125,6 +128,7 @@ const bestSellingDetails: IBestSellingDetailsData[] = [
     productImage: "/assets/images/products/laojee-tea-pouch-200g.png",
     measuringUnit: "/Unit",
     originalPrice: 496,
+    currentPrice: 347.2,
     stockKeepingUnits: 10,
     stockAvailableUnits: 0, // Out of stock
     brand: {

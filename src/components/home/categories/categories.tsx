@@ -1,6 +1,5 @@
 import { Container } from "@/components/common";
 import React, { useEffect, useState } from "react";
-import { Category } from "@/data/categories";
 import Link from "next/link";
 import { getMainCategories } from "@/helpers";
 import { Skeleton } from "@/components/common/ui/skeleton";

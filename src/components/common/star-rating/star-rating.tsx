@@ -2,28 +2,28 @@ import React from "react";
 import { Star } from "lucide-react";
 
 interface StarRatingProps {
-  rate: number;
+  rating?: number;
   fillColor?: string;
   bgColor?: string;
   roundOff?: boolean;
-  noOfStars?:number;
-  size?:number;
+  noOfStars?: number;
+  size?: number;
 }
 
 const StarRating: React.FC<StarRatingProps> = ({
-  rate,
+  rating = 0,
   fillColor = "#FF8A00",
   bgColor = "#e3e3e3",
   roundOff = false,
   noOfStars = 5,
-  size = 24
+  size = 24,
 }) => {
   return (
     <>
       {Array.from({ length: noOfStars }, (_, index) => {
         let fillPercentage = 0;
-        const decimalPart = rate % 1;
-        const integerPart = Math.floor(rate);
+        const decimalPart = rating % 1;
+        const integerPart = Math.floor(rating);
 
         if (roundOff) {
           if (index < integerPart) {
@@ -36,10 +36,10 @@ const StarRating: React.FC<StarRatingProps> = ({
             }
           }
         } else {
-          if (index < Math.floor(rate)) {
+          if (index < Math.floor(rating)) {
             fillPercentage = 100;
-          } else if (index === Math.floor(rate)) {
-            fillPercentage = (rate % 1) * 100;
+          } else if (index === Math.floor(rating)) {
+            fillPercentage = (rating % 1) * 100;
           }
         }
 
