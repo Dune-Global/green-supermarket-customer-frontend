@@ -16,12 +16,14 @@ export default function page({ params }: { params: { id: number } }) {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => (
             <ProductCard
+              productId={product.productId}
               key={index}
               productName={product.productName}
               productImage={product.productImage}
+              currentPrice={product.currentPrice}
               originalPrice={product.originalPrice}
               stockAvailableUnits={product.stockAvailableUnits}
-              discountDescription={product.discount?.discountDescription}
+              discountRate={product.discount?.discountRate}
               measuringUnit={product.measuringUnit}
               variant="default"
             />

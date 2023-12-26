@@ -2,7 +2,7 @@
 
 import { Container } from "@/components/common";
 import { ProductCard } from "@/components/common/products";
-import { ProductDetails, ProductList } from "@/data";
+import { ProductList } from "@/data";
 import React from "react";
 
 export default function Products() {
@@ -11,13 +11,14 @@ export default function Products() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
         {ProductList.map((product, index) => (
           <ProductCard
+            productId={product.productId}
             key={index}
             productName={product.productName}
             productImage={product.productImage}
             originalPrice={product.originalPrice}
+            currentPrice={product.currentPrice}
             stockAvailableUnits={product.stockAvailableUnits}
-            discountDescription={product.discount?.discountDescription}
-            // strikedPrice={product.strikedPrice}
+            discountRate={product.discount?.discountRate}
             measuringUnit={product.measuringUnit}
             variant="default"
           />

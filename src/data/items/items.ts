@@ -1,9 +1,5 @@
-import { IFooterLogos } from "@/types/footer-logo";
-import {
-  FacebookIcon,
-  TwitterIcon,
-  InstagramIcon,
-} from "lucide-react";
+import { IFooterLogos } from "@/types";
+import { FacebookIcon, TwitterIcon, InstagramIcon } from "lucide-react";
 
 const ItemLogos: IFooterLogos[] = [
   {

@@ -5,3 +5,5 @@ export * from "./layout";
 export * from "./buttons";
 export * from "./icons";
 export * from "./products";
+export * from "./counter";
+export * from "./star-rating";

@@ -4,7 +4,8 @@ export interface IProductDetailsData {
   productDescription: string;
   productImage: string;
   measuringUnit: string;
-  originalPrice: number;
+  originalPrice?: number;
+  currentPrice: number;
   stockKeepingUnits: number;
   stockAvailableUnits: number;
   brand: {
@@ -42,4 +43,5 @@ export interface IProductDetailsData {
     discountEndDate: string;
     productId: number;
   } | null;
+  rate?: number;
 }

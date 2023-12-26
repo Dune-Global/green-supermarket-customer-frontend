@@ -8,6 +8,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/sera-festiva-noodles-325g.png",
     measuringUnit: "Unit",
     originalPrice: 252,
+    currentPrice: 176.4,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -39,6 +40,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 1,
     },
+    rate: 4.5,
   },
   {
     productId: 2,
@@ -47,6 +49,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/dilmah-tea-bags-100nos.png",
     measuringUnit: "1KG",
     originalPrice: 1425,
+    currentPrice: 997.5,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -78,6 +81,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 2,
     },
+    rate: 4.5,
   },
   {
     productId: 3,
@@ -86,6 +90,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/kotmale-fresh-milk-1l.png",
     measuringUnit: "/Unit",
     originalPrice: 392,
+    currentPrice: 274.4,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -116,7 +121,8 @@ const productList: IProductDetailsData[] = [
       discountStartDate: "2021-01-01",
       discountEndDate: "2021-01-31",
       productId: 2,
-    }, // No discount for this product
+    },
+    rate: 4.5,
   },
   {
     productId: 4,
@@ -125,8 +131,9 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/laojee-tea-pouch-200g.png",
     measuringUnit: "/Unit",
     originalPrice: 496,
+    currentPrice: 347.2,
     stockKeepingUnits: 10,
-    stockAvailableUnits: 0, // Out of stock
+    stockAvailableUnits: 0,
     brand: {
       brandId: 4,
       brandName: "Laojee",
@@ -156,6 +163,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 4,
     },
+    rate: 4.5,
   },
   {
     productId: 5,
@@ -164,6 +172,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/surf-excel-washing-powder-1kg.png",
     measuringUnit: "/Unit",
     originalPrice: 792,
+    currentPrice: 554.4,
     stockKeepingUnits: 10,
     stockAvailableUnits: 0, // Out of stock
     brand: {
@@ -195,14 +204,16 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 5,
     },
+    rate: 4.5,
   },
   {
     productId: 6,
     productName: "Tomatoes",
     productDescription: "Tomatoes",
     productImage: "/assets/images/products/tomatoes.png",
-    measuringUnit: "/1KG",
+    measuringUnit: "/Unit",
     originalPrice: 320,
+    currentPrice: 224,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -234,6 +245,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 6,
     },
+    rate: 4.5,
   },
   {
     productId: 7,
@@ -242,6 +254,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/chicken-salami.png",
     measuringUnit: "/1KG",
     originalPrice: 1465,
+    currentPrice: 1025.5,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -278,6 +291,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 7,
     },
+    rate: 4.5,
   },
   {
     productId: 8,
@@ -286,6 +300,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/pork-mortadella.png",
     measuringUnit: "/1KG",
     originalPrice: 3480,
+    currentPrice: 2436,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -322,6 +337,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 8,
     },
+    rate: 4.5,
   },
   {
     productId: 9,
@@ -330,6 +346,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/chicken-whole-leg.png",
     measuringUnit: "/1KG",
     originalPrice: 2310,
+    currentPrice: 1617,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -366,6 +383,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 9,
     },
+    rate: 4.5,
   },
   {
     productId: 10,
@@ -374,6 +392,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/beef-cubes.png",
     measuringUnit: "/1KG",
     originalPrice: 2500,
+    currentPrice: 1750,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -410,6 +429,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 10,
     },
+    rate: 4.5,
   },
   {
     productId: 11,
@@ -418,11 +438,12 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/chinese-cabbage.png",
     measuringUnit: "/1KG",
     originalPrice: 2710,
+    currentPrice: 1897,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
       brandId: 11,
-      brandName: "brand", // No brand for this product
+      brandName: "brand",
     },
     mainCategory: {
       mainCategoryId: 1,
@@ -449,6 +470,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 11,
     },
+    rate: 4.5,
   },
   {
     productId: 12,
@@ -457,6 +479,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/cauliflower.png",
     measuringUnit: "/1KG",
     originalPrice: 1640,
+    currentPrice: 1148,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -488,6 +511,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 12,
     },
+    rate: 4.5,
   },
   {
     productId: 13,
@@ -496,11 +520,12 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/organic-green-beans.png",
     measuringUnit: "/1KG",
     originalPrice: 1020,
+    currentPrice: 714,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
       brandId: 13,
-      brandName: "brand", // No brand for this product
+      brandName: "brand",
     },
     mainCategory: {
       mainCategoryId: 1,
@@ -527,6 +552,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 13,
     },
+    rate: 4.5,
   },
   {
     productId: 14,
@@ -535,6 +561,7 @@ const productList: IProductDetailsData[] = [
     productImage: "/assets/images/products/organic-carrot.png",
     measuringUnit: "/1KG",
     originalPrice: 1260,
+    currentPrice: 882,
     stockKeepingUnits: 10,
     stockAvailableUnits: 10,
     brand: {
@@ -566,6 +593,7 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 14,
     },
+    rate: 4.5,
   },
 ];
 
