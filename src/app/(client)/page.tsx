@@ -7,6 +7,7 @@ import {
   Categories,
   BestSelling,
 } from "@/components";
+import Billing from "./(pages)/(customer)/Billing/page";
 
 export default function Home() {
   return (
