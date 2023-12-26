@@ -15,7 +15,7 @@ export default function Home() {
       <BestSelling />
       <CountdownSection />
       <Categories />
-      <TestimonialsSection />
+      <TestimonialsSection/>
       
     </div>
   );
