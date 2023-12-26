@@ -16,6 +16,7 @@ export default function page({ params }: { params: { id: number } }) {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => (
             <ProductCard
+              mainCategoryId={product.mainCategory.mainCategoryId}
               productId={product.productId}
               key={index}
               productName={product.productName}

@@ -8,6 +8,7 @@ import { formatPrice } from "@/utils/shad-utils";
 import Link from "next/link";
 
 type CardProps = {
+  mainCategoryId: number;
   productId: number;
   productName: string;
   productImage: string;
@@ -20,6 +21,7 @@ type CardProps = {
 };
 
 const ProductCard: React.FC<CardProps> = ({
+  mainCategoryId,
   productId,
   productName,
   productImage,
@@ -35,7 +37,7 @@ const ProductCard: React.FC<CardProps> = ({
   return (
     <div>
       {variant === "default" && (
-        <Link href={`/item/${productId}`}>
+        <Link href={`/products/${mainCategoryId}/${productId}`}>
           <div className="flex cursor-pointer flex-col justify-evenly items-center border border-gray-50 hover:border-green-400 max-w-[325px] min-h-[280px] lg:min-h-[350px] rounded-md shadow-sm hover:shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] hover:shadow-green-400/30 group transition-all p-4">
             {showOutOfStock ? (
               <>

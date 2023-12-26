@@ -11,6 +11,7 @@ export default function Products() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
         {ProductList.map((product, index) => (
           <ProductCard
+            mainCategoryId={product.mainCategory.mainCategoryId}
             productId={product.productId}
             key={index}
             productName={product.productName}
