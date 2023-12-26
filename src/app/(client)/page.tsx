@@ -12,14 +12,14 @@ import Billing from "./(pages)/(customer)/Billing/page";
 export default function Home() {
   return (
     <div>
-      {/* <HeroSection />
+       <HeroSection />
       <BestSelling />
       <CountdownSection />
       <Categories />
       <TestimonialsSection />
-       */}
+       
 
-       <Billing/>
+       
     </div>
   );
 }
