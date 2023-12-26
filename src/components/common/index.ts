@@ -4,3 +4,4 @@ export { default as ClientOnly } from "./client-only";
 export * from "./layout";
 export * from "./buttons";
 export * from "./icons";
+export * from "./products";

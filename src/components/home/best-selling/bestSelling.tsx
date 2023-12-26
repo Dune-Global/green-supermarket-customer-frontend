@@ -19,13 +19,12 @@ export default function BestSelling() {
           {BestSellingDetails.map((product, index) => (
             <ProductCard
               key={index}
-              name={product.name}
-              imageSrc={product.imageSrc}
-              price={product.price}
-              isStock={product.isStock}
-              discount={product.discount}
-              strikedPrice={product.strikedPrice}
-              per={product.per}
+              productName={product.productName}
+              productImage={product.productImage}
+              originalPrice={product.originalPrice}
+              stockAvailableUnits={product.stockAvailableUnits}
+              discountDescription={product.discount?.discountDescription}
+              measuringUnit={product.measuringUnit}
               variant="default"
             />
           ))}

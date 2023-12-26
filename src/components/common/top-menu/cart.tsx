@@ -14,17 +14,15 @@ import {
 import { Separator } from "@/components/common/top-menu/separator";
 import { formatPrice } from "@/utils/shad-utils";
 import Link from "next/link";
-import { Button } from "@/components/common/buttons";
+import { Button } from "@/components/common";
 import Image from "next/image";
 import { useBreakpoint, useMediaQuery } from "@/hooks";
 import { ProductCard } from "../products";
-import { ProductDetails } from "@/data";
+import { ProductDetails, ProductList } from "@/data";
 
 const Cart = () => {
-  const itemCount = 2;
-
-  const totalPrice = ProductDetails.reduce(
-    (total, product) => total + product.price,
+  const totalPrice = ProductList.reduce(
+    (total, product) => total + product.originalPrice,
     0
   );
 
@@ -43,7 +41,7 @@ const Cart = () => {
                   strokeWidth={1.2}
                 />
                 <span className=" flex justify-center items-center bg-green-600 rounded-full w-4 h-4 ml-2 text-[8px] text-end font-medium text-gray-50 group-hover:text-gray-0 absolute -top-[6px] -right-[8px]">
-                  {ProductDetails.length}
+                  {ProductList.length}
                 </span>
               </div>
               <span className="text-xs pl-4">{formatPrice(totalPrice)}</span>
@@ -58,29 +56,29 @@ const Cart = () => {
               />
               {isMobile && (
                 <span className=" flex justify-center items-center bg-green-600 rounded-full w-4 h-4 ml-2 text-[8px] text-end font-medium text-gray-50 group-hover:text-gray-0 absolute top-[33px] -right-[1px]">
-                  {ProductDetails.length}
+                  {ProductList.length}
                 </span>
               )}
             </SheetTrigger>
           )}
           <SheetContent className="flex justify-between w-full flex-col pr-0 sm:max-w-lg">
-            {ProductDetails.length > 0 ? (
+            {ProductList.length > 0 ? (
               <>
                 <div>
                   <SheetHeader className="space-y-2.5 pr-6">
                     <SheetTitle>
-                      Shopping Cart ({ProductDetails.length})
+                      Shopping Cart ({ProductList.length})
                     </SheetTitle>
                   </SheetHeader>
                   <div className="flex w-full flex-col pr-6 overflow-y-auto max-h-[calc(100vh-230px)] md:max-h-[calc(100vh-250px)]">
                     {/* TODO: Cart logic */}
-                    {ProductDetails.map((product, index) => (
+                    {ProductList.map((product, index) => (
                       <div key={index}>
                         <ProductCard
                           variant="cart"
-                          imageSrc={product.imageSrc}
-                          name={product.name}
-                          price={product.price}
+                          productImage={product.productImage}
+                          productName={product.productName}
+                          originalPrice={product.originalPrice}
                         />
                         <Separator className="bg-gray-50" />
                       </div>
@@ -117,9 +115,7 @@ const Cart = () => {
             ) : (
               <>
                 <SheetHeader className="space-y-2.5 pr-6">
-                  <SheetTitle>
-                    Shopping Cart ({ProductDetails.length})
-                  </SheetTitle>
+                  <SheetTitle>Shopping Cart ({ProductList.length})</SheetTitle>
                 </SheetHeader>
                 <div className="flex h-full flex-col items-center justify-center space-y-1">
                   <div

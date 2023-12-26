@@ -94,7 +94,7 @@ export default function NavigationMenuCategory() {
                         <ListItem
                           key={components.mainCategoryId}
                           title={components.mainCategoryName}
-                          href={components.slug}
+                          href={`/products/${components.mainCategoryId}`}
                         ></ListItem>
                       ))
                     )}
@@ -135,7 +135,7 @@ export default function NavigationMenuCategory() {
                         <ListItem
                           key={components.mainCategoryId}
                           title={components.mainCategoryName}
-                          href={components.slug}
+                          href={`/products/${components.mainCategoryId}`}
                         >
                           {components.mainCategoryDesc}
                         </ListItem>
