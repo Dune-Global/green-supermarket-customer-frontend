@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { decodeToken, signInCustomer } from "@/helpers";
 
 import {
   Form,
@@ -17,16 +18,19 @@ import {
 } from "@/components/common/ui/form";
 
 import { Checkbox } from "@/components/common/ui/checkbox";
-import { Button, Container } from "@/components/common";
+import { AuthLoader, Button, Container } from "@/components/common";
+import { useRouter } from "next/navigation";
+import { ToastAction } from "@/components/common/ui/toast/toast";
+import { useToast } from "@/components/common/ui/toast/use-toast";
 
 type Props = {};
 
 const formSchema = z.object({
   email: z
     .string()
+    .email({ message: "invalid email" })
     .min(1, { message: "should have at least one character" })
-    .max(5, { message: "can't contain more than 4 characters" })
-    .trim(),
+    .max(50, { message: "can't contain more than 50 characters" }),
   password: z
     .string()
     .min(8, { message: "password must contain at least 8 characters" })
@@ -39,7 +43,17 @@ const formBaseStyles = {
 };
 
 const Signin = (props: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [tokenValid, setTokenValid] = useState(false);
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const { toast } = useToast();
+
+  const backToHome = () => {
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 2000);
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,14 +63,67 @@ const Signin = (props: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const data = values;
-    console.log(data);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true);
+      const { email, password } = values;
+      const res = await signInCustomer(email, password);
+      localStorage.setItem("jwtToken", res.token);
+      toast({
+        variant: "default",
+        title: "Welcome back!",
+        description: "You have successfully logged in.",
+        action: (
+          <ToastAction onClick={backToHome} altText="Try again">
+            Go to home
+          </ToastAction>
+        ),
+      });
+      backToHome();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Email or Password is incorrect.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      console.error(error);
+      setLoading(false);
+    }
   }
 
   const handleEyeClick = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+
+      if (!jwtToken) {
+        setTokenValid(false);
+        return;
+      }
+
+      try {
+        const { status } = await decodeToken(jwtToken);
+        if (status !== 200) {
+          setTokenValid(false);
+        } else {
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        router.push("/");
+      }
+    };
+
+    checkTokenValidity();
+  }, [router]);
+
+  if (tokenValid) {
+    return <AuthLoader />;
+  }
 
   return (
     <Container>
@@ -143,14 +210,14 @@ const Signin = (props: Props) => {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" loading={loading}>
                 Login
               </Button>
 
               <div className="text-sm text-center pt-3">
                 <p className="text-gray-200">
                   Don&apos;t have an account?{" "}
-                  <a href="#" className="text-gray-900 underline">
+                  <a href="/create-account" className="text-gray-900 underline">
                     Sign up
                   </a>
                 </p>

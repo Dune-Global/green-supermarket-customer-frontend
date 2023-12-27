@@ -4,6 +4,20 @@ const BASE_URL = process.env.NEXT_PUBLIC_AXIOS_BASE_URL!;
 
 axios.defaults.baseURL = BASE_URL;
 
+export const signInCustomer = async (email: String, password: String) => {
+  try {
+    const response = await axios.post("/customers/authentication", {
+      email: email,
+      password: password,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const registerCustomer = async (
   firstname: String,
   lastname: String,

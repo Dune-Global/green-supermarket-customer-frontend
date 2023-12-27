@@ -113,7 +113,7 @@ const CreateAccount = (props: Props) => {
       const jwtToken = localStorage.getItem("jwtToken");
 
       if (!jwtToken) {
-        router.push("/");
+        setTokenValid(true);
         return;
       }
 

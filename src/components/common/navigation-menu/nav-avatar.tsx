@@ -21,9 +21,47 @@ import {
 
 import { AvatarNavDetails } from "@/data";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { decodeToken } from "@/helpers";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function NavigationMenuAvatar() {
-  const user = true;
+  const [user, setUser] = useState(false);
+  const [name, setName] = useState("");
+  const [image, setImage] = useState(
+    "https://greensupermarketstoreacc.blob.core.windows.net/greensupermarketblogcontainer/8ef1ae8e-2dd5-46b6-beda-7c9c32ac1aae.jpg"
+  );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const decode = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+      if (!jwtToken) {
+        setUser(false);
+        return;
+      }
+      try {
+        const res = await decodeToken(jwtToken!);
+        const { data } = res;
+        const { firstname, imageUrl } = data;
+        setUser(true);
+        setName(firstname);
+        setImage(imageUrl);
+        console.log(firstname, imageUrl);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    };
+    decode();
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("jwtToken");
+    setUser(false);
+    router.push("/");
+  };
 
   return (
     <>
@@ -32,7 +70,7 @@ export default function NavigationMenuAvatar() {
           <DropdownMenuTrigger asChild>
             <div className="flex justify-center items-center cursor-pointer space-x-3">
               <Image
-                src={AvatarNavDetails[0].imageSrc}
+                src={image}
                 alt="profile picture"
                 width={34}
                 height={34}
@@ -44,7 +82,7 @@ export default function NavigationMenuAvatar() {
                   size="nav"
                   className="group-hover:text-green-400"
                 >
-                  {AvatarNavDetails[0].name}
+                  {name}
                 </Button>
                 <ChevronDown
                   size={18}
@@ -62,13 +100,15 @@ export default function NavigationMenuAvatar() {
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
-                <span>{AvatarNavDetails[2].name}</span>
+                <Link href="/profile">
+                  <span>{AvatarNavDetails[2].name}</span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 
             <DropdownMenuItem className="cursor-pointer">
               <LogOut className="mr-2 h-4 w-4" />
-              <span>{AvatarNavDetails[3].name}</span>
+              <span onClick={logout}>{AvatarNavDetails[3].name}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -99,11 +139,15 @@ export default function NavigationMenuAvatar() {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <span>{AvatarNavDetails[5].name}</span>
+                <Link href="sign-in">
+                  <span>{AvatarNavDetails[5].name}</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard className="mr-2 h-4 w-4" />
-                <span>{AvatarNavDetails[6].name}</span>
+                <Link href="/create-account">
+                  <span>{AvatarNavDetails[6].name}</span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
