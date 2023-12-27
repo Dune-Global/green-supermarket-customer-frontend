@@ -18,5 +18,5 @@ export default function Home() {
     <Categories />
     <TestimonialsSection />
      </div>
-
-}
+  )
+};
