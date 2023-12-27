@@ -75,6 +75,12 @@ const CreateAccount = (props: Props) => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const backToHome = () => {
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1000);
+  };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
@@ -88,12 +94,12 @@ const CreateAccount = (props: Props) => {
       );
       setLoading(false);
       localStorage.setItem("jwtToken", res.token);
-      router.push("/");
       toast({
         variant: "default",
         title: "Welcome to the family!",
         description: "You have successfully logged in.",
       });
+      backToHome();
     } catch (error) {
       toast({
         variant: "destructive",
