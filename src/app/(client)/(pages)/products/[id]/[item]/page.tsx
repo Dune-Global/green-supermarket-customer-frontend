@@ -11,18 +11,18 @@ import Link from "next/link";
 import { ItemLogos } from "@/data";
 import { formatPrice } from "@/utils/shad-utils";
 
-export default function page({ params }: { params: { id: number } }) {
+export default function page({ params }: { params: { item: number } }) {
   const style = {
     path: "font-medium text-xs md:text-sm lg:text-lg text-gray-600",
   };
   const filteredProducts = ProductList.filter(
-    (product) => product.productId === Number(params.id)
+    (product) => product.productId === Number(params.item)
   );
 
   return (
     <ClientOnly>
       <Container>
-        <div>ProductId: {params.id}</div>
+        <div>ProductId: {params.item}</div>
         <div className="pt-[60px]">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product, index) => (
