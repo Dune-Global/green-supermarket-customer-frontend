@@ -19,6 +19,10 @@ export default function BestSelling() {
           {BestSellingDetails.map((product, index) => (
             <ProductCard
               mainCategoryId={product.mainCategory.mainCategoryId}
+              subCatOneId={product.l1Category.subCatOneId}
+              subCatOneName={product.l1Category.subCatOneName}
+              subCatTwoId={product.l2Category?.subCatTwoId}
+              subCatTwoName={product.l2Category?.subCatTwoName}
               productId={product.productId}
               key={index}
               productName={product.productName}
