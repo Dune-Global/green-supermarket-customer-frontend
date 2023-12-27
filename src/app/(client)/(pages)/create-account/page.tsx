@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { registerCustomer, decodeToken } from "@/helpers";
+import { useToast } from "@/components/common/ui/toast/use-toast";
+import { ToastAction } from "@/components/common/ui/toast/toast";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -17,51 +21,121 @@ import {
 } from "@/components/common/ui/form";
 
 import { Checkbox } from "@/components/common/ui/checkbox";
-import { Button, Container } from "@/components/common";
+import { AuthLoader, Button, Container } from "@/components/common";
 
 type Props = {};
 
 const formSchema = z.object({
-  email: z
+  firstname: z
     .string()
     .min(1, { message: "should have at least one character" })
-    .max(5, { message: "can't contain more than 4 characters" })
+    .max(25, { message: "can't contain more than 25 characters" })
+    .trim(),
+  lastname: z
+    .string()
+    .min(1, { message: "should have at least one character" })
+    .max(25, { message: "can't contain more than 25 characters" })
+    .trim(),
+  email: z
+    .string()
+    .email({ message: "invalid email" })
+    .min(1, { message: "should have at least one character" })
+    .max(50, { message: "can't contain more than 50 characters" }),
+  phoneNumber: z
+    .string()
+    .min(1, { message: "should have at least one character" })
+    .max(10, { message: "can't contain more than 10 characters" })
     .trim(),
   password: z
-    .string()
-    .min(8, { message: "password must contain at least 8 characters" })
-    .max(50, { message: "password can't contain more than 50 characters" }),
-  confirmPassword: z
     .string()
     .min(8, { message: "password must contain at least 8 characters" })
     .max(50, { message: "password can't contain more than 50 characters" }),
 });
 
 const formBaseStyles = {
-  inputFields: "border-2 border-gray-50 text-gray-900 placeholder-gray-200",
   errorMessages: "text-red-400 font-medium text-sm",
 };
 
 const CreateAccount = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [tokenValid, setTokenValid] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstname: "",
+      lastname: "",
       email: "",
+      phoneNumber: undefined,
       password: "",
-      confirmPassword: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const data = values;
-    console.log(data);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true);
+      const { firstname, lastname, email, password, phoneNumber } = values;
+      const res = await registerCustomer(
+        firstname,
+        lastname,
+        email,
+        password,
+        phoneNumber
+      );
+      setLoading(false);
+      localStorage.setItem("jwtToken", res.token);
+      router.push("/");
+      toast({
+        variant: "default",
+        title: "Welcome to the family!",
+        description: "You have successfully logged in.",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Something went wrong. Please try again.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
   }
 
   const handleEyeClick = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+
+      if (!jwtToken) {
+        router.push("/");
+        return;
+      }
+
+      try {
+        const { status } = await decodeToken(jwtToken);
+        if (status !== 200) {
+          setTokenValid(true);
+        } else {
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        router.push("/");
+      }
+    };
+
+    checkTokenValidity();
+  }, [router]);
+
+  if (!tokenValid) {
+    return <AuthLoader />;
+  }
 
   return (
     <Container>
@@ -79,15 +153,11 @@ const CreateAccount = (props: Props) => {
               <div className="space-y-3">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="firstname"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          placeholder="Email"
-                          className={`${formBaseStyles.inputFields}`}
-                          {...field}
-                        />
+                        <Input placeholder="First Name" {...field} />
                       </FormControl>
                       <FormMessage
                         className={`${formBaseStyles.errorMessages}`}
@@ -95,7 +165,48 @@ const CreateAccount = (props: Props) => {
                     </FormItem>
                   )}
                 />
-
+                <FormField
+                  control={form.control}
+                  name="lastname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Last Name" {...field} />
+                      </FormControl>
+                      <FormMessage
+                        className={`${formBaseStyles.errorMessages}`}
+                      />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Email" {...field} />
+                      </FormControl>
+                      <FormMessage
+                        className={`${formBaseStyles.errorMessages}`}
+                      />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Phone Number" {...field} />
+                      </FormControl>
+                      <FormMessage
+                        className={`${formBaseStyles.errorMessages}`}
+                      />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="password"
@@ -106,48 +217,6 @@ const CreateAccount = (props: Props) => {
                           <Input
                             type={showPassword ? "text" : "password"}
                             placeholder="Password"
-                            className={`${formBaseStyles.inputFields}`}
-                            {...field}
-                          />
-                        </FormControl>
-                        <button
-                          className="absolute right-2 top-[0.65rem] text-xl"
-                          type="button"
-                          onClick={handleEyeClick}
-                        >
-                          {showPassword ? (
-                            <EyeOff
-                              size={22}
-                              strokeWidth={2}
-                              className="text-gray-200"
-                            />
-                          ) : (
-                            <Eye
-                              size={22}
-                              strokeWidth={2}
-                              className="text-gray-200"
-                            />
-                          )}
-                        </button>
-                      </div>
-                      <FormMessage
-                        className={`${formBaseStyles.errorMessages}`}
-                      />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="relative">
-                        <FormControl>
-                          <Input
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Confirm Password"
-                            className={`${formBaseStyles.inputFields}`}
                             {...field}
                           />
                         </FormControl>
@@ -186,7 +255,7 @@ const CreateAccount = (props: Props) => {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" loading={loading}>
                 Create Account
               </Button>
 
