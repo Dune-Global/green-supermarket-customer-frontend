@@ -158,34 +158,3 @@ const ProductCard: React.FC<CardProps> = ({
 };
 
 export default ProductCard;
-
-// import React from "react";
-// import { ProductDetails } from "@/data";
-// import { ShoppingCart } from "lucide-react";
-
-// type CardProps = {
-//   name: string;
-//   price: number;
-//   variant?: "default" | "cart";
-// };
-
-// const ProductCard: React.FC<CardProps> = ({
-//   name,
-//   price,
-//   variant = "default",
-// }: CardProps) => {
-//   const cardVariant =
-//     variant === "cart"
-//       ? "text-green-400"
-//       : "border border-gray-50 w-[252px] h-[320px] rounded-md shadow-sm ";
-
-//   return (
-//     <div className={`${cardVariant}`}>
-//       {variant === "cart" && <ShoppingCart strokeWidth={1.3} />}
-//       <h3>{name}</h3>
-//       <p>{price}</p>
-//     </div>
-//   );
-// };
-
-// export default ProductCard;
