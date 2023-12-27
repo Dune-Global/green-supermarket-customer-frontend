@@ -1,6 +1,6 @@
 "use client";
 
-import { ClientOnly, Container } from "@/components/common";
+import { ClientOnly, Container, PriceRangeSlider } from "@/components/common";
 import { ProductCard } from "@/components/common";
 import { ProductList } from "@/data";
 import React from "react";
@@ -96,6 +96,7 @@ export default function Page({ params }: { params: { id: number } }) {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+              <PriceRangeSlider />
             </div>
           )}
           {!isMobile && (
@@ -118,23 +119,26 @@ export default function Page({ params }: { params: { id: number } }) {
                         <span className={style.text}>All</span>
                       </label>
                       {uniqueSubCategories.map((subCatOneName, index) => (
-                        <label key={index} className={style.label}>
-                          <input
-                            className={style.input}
-                            type="radio"
-                            name="subCatFilter"
-                            checked={subCatOneName === selectedSubCategory}
-                            onChange={() =>
-                              handleSubCategoryChange(subCatOneName)
-                            }
-                          />
-                          <span className={style.text}>{subCatOneName}</span>
-                        </label>
+                        <>
+                          <label key={index} className={style.label}>
+                            <input
+                              className={style.input}
+                              type="radio"
+                              name="subCatFilter"
+                              checked={subCatOneName === selectedSubCategory}
+                              onChange={() =>
+                                handleSubCategoryChange(subCatOneName)
+                              }
+                            />
+                            <span className={style.text}>{subCatOneName}</span>
+                          </label>
+                        </>
                       ))}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+              <PriceRangeSlider />
             </div>
           )}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6">
