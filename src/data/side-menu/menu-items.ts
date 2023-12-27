@@ -10,7 +10,7 @@ export const sideMenuItems: ISideMenuItems[] = [
   },
   {
     id: 2,
-    path: "/addresses",
+    path: "/address-book",
     icon: Home,
     description: "Addresses",
   },
