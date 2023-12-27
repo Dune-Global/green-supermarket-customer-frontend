@@ -9,6 +9,7 @@ import {
   UpperFooter,
   TopMenu,
 } from "@/components/common/layout";
+import { Toaster } from "@/components/common/ui/toast/toaster";
 
 export const metadata: Metadata = {
   title: MainData.title,
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={cn("relative h-full antialiased", poppins.className)}>
         <main className="relative flex flex-col min-h-screen">
+          <Toaster />
           <div className="sticky top-0 z-50">
             <TopMenu />
             <Navigation />

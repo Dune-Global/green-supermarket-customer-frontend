@@ -1,6 +1,8 @@
-import { Button, Container } from "@/components/common";
+'use client';
+
+import { AuthLoader, Button, Container } from "@/components/common";
 import SideMenu from "@/components/common/layout/side-menu";
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { Input } from "@/components/common/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import {
@@ -13,9 +15,44 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CreateAccount from "./createaccount";
+import { useRouter } from "next/navigation";
+import { decodeToken } from "@/helpers";
+
 
 
 export default function Profile() {
+  const router = useRouter();
+  const [tokenValid, setTokenValid] = useState(false);
+  
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+
+      if (!jwtToken) {
+        router.push("/");
+        return;
+      }
+
+      try {
+        const { status } = await decodeToken(jwtToken);
+        if (status === 200) {
+          setTokenValid(true);
+        } else {
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        router.push("/");
+      }
+    };
+
+    checkTokenValidity();
+  }, [router]);
+
+  if (!tokenValid) {
+    return <AuthLoader />;
+  }
+
   return (
     <Container>
       <div className="pt-9 flex lg:gap-5">

@@ -1,7 +1,8 @@
 import axios from "axios";
 
-axios.defaults.baseURL =
-  "https://greensupermarket-backend.azurewebsites.net/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_AXIOS_BASE_URL!;
+
+axios.defaults.baseURL = BASE_URL;
 
 export const getMainCategories = async () => {
   try {
@@ -11,19 +12,3 @@ export const getMainCategories = async () => {
     console.error(error);
   }
 };
-
-// const [categories, setCategories] = useState({});
-
-// const fetchMainCategories = async () => {
-//   try {
-//     const res = await getMainCategories();
-//     setCategories(res.data);
-//     console.log(categories);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// useEffect(() => {
-//   fetchMainCategories();
-// }, []);
