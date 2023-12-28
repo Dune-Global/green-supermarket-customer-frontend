@@ -6,7 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { registerCustomer, decodeToken } from "@/helpers";
+import { registerCustomer, decodeToken, sendMail } from "@/helpers";
 import { useToast } from "@/components/common/ui/toast/use-toast";
 import { ToastAction } from "@/components/common/ui/toast/toast";
 import { useRouter } from "next/navigation";
@@ -94,13 +94,19 @@ const CreateAccount = (props: Props) => {
       );
       setLoading(false);
       localStorage.setItem("jwtToken", res.token);
+      await sendMail(
+        email,
+        email,
+        `Welcome to Green Supermarket!`,
+        `Hi ${firstname} ${lastname}, Welcome to Green Supermarket! Stay in Green Supermarket and enjoy the best shopping experience.`
+      );
       toast({
         variant: "default",
         title: "Welcome to the family!",
         description: "You have successfully logged in.",
       });
       backToHome();
-    } catch (error:any) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
