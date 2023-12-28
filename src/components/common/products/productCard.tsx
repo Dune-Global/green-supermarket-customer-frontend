@@ -7,6 +7,7 @@ import Image from "next/image";
 import { formatPrice } from "@/utils/shad-utils";
 import Link from "next/link";
 import { ClientOnly } from "@/components/common";
+import { deleteCartItem } from "@/helpers";
 
 type CardProps = {
   mainCategoryId: number;
@@ -14,6 +15,7 @@ type CardProps = {
   subCatOneName: string;
   subCatTwoId?: number;
   subCatTwoName?: string;
+  cartItemId?: number;
   productId: number;
   productName: string;
   productImage: string;
@@ -35,9 +37,22 @@ const ProductCard: React.FC<CardProps> = ({
   stockAvailableUnits,
   measuringUnit,
   discountRate,
+  cartItemId,
   variant = "default",
 }: CardProps) => {
   const showOutOfStock = stockAvailableUnits === 0;
+
+  const deleteItem = () => {
+    console.log(cartItemId);
+    deleteCartItem(cartItemId!)
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <ClientOnly>
@@ -46,7 +61,7 @@ const ProductCard: React.FC<CardProps> = ({
           <Link href={`/products/${mainCategoryId}/${productId}`}>
             <div className="flex cursor-pointer flex-col justify-evenly items-center border border-gray-50 hover:border-green-400 max-w-[325px] min-h-[280px] lg:min-h-[350px] rounded-md shadow-sm hover:shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] hover:shadow-green-400/30 group transition-all p-4">
               {showOutOfStock ? (
-                <>
+                <div>
                   <div className="flex justify-center sm:justify-between items-center w-full">
                     <span className="bg-gray-800 text-gray-0 text-[10px] px-[6px] py-[3px] rounded-[4px] ">
                       Out of Stock
@@ -62,11 +77,11 @@ const ProductCard: React.FC<CardProps> = ({
                       />
                     </Button>
                   </div>
-                </>
+                </div>
               ) : (
                 <>
                   {discountRate && (
-                    <>
+                    <div>
                       <div className="flex justify-center sm:justify-between items-center w-full">
                         <span className=" bg-red-400 text-gray-0 text-[10px] px-[6px] py-[3px] rounded-[4px] uppercase">
                           {`${discountRate}% off`}
@@ -82,10 +97,10 @@ const ProductCard: React.FC<CardProps> = ({
                           />
                         </Button>
                       </div>
-                    </>
+                    </div>
                   )}
                   {!discountRate && (
-                    <>
+                    <div>
                       <Button
                         size="sicon"
                         className="hidden sm:inline-flex bg-gray-0 transition-all duration-200 group-hover:bg-green-400 hover:text-gray-0 self-end"
@@ -96,7 +111,7 @@ const ProductCard: React.FC<CardProps> = ({
                           className=" text-gray-600 transition-all duration-200 group-hover:text-gray-0 "
                         />
                       </Button>
-                    </>
+                    </div>
                   )}
                 </>
               )}
@@ -145,6 +160,7 @@ const ProductCard: React.FC<CardProps> = ({
             </div>
             <div className="transition-all group hover:border-red-400 border border-gray-400 rounded-full p-[2px] cursor-pointer">
               <X
+                onClick={deleteItem}
                 className="transition-all group-hover:text-red-400"
                 strokeWidth={1.5}
                 size={16}
