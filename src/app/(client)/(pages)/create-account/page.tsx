@@ -132,7 +132,7 @@ const CreateAccount = (props: Props) => {
         }
       } catch (error) {
         console.error("Error decoding token:", error);
-        router.push("/");
+        setTokenValid(true);
       }
     };
 
