@@ -1,10 +1,15 @@
-import React from "react";
+'use client';
+
+import React, { useEffect, useState } from "react";
 import { Button, Container } from "@/components/common";
 import { PhoneCallIcon, MapPinnedIcon, Mail } from "lucide-react";
 import { address, phone } from "@/constants";
 import Link from "next/link";
 
 import { Input } from "../ui/input";
+import { ToastAction } from "../ui/toast/toast";
+import { useToast } from "../ui/toast/use-toast";
+import { newsletter, sendMail } from "@/helpers";
 
 type Props = {};
 
@@ -14,6 +19,35 @@ const UpperFooter = (props: Props) => {
     border:
       "border-green-400/20 px-5 py-5 flex flex-col rounded-lg border-[1.5px]",
   };
+
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const {toast} = useToast();
+  
+  const handleSubscribe = async(e: React.FormEvent) => {
+    try {
+      setLoading(true);
+      e.preventDefault();
+      setLoading(true);
+      const res = await newsletter(email);
+      await sendMail(email, email, "Thank you for subscribing to our newsletter", "Thank you for subscribing to our newsletter");
+      toast({
+        variant: "default",
+        title: "Subscribed!",
+        description: "You have successfully subscribed to our newsletter.",
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Your email is already subscribed.",
+      });
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <footer>
@@ -50,19 +84,25 @@ const UpperFooter = (props: Props) => {
             <div className="items-center md:items-start">
               <div className={style.icon}>
                 <Mail size={17} />
-              </div>
+              </div> 
             </div>
             <div className="uppercase text-sm font-medium gap-10 ">
               subscribe our newsletter
             </div>
-            <div className=" flex-col flex gap-2 md:gap-0 md:flex-row md:relative mt-5 md:mt-0">
+            <form onSubmit={handleSubscribe}>
+            <div className="flex-col flex gap-2 md:gap-0 md:flex-row md:relative mt-5 md:mt-0">
               <Input
                 type="email"
                 className="md:pr-32 font-light"
                 placeholder="Enter Your Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)} 
               />
-              <Button className="md:absolute right-0  ">Subscribe</Button>
+              <Button type="submit" className="md:absolute right-0" loading={loading}>
+                Subscribe
+              </Button>
             </div>
+          </form>
           </div>
         </div>
       </Container>
