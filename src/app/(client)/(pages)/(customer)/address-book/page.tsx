@@ -5,7 +5,8 @@ import { Input } from "@/components/common/ui/input";
 
 import React, { useState } from "react";
 import { CitySelect, ProvinceSelect } from "../Billing/selectcomponent";
-import { Trash2 } from "lucide-react";
+import { Trash2, Pencil } from "lucide-react";
+import { AddressDetails } from "@/data/address-book";
 
 export default function AddressBookPage() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -25,11 +26,11 @@ export default function AddressBookPage() {
   return (
     <ClientOnly>
       <Container>
-        <div className="flex flex-col gap-5">
-          <div className="flex pt-9 gap-5">
-            <div className="hidden md:block">
-              <SideMenu />
-            </div>
+        <div className="flex pt-9 gap-5">
+          <div className="hidden md:block">
+            <SideMenu />
+          </div>
+          <div className="flex flex-col gap-4 w-full">
             <div className="gap-8 w-full border border-gray-50 rounded-lg pt-4 px-4">
               <div className="font-medium py-4 text-lg">Address Settings</div>
               <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
@@ -124,44 +125,37 @@ export default function AddressBookPage() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-row justify-end gap-4 ">
-            <div className="flex ">
-              <div className="flex w-96 border border-gray-50 rounded-lg p-4 ">
-                <div className="flex flex-col gap-1">
-                  <div className="font-medium text-base">John Smith</div>
-                  <div className="text-sm text-gray-200">
-                    22/5A, Kumara Mawatha, Pitipana South, Homagama.
-                  </div>
-                  <div className="font-medium text-sm">johnsmith@gmail.com</div>
-                  <div className="font-medium text-sm">(+94) 77 1234567</div>
-                  <div className="pt-5">
-                    <Button>Edit Address</Button>
-                  </div>
-                </div>
-                <div>
-                  <Trash2 onClick={handleDeleteAddress} />
-                </div>
-              </div>
-            </div>
-            <div className="flex ">
-              <div className="flex w-96 border border-gray-50 rounded-lg p-4 ">
-                <div className="flex flex-col gap-1">
-                  <div className="font-medium text-base">John Smith</div>
-                  <div className="text-sm text-gray-200">
-                    22/5A, Kumara Mawatha, Pitipana South, Homagama.
-                  </div>
-                  <div className="font-medium text-sm">johnsmith@gmail.com</div>
-                  <div className="font-medium text-sm">(+94) 77 1234567</div>
-                  <div className="pt-5">
-                    <Button>Edit Address</Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {AddressDetails.map((card) => (
+                <div key={card.id} className="border border-gray-50 rounded-lg p-4">
+                  <div className="flex gap-4 justify-between">
+                    <div className="flex flex-col gap-3">
+                      <div className="uppercase text-sm font-medium text-gray-200 pb-2">{card.addressName} address</div>
+                      <div className="font-medium text-base">{card.firstName} {card.lastName}</div>
+                      <div className="text-sm text-gray-200">
+                        {card.streetAddress}, {card.city}, {card.province} {card.zipcode}
+                      </div>
+                      <div className="font-medium text-sm">{card.email}</div>
+                      <div className="font-medium text-sm">
+                        {card.contactNumber}
+                      </div>
+                      <div className="pt-4">
+                        <Button variant="ghost" size="sm">
+                          Edit Address
+                          <Pencil className="w-[12px] ml-2" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div>
+                      <button onClick={handleDeleteAddress}>
+                        <Trash2
+                          className="w-[20px] text-gray-400 hover:text-red-400/80 fill-gray-"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <Trash2 onClick={handleDeleteAddress} />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
