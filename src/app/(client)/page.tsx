@@ -11,11 +11,11 @@ import {
 export default function Home() {
   return (
     <div>
-    <HeroSection />
-    <BestSelling />
-    <CountdownSection />
-    <Categories />
-    <TestimonialsSection />
-     </div>
-  )
-};
+      <HeroSection />
+      <BestSelling />
+      <CountdownSection />
+      <Categories />
+      <TestimonialsSection />
+    </div>
+  );
+}
