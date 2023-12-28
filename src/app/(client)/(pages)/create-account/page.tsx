@@ -100,13 +100,14 @@ const CreateAccount = (props: Props) => {
         description: "You have successfully logged in.",
       });
       backToHome();
-    } catch (error) {
+    } catch (error:any) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "Something went wrong. Please try again.",
+        description: `${error.response.data.message}`,
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
+      setLoading(false);
     }
   }
 
