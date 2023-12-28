@@ -114,7 +114,6 @@ const Signin = (props: Props) => {
         }
       } catch (error) {
         console.error("Error decoding token:", error);
-        router.push("/");
       }
     };
 

@@ -26,6 +26,8 @@ import { decodeToken } from "@/helpers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/common/ui/skeleton";
+import { ToastAction } from "@/components/common/ui/toast/toast";
+import { useToast } from "@/components/common/ui/toast/use-toast";
 
 export default function NavigationMenuAvatar() {
   const [user, setUser] = useState(false);
@@ -37,6 +39,8 @@ export default function NavigationMenuAvatar() {
   const [loading, setLoading] = useState(true);
 
   const router = useRouter();
+
+  const { toast } = useToast();
 
   useEffect(() => {
     const decode = async () => {
@@ -54,9 +58,15 @@ export default function NavigationMenuAvatar() {
         setName(firstname);
         setImage(imageUrl);
         setLoading(false);
-        console.log(firstname, imageUrl);
       } catch (error) {
-        console.error("Error decoding token:", error);
+        setUser(false);
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Session Expired!",
+          description: "Please login again.",
+          action: <ToastAction altText="Sign In">Try again</ToastAction>,
+        });
       }
     };
     decode();
