@@ -106,7 +106,7 @@ const Cart = () => {
                     <SheetFooter>
                       <div className="flex flex-col w-full gap-y-4">
                         <SheetTrigger asChild>
-                          <Link href="/checkout">
+                          <Link href="/shoppingcart">
                             <Button className="w-full">Checkout</Button>
                           </Link>
                         </SheetTrigger>
