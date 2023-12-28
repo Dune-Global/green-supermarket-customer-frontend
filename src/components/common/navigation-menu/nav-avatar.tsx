@@ -25,6 +25,7 @@ import { useEffect, useState } from "react";
 import { decodeToken } from "@/helpers";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/common/ui/skeleton";
 
 export default function NavigationMenuAvatar() {
   const [user, setUser] = useState(false);
@@ -33,6 +34,8 @@ export default function NavigationMenuAvatar() {
     "https://greensupermarketstoreacc.blob.core.windows.net/greensupermarketblogcontainer/8ef1ae8e-2dd5-46b6-beda-7c9c32ac1aae.jpg"
   );
 
+  const [loading, setLoading] = useState(true);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -40,6 +43,7 @@ export default function NavigationMenuAvatar() {
       const jwtToken = localStorage.getItem("jwtToken");
       if (!jwtToken) {
         setUser(false);
+        setLoading(false);
         return;
       }
       try {
@@ -49,6 +53,7 @@ export default function NavigationMenuAvatar() {
         setUser(true);
         setName(firstname);
         setImage(imageUrl);
+        setLoading(false);
         console.log(firstname, imageUrl);
       } catch (error) {
         console.error("Error decoding token:", error);
@@ -67,31 +72,39 @@ export default function NavigationMenuAvatar() {
     <>
       {user ? (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex justify-center items-center cursor-pointer space-x-3">
-              <Image
-                src={image}
-                alt="profile picture"
-                width={34}
-                height={34}
-                className="rounded-full border border-gray-200/40 w-[34px] h-[34px]"
-              />
-              <div className="hidden lg:flex justify-end items-center group gap-x-3">
-                <Button
-                  variant="nav"
-                  size="nav"
-                  className="group-hover:text-green-400"
-                >
-                  {name}
-                </Button>
-                <ChevronDown
-                  size={18}
-                  strokeWidth={2}
-                  className="transition-colors group-hover:text-green-400"
-                />
-              </div>
+          {loading ? (
+            <div className="flex flex-row justify-center items-center gap-2">
+              <Skeleton className="w-[34px] h-[34px] rounded-full" />
+              <Skeleton className="w-[100px] h-[20px] rounded-full" />
             </div>
-          </DropdownMenuTrigger>
+          ) : (
+            <DropdownMenuTrigger asChild>
+              <div className="flex justify-center items-center cursor-pointer space-x-3">
+                <Image
+                  src={image}
+                  alt="profile picture"
+                  width={34}
+                  height={34}
+                  className="rounded-full border border-gray-200/40 w-[34px] h-[34px]"
+                />
+                <div className="hidden lg:flex justify-end items-center group gap-x-3">
+                  <Button
+                    variant="nav"
+                    size="nav"
+                    className="group-hover:text-green-400"
+                  >
+                    {name}
+                  </Button>
+                  <ChevronDown
+                    size={18}
+                    strokeWidth={2}
+                    className="transition-colors group-hover:text-green-400"
+                  />
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+          )}
+
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel className="font-medium">
               {AvatarNavDetails[1].name}
@@ -114,25 +127,37 @@ export default function NavigationMenuAvatar() {
         </DropdownMenu>
       ) : (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex justify-end items-center cursor-pointer gap-x-3">
-              <CircleUserRound className="w-6 h-6" size={34} strokeWidth={1} />
-              <div className="hidden lg:flex justify-center items-center group space-x-3">
-                <Button
-                  variant="nav"
-                  size="nav"
-                  className="group-hover:text-green-400"
-                >
-                  {AvatarNavDetails[5].name}
-                </Button>
-                <ChevronDown
-                  size={18}
-                  strokeWidth={2}
-                  className="transition-colors group-hover:text-green-400"
-                />
-              </div>
+          {loading ? (
+            <div className="flex flex-row justify-center items-center gap-2">
+              <Skeleton className="w-[34px] h-[34px] rounded-full" />
+              <Skeleton className="w-[100px] h-[20px] rounded-full" />
             </div>
-          </DropdownMenuTrigger>
+          ) : (
+            <DropdownMenuTrigger asChild>
+              <div className="flex justify-end items-center cursor-pointer gap-x-3">
+                <CircleUserRound
+                  className="w-6 h-6"
+                  size={34}
+                  strokeWidth={1}
+                />
+                <div className="hidden lg:flex justify-center items-center group space-x-3">
+                  <Button
+                    variant="nav"
+                    size="nav"
+                    className="group-hover:text-green-400"
+                  >
+                    {AvatarNavDetails[5].name}
+                  </Button>
+                  <ChevronDown
+                    size={18}
+                    strokeWidth={2}
+                    className="transition-colors group-hover:text-green-400"
+                  />
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+          )}
+
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>{AvatarNavDetails[4].name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
