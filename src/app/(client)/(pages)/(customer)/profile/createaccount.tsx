@@ -69,14 +69,15 @@ const CreateAccount = (props: Props) => {
         <div className="font-medium pb-4">Change Password</div>
         <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
         <div className="pt-5">
-          <div>Current Password</div>
+          
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className=" w-full "
             >
-              <div className="space-y-3 gap-5">
+              <div className="space-y-3 gap-3">
                 {/* password */}
+                <div>Current Password</div>
                 <FormField
                   control={form.control}
                   name="password"
@@ -120,8 +121,9 @@ const CreateAccount = (props: Props) => {
                 <div className="flex gap-2 lg:flex-row flex-col">
                   {/* confirm */}
 
-                  <div className="flex-1">
+                  <div className="flex-1 flex flex-col gap-2">
                     <div>New Password</div>
+                    <div>
                     <FormField
                       control={form.control}
                       name="newpassword"
@@ -161,10 +163,11 @@ const CreateAccount = (props: Props) => {
                           />
                         </FormItem>
                       )}
-                    />
+                    /></div>
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 flex flex-col gap-2">
                     <div>Confirm Password</div>
+                    <div>
                     <FormField
                       control={form.control}
                       name="confirmpassword"
@@ -204,7 +207,7 @@ const CreateAccount = (props: Props) => {
                           />
                         </FormItem>
                       )}
-                    />
+                    /></div>
                   </div>
                 </div>
                 <div>
