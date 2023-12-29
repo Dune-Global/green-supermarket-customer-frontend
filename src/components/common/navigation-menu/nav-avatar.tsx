@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/common/ui/skeleton";
 import { ToastAction } from "@/components/common/ui/toast/toast";
 import { useToast } from "@/components/common/ui/toast/use-toast";
+import ClientOnly from "../client-only";
 
 export default function NavigationMenuAvatar() {
   const [user, setUser] = useState(false);
@@ -70,7 +71,7 @@ export default function NavigationMenuAvatar() {
       }
     };
     decode();
-  }, []);
+  }, [toast]);
 
   const logout = () => {
     localStorage.removeItem("jwtToken");
@@ -79,115 +80,114 @@ export default function NavigationMenuAvatar() {
   };
 
   return (
-    <>
-      {user ? (
-        <DropdownMenu>
-          {loading ? (
-            <div className="flex flex-row justify-center items-center gap-2">
-              <Skeleton className="w-[34px] h-[34px] rounded-full" />
-              <Skeleton className="w-[100px] h-[20px] rounded-full" />
-            </div>
-          ) : (
-            <DropdownMenuTrigger asChild>
-              <div className="flex justify-center items-center cursor-pointer space-x-3">
-                <Image
-                  src={image}
-                  alt="profile picture"
-                  width={34}
-                  height={34}
-                  className="rounded-full border border-gray-200/40 w-[34px] h-[34px]"
-                />
-                <div className="hidden lg:flex justify-end items-center group gap-x-3">
-                  <Button
-                    variant="nav"
-                    size="nav"
-                    className="group-hover:text-green-400"
-                  >
-                    {name}
-                  </Button>
-                  <ChevronDown
-                    size={18}
-                    strokeWidth={2}
-                    className="transition-colors group-hover:text-green-400"
-                  />
-                </div>
+    <ClientOnly>
+      <>
+        {user ? (
+          <DropdownMenu>
+            {loading ? (
+              <div className="flex flex-row justify-center items-center gap-2">
+                <Skeleton className="w-[34px] h-[34px] rounded-full" />
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
               </div>
-            </DropdownMenuTrigger>
-          )}
-
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel className="font-medium">
-              {AvatarNavDetails[1].name}
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            ) : (
+              <DropdownMenuTrigger asChild>
+                <div className="flex justify-center items-center cursor-pointer space-x-3">
+                  <Image
+                    src={image}
+                    alt="profile picture"
+                    width={34}
+                    height={34}
+                    className="rounded-full border border-gray-200/40 w-[34px] h-[34px]"
+                  />
+                  <div className="hidden lg:flex justify-end items-center group gap-x-3">
+                    <Button
+                      variant="nav"
+                      size="nav"
+                      className="group-hover:text-green-400"
+                    >
+                      {name}
+                    </Button>
+                    <ChevronDown
+                      size={18}
+                      strokeWidth={2}
+                      className="transition-colors group-hover:text-green-400"
+                    />
+                  </div>
+                </div>
+              </DropdownMenuTrigger>
+            )}
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel className="font-medium">
+                {AvatarNavDetails[1].name}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="cursor-pointer">
+                  <User className="mr-2 h-4 w-4" />
+                  <Link href="/profile">
+                    <span>{AvatarNavDetails[2].name}</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
-                <Link href="/profile">
-                  <span>{AvatarNavDetails[2].name}</span>
-                </Link>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span onClick={logout}>{AvatarNavDetails[3].name}</span>
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-
-            <DropdownMenuItem className="cursor-pointer">
-              <LogOut className="mr-2 h-4 w-4" />
-              <span onClick={logout}>{AvatarNavDetails[3].name}</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ) : (
-        <DropdownMenu>
-          {loading ? (
-            <div className="flex flex-row justify-center items-center gap-2">
-              <Skeleton className="w-[34px] h-[34px] rounded-full" />
-              <Skeleton className="w-[100px] h-[20px] rounded-full" />
-            </div>
-          ) : (
-            <DropdownMenuTrigger asChild>
-              <div className="flex justify-end items-center cursor-pointer gap-x-3">
-                <CircleUserRound
-                  className="w-6 h-6"
-                  size={34}
-                  strokeWidth={1}
-                />
-                <div className="hidden lg:flex justify-center items-center group space-x-3">
-                  <Button
-                    variant="nav"
-                    size="nav"
-                    className="group-hover:text-green-400"
-                  >
-                    {AvatarNavDetails[5].name}
-                  </Button>
-                  <ChevronDown
-                    size={18}
-                    strokeWidth={2}
-                    className="transition-colors group-hover:text-green-400"
-                  />
-                </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <DropdownMenu>
+            {loading ? (
+              <div className="flex flex-row justify-center items-center gap-2">
+                <Skeleton className="w-[34px] h-[34px] rounded-full" />
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
               </div>
-            </DropdownMenuTrigger>
-          )}
-
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>{AvatarNavDetails[4].name}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <Link href="sign-in">
-                  <span>{AvatarNavDetails[5].name}</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <Link href="/create-account">
-                  <span>{AvatarNavDetails[6].name}</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
-    </>
+            ) : (
+              <DropdownMenuTrigger asChild>
+                <div className="flex justify-end items-center cursor-pointer gap-x-3">
+                  <CircleUserRound
+                    className="w-6 h-6"
+                    size={34}
+                    strokeWidth={1}
+                  />
+                  <div className="hidden lg:flex justify-center items-center group space-x-3">
+                    <Button
+                      variant="nav"
+                      size="nav"
+                      className="group-hover:text-green-400"
+                    >
+                      {AvatarNavDetails[5].name}
+                    </Button>
+                    <ChevronDown
+                      size={18}
+                      strokeWidth={2}
+                      className="transition-colors group-hover:text-green-400"
+                    />
+                  </div>
+                </div>
+              </DropdownMenuTrigger>
+            )}
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>{AvatarNavDetails[4].name}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" />
+                  <Link href="sign-in">
+                    <span>{AvatarNavDetails[5].name}</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  <Link href="/create-account">
+                    <span>{AvatarNavDetails[6].name}</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </>
+    </ClientOnly>
   );
 }

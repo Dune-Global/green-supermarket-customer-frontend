@@ -35,7 +35,7 @@ export interface IProductDetailsData {
   mainCategoryName: string;
   l1CategoryName: string;
   l2CategoryName?: string | null;
-  discount: {
+  discount?: {
     id: number;
     discountDescription: string;
     discountRate: number;
