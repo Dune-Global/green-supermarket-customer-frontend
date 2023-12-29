@@ -15,11 +15,12 @@ export default function HeroMiddle() {
                 alt={components.title}
                 width={40}
                 height={40}
+                quality={100}
               />
             </div>
             <div>
-              <p className="font-semibold sm:text-md md:text-sm lg:text-md">{components.title}</p>
-              <p className="pt-2 text-gray-400 sm:text-[16px] md:text-sm lg:text-[16px]">
+              <p className="font-medium sm:text-md md:text-sm lg:text-md">{components.title}</p>
+              <p className="pt-2 text-gray-400/80 sm:text-[16px] md:text-sm lg:text-[16px]">
                 {components.description}
               </p>
             </div>

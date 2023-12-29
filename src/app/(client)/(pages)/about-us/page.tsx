@@ -20,10 +20,11 @@ export default function AboutUs() {
               <div className=" md:gap-10 items-center grid lg:grid-cols-2 space-y-2 ">
                 <div className="justify-self-center my-4">
                   <Image
-                    src="/assets/images/about-us.png"
+                    src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/b5beaabf-12dd-416f-a9d6-b40810b1e76b.png"
                     alt="Image 2"
                     width={800}
                     height={100}
+                    quality={100}
                   />
                 </div>
                 <div className="flex flex-row text-justify leading-relaxed md:leading-loose text-base  ">
@@ -35,7 +36,7 @@ export default function AboutUs() {
         </Container>
         {/* Background Image */}
         <div>
-          <div className=" flex items-center  bg-[url('/assets/images/about-us-bg.png')] w-full h-[450px] md:h-96 bg-cover bg-no-repeat bg-center   ">
+          <div className=" flex items-center  bg-[url('https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/8fcb8a65-f5d2-40ad-92a8-32b0904cc17c.png')] w-full h-[450px] md:h-96 bg-cover bg-no-repeat bg-center   ">
             <div className="mx-auto w-full max-w-[1500px] xl:px-20 md:px-10 sm:px-10 px-6 ">
               <div className="flex  lg:flex-row flex-col justify-between text-gray-0 w-full items-center h-[100%] my-auto gap-5 lg:gap-28 py-">
                 <div className="md:py-5 flex flex-col lg:gap-3 gap-2 ">
