@@ -134,7 +134,9 @@ export default function Page({ params }: { params: { item: number } }) {
     if (authenticate) {
       try {
         addToCart(cartId, product.productId, count);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } catch (error) {
         console.error(error); 
       }
