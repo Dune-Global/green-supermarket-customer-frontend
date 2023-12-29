@@ -70,7 +70,7 @@ export default function NavigationMenuAvatar() {
       }
     };
     decode();
-  }, []);
+  }, [toast]);
 
   const logout = () => {
     localStorage.removeItem("jwtToken");
