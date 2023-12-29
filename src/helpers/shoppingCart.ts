@@ -24,3 +24,20 @@ export const deleteCartItem = async (cartItemId: number) => {
   }
 };
 
+export const addToCart = async (
+  cartId: number,
+  productId: number,
+  quantity: number
+) => {
+  try {
+    const response = await axios.post(`/cart/add-to-cart`, {
+      cartId: cartId,
+      productId: productId,
+      quantity: quantity,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
