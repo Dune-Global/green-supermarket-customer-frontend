@@ -10,11 +10,13 @@ export default function HeroUp() {
         <div className="w-full h-1/3 md:h-auto lg:w-2/3 relative overflow-hidden">
           <div className="h-full py-10">
             <Image
-              src="/assets/images/hero/hero-up-card1-bg.png"
+            quality={100}
+              src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/7ee7c354-0580-49bc-97be-42a71dfd2cb5.png"
               alt="hero1"
               fill
               className="rounded-lg object-center object-cover"
               style={{ zIndex: -1 }}
+              priority
             />
             <div className="flex flex-col items-start justify-center text-left text-gray-0 pl-10 h-full pb-4">
               <h1 className="text-[28px] md:text-[44px] font-medium">
@@ -45,7 +47,7 @@ export default function HeroUp() {
             className="w-full h-64 rounded-lg bg-cover"
             style={{
               backgroundImage:
-                "url('/assets/images/hero/hero-up-card2-bg.png')",
+                "url('https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/f5394720-2ef3-4d79-81db-86c292eb7a55.png')",
             }}
           >
             <div className="text-[14px] pl-10 font-medium pt-8">
@@ -67,7 +69,7 @@ export default function HeroUp() {
             className="flex items-center justify-center w-full h-64 rounded-lg bg-cover"
             style={{
               backgroundImage:
-                "url('/assets/images/hero/hero-up-card3-bg.png')",
+                "url('https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/01328697-1bcb-478f-ad87-9b49e8dae4ab.png')",
             }}
           >
             <div className="flex flex-col items-center text-gray-0 w-full h-full justify-center px-4">
