@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { AuthLoader, Button, Container } from "@/components/common";
 import SideMenu from "@/components/common/layout/side-menu";
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/common/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import {
@@ -17,13 +17,12 @@ import { z } from "zod";
 import CreateAccount from "./createaccount";
 import { useRouter } from "next/navigation";
 import { decodeToken } from "@/helpers";
-
-
+import SideMenuMobile from "@/components/common/layout/side-menu-mobile";
 
 export default function Profile() {
   const router = useRouter();
   const [tokenValid, setTokenValid] = useState(false);
-  
+
   useEffect(() => {
     const checkTokenValidity = async () => {
       const jwtToken = localStorage.getItem("jwtToken");
@@ -56,12 +55,13 @@ export default function Profile() {
   return (
     <Container>
       <div className="pt-9 flex lg:gap-5">
-        <div>
+        <div className="hidden lg:block">
           <SideMenu />
         </div>
-        <div> </div>
-
         <div className="flex flex-col gap-8  w-full">
+          <div className="block lg:hidden">
+            <SideMenuMobile />
+          </div>
           <div className="border border-gray-50 rounded-lg p-4">
             <div className="font-medium py-4">Account Settings</div>
             <div className="bg-gray-200/40 w-full h-[0.25px]"></div>

@@ -32,9 +32,9 @@ export default function AddressBookPage() {
             <SideMenu />
           </div>
           <div className="flex flex-col gap-4 w-full">
-          <div className="block lg:hidden">
-            <SideMenuMobile />
-          </div>
+            <div className="block lg:hidden">
+              <SideMenuMobile />
+            </div>
             <div className="gap-8 w-full border border-gray-50 rounded-lg pt-4 px-4">
               <div className="font-medium py-4 text-lg">Address Settings</div>
               <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
@@ -131,13 +131,21 @@ export default function AddressBookPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {AddressDetails.map((card) => (
-                <div key={card.id} className="border border-gray-50 rounded-lg p-4">
+                <div
+                  key={card.id}
+                  className="border border-gray-50 rounded-lg p-4"
+                >
                   <div className="flex gap-4 justify-between">
                     <div className="flex flex-col gap-3">
-                      <div className="uppercase text-sm font-medium text-gray-200 pb-2">{card.addressName} address</div>
-                      <div className="font-medium text-base">{card.firstName} {card.lastName}</div>
+                      <div className="uppercase text-sm font-medium text-gray-200 pb-2">
+                        {card.addressName} address
+                      </div>
+                      <div className="font-medium text-base">
+                        {card.firstName} {card.lastName}
+                      </div>
                       <div className="text-sm text-gray-200">
-                        {card.streetAddress}, {card.city}, {card.province} {card.zipcode}
+                        {card.streetAddress}, {card.city}, {card.province}{" "}
+                        {card.zipcode}
                       </div>
                       <div className="font-medium text-sm">{card.email}</div>
                       <div className="font-medium text-sm">
@@ -152,9 +160,7 @@ export default function AddressBookPage() {
                     </div>
                     <div>
                       <button onClick={handleDeleteAddress}>
-                        <Trash2
-                          className="w-[20px] text-gray-400 hover:text-red-400/80 fill-gray-"
-                        />
+                        <Trash2 className="w-[20px] text-gray-400 hover:text-red-400/80 fill-gray-" />
                       </button>
                     </div>
                   </div>
