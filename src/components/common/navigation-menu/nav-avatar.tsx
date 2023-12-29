@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/common/ui/skeleton";
 import { ToastAction } from "@/components/common/ui/toast/toast";
 import { useToast } from "@/components/common/ui/toast/use-toast";
+import ClientOnly from "../client-only";
 
 export default function NavigationMenuAvatar() {
   const [user, setUser] = useState(false);
@@ -114,7 +115,6 @@ export default function NavigationMenuAvatar() {
               </div>
             </DropdownMenuTrigger>
           )}
-
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel className="font-medium">
               {AvatarNavDetails[1].name}
@@ -128,7 +128,6 @@ export default function NavigationMenuAvatar() {
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-
             <DropdownMenuItem className="cursor-pointer">
               <LogOut className="mr-2 h-4 w-4" />
               <span onClick={logout}>{AvatarNavDetails[3].name}</span>
@@ -167,7 +166,6 @@ export default function NavigationMenuAvatar() {
               </div>
             </DropdownMenuTrigger>
           )}
-
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>{AvatarNavDetails[4].name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
