@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { CitySelect, ProvinceSelect } from "../Billing/selectcomponent";
 import { Trash2, Pencil } from "lucide-react";
 import { AddressDetails } from "@/data/address-book";
+import SideMenuMobile from "@/components/common/layout/side-menu-mobile";
 
 export default function AddressBookPage() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -27,10 +28,13 @@ export default function AddressBookPage() {
     <ClientOnly>
       <Container>
         <div className="flex pt-9 gap-5">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <SideMenu />
           </div>
           <div className="flex flex-col gap-4 w-full">
+          <div className="block lg:hidden">
+            <SideMenuMobile />
+          </div>
             <div className="gap-8 w-full border border-gray-50 rounded-lg pt-4 px-4">
               <div className="font-medium py-4 text-lg">Address Settings</div>
               <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
