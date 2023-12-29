@@ -8,6 +8,7 @@ import {
   ProductCard,
   StarRating,
 } from "@/components/common";
+import { Skeleton } from "@/components/common/ui/skeleton";
 import { ItemLogos } from "@/data";
 import { getProductById, getMainCategories } from "@/helpers";
 import { IProductDetailsData } from "@/types";
@@ -45,25 +46,84 @@ export default function Page({ params }: { params: { item: number } }) {
     path: "font-medium text-xs md:text-sm lg:text-lg text-gray-600",
   };
 
+  const imageSkeleton = (): JSX.Element[] => {
+    return Array.from({ length: 1 }).map((_, index) => (
+      <div
+        key={index}
+        className="w-[280px] lg:w-auto border border-gray-50 rounded-lg flex flex-col items-center p-8 "
+      >
+        <Skeleton className="w-[200px] lg:w-full h-40 md:h-80" />
+        <Skeleton
+          className="text-center text-md px-40"
+          style={{ width: "80%" }}
+        />
+      </div>
+    ));
+  };
+
+  const textSkeleton = (): JSX.Element[] => {
+    return Array.from({ length: 1 }).map((_, index) => (
+      <div
+        key={index}
+        className="flex flex-col items-center space-x-1 lg:space-x-4 space-y-20 lg:space-y-10"
+      >
+        <div className="space-y-4">
+          <Skeleton className="h-4 w-[300px] lg:w-[550px]" />
+          <Skeleton className="h-4 w-[100px] lg:w-[200px]" />
+          <Skeleton className=" h-4 w-[100px] lg:w-[200px]" />
+        </div>
+        <div className="space-y-4">
+          <Skeleton className="h-4 w-[300px] lg:w-[550px]" />
+          <Skeleton className="h-4 w-[100px] lg:w-[200px]" />
+          <Skeleton className=" h-4 w-[100px] lg:w-[200px]" />
+        </div>
+        <div className="space-y-4 hidden md:block">
+          <Skeleton className="h-4 w-[300px] lg:w-[550px]" />
+          <Skeleton className="h-4 w-[100px] lg:w-[200px]" />
+          <Skeleton className=" h-4 w-[100px] lg:w-[200px]" />
+        </div>
+      </div>
+    ));
+  };
+
+  const breadSkeleton = (): JSX.Element[] => {
+    return Array.from({ length: 1 }).map((_, index) => (
+      <div key={index} className="flex flex-row items-center justify-end">
+        <div className="space-x-4 flex items-center">
+          <Skeleton className="h-4 w-[80px] lg:w-[180px]" />
+          <Skeleton className="h-4 w-[80px] lg:w-[180px]" />
+        </div>
+      </div>
+    ));
+  };
+
   return (
-    <ClientOnly>
-      <Container>
-        <div className="pt-[60px]">
-          <div key={product.productId}>
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="text-gray-600">
-                <HomeIcon className="h-[14px] md:h-[20px]" />
-              </div>
-              <div className="text-md md:text-xl">&gt;</div>
-              <div className={style.path}>Category</div>
-              <div className="text-md md:text-xl">&gt;</div>
-              <div className={style.path}>{product.mainCategoryName}</div>
-              <div className="text-md md:text-xl">&gt;</div>
-              <div className="font-medium text-xs md:text-sm lg:text-lg text-green-400">
-                {product.productName}
-              </div>
+    <Container>
+      <div className="pt-[60px]">
+        <div key={product.productId}>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="text-gray-600">
+              <HomeIcon className="h-[14px] md:h-[20px]" />
             </div>
-            <div className="flex flex-col md:flex-row pt-[60px] items-center justify-center gap-16 md:gap-12 lg:gap-24">
+            <div className="text-md md:text-xl">&gt;</div>
+            <div className={style.path}>Category</div>
+            <div className="text-md md:text-xl">&gt;</div>
+            {loading ? (
+              breadSkeleton()
+            ) : (
+              <>
+                <div className={style.path}>{product.mainCategoryName}</div>
+                <div className="text-md md:text-xl">&gt;</div>
+                <div className="font-medium text-xs md:text-sm lg:text-lg text-green-400">
+                  {product.productName}
+                </div>
+              </>
+            )}
+          </div>
+          <div className="flex flex-col md:flex-row pt-[60px] items-center justify-center gap-16 md:gap-12 lg:gap-24">
+            {loading ? (
+              imageSkeleton()
+            ) : (
               <div className="flex gap-4">
                 <div>
                   <Image
@@ -84,13 +144,17 @@ export default function Page({ params }: { params: { item: number } }) {
                   />
                 </div>
               </div>
+            )}
+            {loading ? (
+              textSkeleton()
+            ) : (
               <div>
-                <div className="flex gap-16 md:gap-8 lg:gap-16">
+                <div className="flex gap-2 md:gap-8 lg:gap-16">
                   <div className="text-3xl lg:text-5xl font-semibold">
                     {product.productName}
                   </div>
                   <div
-                    className={`flex flex-row items-center text-md md:text-sm lg:text-base rounded-lg md:py-1 lg:py-0 px-3 ${
+                    className={`flex flex-row items-center min-w-[80px] justify-center text-sm md:text-sm lg:text-base rounded-lg md:py-1 lg:py-0 px-3 ${
                       product.stockAvailableUnits > 0
                         ? "text-green-600 bg-green-400/20"
                         : "text-gray-600 bg-gray-400/20"
@@ -142,10 +206,10 @@ export default function Page({ params }: { params: { item: number } }) {
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
-      </Container>
-    </ClientOnly>
+      </div>
+    </Container>
   );
 }
