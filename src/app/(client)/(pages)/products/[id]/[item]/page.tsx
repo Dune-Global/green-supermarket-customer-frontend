@@ -10,13 +10,16 @@ import {
 } from "@/components/common";
 import { Skeleton } from "@/components/common/ui/skeleton";
 import { ItemLogos } from "@/data";
-import { getProductById, getMainCategories } from "@/helpers";
+import { getProductById, getMainCategories, decodeToken, addToCart } from "@/helpers";
 import { IProductDetailsData } from "@/types";
 import { formatPrice } from "@/utils/shad-utils";
 import { HomeIcon, ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/common/ui/toast/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }: { params: { item: number } }) {
   const [product, setProduct] = useState<IProductDetailsData>({} as any);
@@ -97,6 +100,86 @@ export default function Page({ params }: { params: { item: number } }) {
     ));
   };
 
+  const {toast} = useToast();
+  const router = useRouter();
+
+  const [authenticate, setAuthenticate] = useState(false);
+  const [cartId, setCartId] = useState(0);
+  
+
+  
+  const checkAuthentication = async () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (!jwtToken) {
+      setAuthenticate(false);
+      return;
+    }
+    try {
+      const res: any = await decodeToken(jwtToken!);
+      if (res.status === 200) {
+        setAuthenticate(true);
+        setCartId(res.data.cartId);
+        console.log(res.data.cartId);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const handleAddToCart = () => {
+    if (authenticate) {
+      try {
+        addToCart(cartId, product.productId, count);
+        window.location.reload();
+      } catch (error) {
+        console.error(error); 
+      }
+      toast({
+      variant: "default",
+      title: "Item added to cart",
+      description: "Continue shopping or go to cart to complete your purchase",
+    });
+      return;
+    }
+    toast({
+      variant: "destructive",
+      title: "Sign in to continue!",
+      description: "Sign in to add items to cart ",
+      action: <ToastAction onClick={() => router.push("/sign-in")} altText="Try again">Sign In</ToastAction>,
+    });
+  };
+
+  const initialCount = product.measuringUnit === "kg" ? 0.5 : 1;
+  const [count, setCount] = useState<number>(initialCount);
+
+  const increment = () => {
+    const step = product.measuringUnit === "kg" ? 0.1 : 1;
+    const newCount = count + step;
+    if (product.measuringUnit === "kg" && newCount >= 0.5) {
+      setCount(parseFloat(newCount.toFixed(1)));
+    } else if (product.measuringUnit === "unit" && newCount >= 1) {
+      setCount(Math.floor(newCount));
+    }
+  };
+
+  const decrement = () => {
+    const step = product.measuringUnit === "kg" ? 0.1 : 1;
+    const newCount = count - step;
+    if (product.measuringUnit === "kg" && newCount >= 0.5) {
+      setCount(parseFloat(newCount.toFixed(1)));
+    } else if (product.measuringUnit === "unit" && newCount >= 1) {
+      setCount(Math.floor(newCount));
+    }
+  };
+
+  useEffect(() => {
+    console.log(count);
+  }, [count]);
+
   return (
     <Container>
       <div className="pt-[60px]">
@@ -149,12 +232,12 @@ export default function Page({ params }: { params: { item: number } }) {
               textSkeleton()
             ) : (
               <div>
-                <div className="flex gap-2 md:gap-8 lg:gap-16">
+                <div className="flex gap-2 flex-col md:flex-row md:gap-8 lg:gap-16">
                   <div className="text-3xl lg:text-5xl font-semibold">
                     {product.productName}
                   </div>
                   <div
-                    className={`flex flex-row items-center min-w-[80px] justify-center text-sm md:text-sm lg:text-base rounded-lg md:py-1 lg:py-0 px-3 ${
+                    className={`flex flex-row items-center md:min-w-[80px] justify-center text-sm md:text-sm lg:text-base rounded-lg py-2 md:py-1 lg:py-0 px-3 ${
                       product.stockAvailableUnits > 0
                         ? "text-green-600 bg-green-400/20"
                         : "text-gray-600 bg-gray-400/20"
@@ -174,17 +257,39 @@ export default function Page({ params }: { params: { item: number } }) {
                   </div>
                 </div>
                 <div className="pt-10 text-2xl lg:text-4xl font-medium">
-                  {formatPrice(product.currentPrice)} {product.measuringUnit}
+                  {formatPrice(product.currentPrice)} / {product.measuringUnit}
                 </div>
                 <div className="pt-10 flex items-center gap-4 w-full">
                   <div className="w-full">
-                    <Button className="w-full">
+                    <Button className="w-full" onClick={handleAddToCart}>
                       Add to cart
                       <ShoppingCartIcon className="pl-2 h-4" />
                     </Button>
                   </div>
                   <div className="border rounded-full py-1 px-4">
-                    <Count />
+                    <div className="flex gap-2">
+                      <div className="text-xl">
+                        <button
+                          onClick={decrement}
+                          disabled={
+                            (product.measuringUnit === "kg" && count === 0.5) ||
+                            (product.measuringUnit === "unit" && count === 1)
+                          }
+                          className="hover:bg-gray-50 hover:rounded-full px-2"
+                        >
+                          -
+                        </button>
+                      </div>
+                      <div className="text-lg">{count}</div>
+                      <div className="text-xl">
+                        <button
+                          onClick={increment}
+                          className="hover:bg-gray-50 hover:rounded-full px-2"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center pt-8 gap-2">
