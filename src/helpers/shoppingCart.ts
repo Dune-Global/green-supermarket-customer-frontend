@@ -23,3 +23,4 @@ export const deleteCartItem = async (cartItemId: number) => {
     throw error;
   }
 };
+
