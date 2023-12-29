@@ -6,6 +6,7 @@ import { Button } from "@/components/common/buttons";
 import Image from "next/image";
 import { formatPrice } from "@/utils/shad-utils";
 import { ClientOnly } from "@/components/common";
+import { deleteCartItem } from "@/helpers";
 import { useRouter } from "next/navigation";
 
 type CardProps = {
@@ -14,6 +15,7 @@ type CardProps = {
   subCatOneName: string;
   subCatTwoId?: number;
   subCatTwoName?: string;
+  cartItemId?: number;
   productId: number;
   productName: string;
   productImage: string;
@@ -35,9 +37,22 @@ const ProductCard: React.FC<CardProps> = ({
   stockAvailableUnits,
   measuringUnit,
   discountRate,
+  cartItemId,
   variant = "default",
 }: CardProps) => {
   const showOutOfStock = stockAvailableUnits === 0;
+
+  const deleteItem = () => {
+    console.log(cartItemId);
+    deleteCartItem(cartItemId!)
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const router = useRouter();
 
@@ -154,6 +169,7 @@ const ProductCard: React.FC<CardProps> = ({
             </div>
             <div className="transition-all group hover:border-red-400 border border-gray-400 rounded-full p-[2px] cursor-pointer">
               <X
+                onClick={deleteItem}
                 className="transition-all group-hover:text-red-400"
                 strokeWidth={1.5}
                 size={16}

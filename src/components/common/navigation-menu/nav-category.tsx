@@ -113,7 +113,7 @@ export default function NavigationMenuCategory() {
                         <div className="relative hidden lg:flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-gray-50/50 to-muted no-underline outline-none focus:shadow-md">
                           <Image
                             alt=""
-                            src="/assets/images/nav-menu-img.png"
+                            src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/58634179-1e27-4bbe-b079-395b0cafcde1.png"
                             objectFit="cover"
                             fill
                             className="rounded-md opacity-90"
