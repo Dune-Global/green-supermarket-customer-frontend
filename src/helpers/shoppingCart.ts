@@ -6,7 +6,7 @@ axios.defaults.baseURL = BASE_URL;
 
 export const getCartItems = async (cartId: number) => {
   try {
-    const response = await axios.get(`/cart/${cartId}`);
+    const response = await axios.get(`/cart/total/${cartId}`);
     return response.data;
   } catch (error) {
     console.error(error);
