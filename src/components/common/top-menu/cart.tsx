@@ -63,7 +63,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (!loading) {
-      console.log(cart);
+      // console.log(cart);
     }
   }, [cart, loading]);
 

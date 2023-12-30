@@ -42,7 +42,20 @@ import {
   PayhereCheckout,
   CheckoutParams,
 } from "@payhere-js-sdk/client";
-
+import { AddressDetails } from "@/data/address-book";
+import EditAddress from "../address-book/edit-address/edit-address";
+import { Trash2 } from "lucide-react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/common/ui/drawer";
+import Image from "next/image";
 
 type Props = {};
 
@@ -58,17 +71,18 @@ const Billing = (props: Props) => {
   const [cart, setCart] = useState([]);
 
   const [total, setTotal] = useState(0);
-
-
-
-  
-  
   const [generatedHash, setGeneratedHash] = useState("");
-  
+  const [isBillingDrawerOpen, setIsBillingDrawerOpen] = useState(false);
+  const [isShippingDrawerOpen, setIsShippingDrawerOpen] = useState(false);
+  const [billingAddress, setBillingAddress] = useState(1);
+  const [shippingAddress, setShippingAddress] = useState(1);
+
   function onPayhereCheckoutError(errorMsg: any) {
     alert(errorMsg);
   }
   const [orderId, setOrderId] = useState(0);
+  const [addresses, setAddresses] = useState([]);
+  const [userId, setUserId] = useState(0);
 
   function checkout(hash: any, orderId: any) {
     const customer = new Customer({
@@ -107,46 +121,54 @@ const Billing = (props: Props) => {
   }
 
   const generateHash = async () => {
-  try {
-    const res = await createOrder(5, 0, 0, "Card", 1, 1);
-    const updatedOrderId = res.orderId;
-    setOrderId(updatedOrderId);
-    
     try {
-      const response = await axios.post(
-        "https://www.green-supermarket.com/api/v1/payhere/generate-hash",
-        {
-          merchantID: 1225382,
-          merchantSecret:
-            "OTI2NDg2NDc5MzkyNzQyNDU2NjU2MzM1NTExOTExODk4NzQzODA=",
-          orderID: updatedOrderId, // Use the updated order ID here
-          amount: total,
-          currency: "LKR",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const res = await createOrder(
+        userId,
+        0,
+        0,
+        "Card",
+        billingAddress,
+        shippingAddress
       );
+      console.log(res);
+      const updatedOrderId = res.orderId;
+      setOrderId(updatedOrderId);
 
-      if (response.status === 200) {
-        const data = response.data;
-        const generatedHash = data.hash;
-        setGeneratedHash(generatedHash);
-        console.log("this is " ,updatedOrderId)
-        checkout(generatedHash, updatedOrderId); // Pass the updated order ID to checkout
-      } else {
-        console.error("Failed to generate hash");
-        throw new Error("Failed to generate hash");
+      try {
+        const response = await axios.post(
+          "https://www.green-supermarket.com/api/v1/payhere/generate-hash",
+          {
+            merchantID: 1225382,
+            merchantSecret:
+              "OTI2NDg2NDc5MzkyNzQyNDU2NjU2MzM1NTExOTExODk4NzQzODA=",
+            orderID: updatedOrderId,
+            amount: total,
+            currency: "LKR",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          const data = response.data;
+          const generatedHash = data.hash;
+          setGeneratedHash(generatedHash);
+          console.log("this is ", updatedOrderId);
+          checkout(generatedHash, updatedOrderId);
+        } else {
+          console.error("Failed to generate hash");
+          throw new Error("Failed to generate hash");
+        }
+      } catch (error) {
+        console.error("Error generating hash:", error);
       }
     } catch (error) {
-      console.error("Error generating hash:", error);
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
   useEffect(() => {
     const decode = async () => {
@@ -159,10 +181,15 @@ const Billing = (props: Props) => {
       try {
         const res = await decodeToken(jwtToken!);
         const { data } = res;
-        const { cartId } = data;
+        setUserId(data.id);
+        console.log(data);
+        const { cartId, id } = data;
         const cartItems = await getCartItems(cartId);
         setTotal(cartItems.totalAmount);
         setCart(cartItems.cartItems);
+        const address = await viewAllAddresses(id);
+        // console.log(address);
+        setAddresses(address);
         setUser(true);
         setLoading(false);
       } catch (error) {
@@ -174,10 +201,21 @@ const Billing = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    const fetchAddresses = async () => {
+      const res = await viewAllAddresses(userId);
+      const { data } = res;
+      setAddresses(data);
+    };
+    fetchAddresses();
+  }, []);
+
+  useEffect(() => {
     if (!loading) {
       console.log(cart);
+      console.log(addresses);
+      console.log(userId);
     }
-  }, [cart, loading]);
+  }, [cart, addresses, loading, userId]);
 
   const router = useRouter();
   const [tokenValid, setTokenValid] = useState(false);
@@ -211,6 +249,19 @@ const Billing = (props: Props) => {
     return <AuthLoader />;
   }
 
+  const handleBillingDrawerClose = (id: number) => {
+    setBillingAddress(id);
+    setIsBillingDrawerOpen(false);
+  };
+
+  const handleShippingDrawerClose = (id: number) => {
+    setShippingAddress(id);
+    setIsShippingDrawerOpen(false);
+  };
+
+  console.log("billing address", billingAddress);
+  console.log("shipping address", shippingAddress);
+
   return (
     <ClientOnly>
       <Container>
@@ -220,138 +271,164 @@ const Billing = (props: Props) => {
               <div className="font-medium text-xl text-center lg:text-left pb-3">
                 Billing Information{" "}
               </div>
-              <div className="flex flex-col gap-2">
-                <div>Select from saved addresses</div>
-                <div>
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select address" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup className="bg-gray-0 z-50">
-                        <SelectLabel>Fruits</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              {/* divider */}
-              <div className="bg-gray-200/40 w-full h-[0.25px] my-4"></div>
-              {/* inputs */}
-              <div>
-                <div className="flex flex-col gap-6">
-                  <div className="flex flex-row gap-4">
-                    {" "}
-                    {/* input name */}
-                    <div className="flex-1  ">
-                      <div>First name</div>
-                      <div className="pt-2">
-                        <Input
-                          className=" rounded-md border-gray-200/40"
-                          placeholder="Your first name"
-                          name="items"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div>Last name</div>
-                      <div className="pt-2">
-                        <Input
-                          className="rounded-md border-gray-200/40"
-                          placeholder="Your last name"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    {" "}
-                    {/* input street */}
-                    <div>Street Address</div>
-                    <div className="pt-2">
-                      <Input
-                        className="rounded-md border-gray-200/40"
-                        placeholder="Your address"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row lg:gap-5 gap-2">
-                    <div className="flex-1">
-                      <div>Province / State</div>
-                      <div className=" pt-2">
-                        <ProvinceSelect />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div>City</div>
-                      <div className="pt-2">
-                        <CitySelect />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex">Zip Code</div>
-                      <div className="pt-2">
-                        <Input
-                          className="rounded-md border-gray-200/40"
-                          placeholder="Zip Code"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-row gap-4">
-                    {" "}
-                    {/* input name */}
-                    <div className="flex-1 ">
-                      <div>Email</div>
-                      <div className="pt-2">
-                        <Input
-                          className=" rounded-md border-gray-200/40"
-                          placeholder="Email address"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div>Phone</div>
-                      <div className="pt-2">
-                        <Input
-                          className="rounded-md border-gray-200/40"
-                          placeholder="Phone number"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    {/* Click part */}
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className=" items-center w-full bg-gray-0 "
-                    >
-                      <AccordionItem value="item-1">
-                        <div className="flex items-center gap-3">
-                          <AccordionTrigger>
-                            <Checkbox />
-                          </AccordionTrigger>
-                          <label
-                            htmlFor="terms"
-                            className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            Ship to a different address.
-                          </label>
-                        </div>
-                        <AccordionContent>{shippinginfo()}</AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </div>
-                </div>
 
-                {/* divider */}
-                <div className="bg-gray-200/40 w-full h-[0.25px] mt-6"></div>
+              <div className="flex flex-col justify-center gap-4 md:flex-row md:justify-start md:items-start">
+                <Drawer
+                  open={isBillingDrawerOpen}
+                  onOpenChange={setIsBillingDrawerOpen}
+                >
+                  <DrawerTrigger>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setIsBillingDrawerOpen(true)}
+                    >
+                      Set Billing Address
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    {addresses && addresses.length === 0 ? (
+                      <div className="text-center text-gray-500 max-w-[1200px] mx-auto py-10">
+                        <Image
+                          src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/6992bd9a-900f-4ccb-9e22-4007bbe5f4a0.jpg"
+                          width={300}
+                          height={300}
+                          alt="empty shopping cart hippo"
+                        />
+                        <div>
+                          <div className="text-xl font-semibold">
+                            No addresses available
+                          </div>
+                          <div className="text-sm">
+                            Add an address to continue
+                          </div>
+                          <Button
+                            onClick={() => router.push("/address-book")}
+                            className="mt-5"
+                            variant="ghost"
+                          >
+                            Go to address
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col md:flex-row overflow-x-auto mx-auto gap-4 lg:max-w-[1200px] py-10">
+                        {addresses?.map((card: any) => (
+                          <DrawerClose
+                            key={card.id}
+                            className={`border-[2px] ${
+                              billingAddress === card.id
+                                ? "border-green-400"
+                                : "border-gray-50"
+                            } rounded-lg p-4`}
+                            onClick={() => handleBillingDrawerClose(card.id)}
+                          >
+                            <div className="flex gap-4 justify-between">
+                              <div className="flex flex-col gap-3">
+                                <div className="uppercase text-sm font-medium text-gray-200 pb-2">
+                                  {card.locationName} address
+                                </div>
+                                <div className="font-medium text-base">
+                                  {card.firstName} {card.lastName}
+                                </div>
+                                <div className="text-sm text-gray-200">
+                                  {card.address}, {card.city}, {card.province}{" "}
+                                  {card.postalCode}
+                                </div>
+                                <div className="font-medium text-sm">
+                                  {card.email}
+                                </div>
+                                <div className="font-medium text-sm">
+                                  {card.phoneNumber}
+                                </div>
+                              </div>
+                            </div>
+                          </DrawerClose>
+                        ))}
+                      </div>
+                    )}
+                  </DrawerContent>
+                </Drawer>
+                <Drawer
+                  open={isShippingDrawerOpen}
+                  onOpenChange={setIsShippingDrawerOpen}
+                >
+                  <DrawerTrigger>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setIsShippingDrawerOpen(true)}
+                    >
+                      Set Shipping Address
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    {addresses && addresses.length === 0 ? (
+                      <div className="text-center text-gray-500 max-w-[1200px] mx-auto py-10">
+                        <Image
+                          src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/6992bd9a-900f-4ccb-9e22-4007bbe5f4a0.jpg"
+                          width={300}
+                          height={300}
+                          alt="empty shopping cart hippo"
+                        />
+                        <div>
+                          <div className="text-xl font-semibold">
+                            No addresses available
+                          </div>
+                          <div className="text-sm">
+                            Add an address to continue
+                          </div>
+                          <Button
+                            onClick={() => router.push("/address-book")}
+                            className="mt-5"
+                            variant="ghost"
+                          >
+                            Go to address
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <DrawerTrigger className="flex flex-col md:flex-row overflow-x-auto mx-auto gap-4 lg:max-w-[1200px] py-10">
+                        {addresses?.map((card: any) => (
+                          <DrawerClose
+                            key={card.id}
+                            className={`border-[2px] ${
+                              shippingAddress === card.id
+                                ? "border-green-400"
+                                : "border-gray-50"
+                            } rounded-lg p-4`}
+                            onClick={() => handleShippingDrawerClose(card.id)}
+                          >
+                            <div className="flex gap-4 justify-between">
+                              <div className="flex flex-col gap-3">
+                                <div className="uppercase text-sm font-medium text-gray-200 pb-2">
+                                  {card.locationName} address
+                                </div>
+                                <div className="font-medium text-base">
+                                  {card.firstName} {card.lastName}
+                                </div>
+                                <div className="text-sm text-gray-200">
+                                  {card.address}, {card.city}, {card.province}{" "}
+                                  {card.postalCode}
+                                </div>
+                                <div className="font-medium text-sm">
+                                  {card.email}
+                                </div>
+                                <div className="font-medium text-sm">
+                                  {card.phoneNumber}
+                                </div>
+                              </div>
+                            </div>
+                          </DrawerClose>
+                        ))}
+                      </DrawerTrigger>
+                    )}
+                  </DrawerContent>
+                </Drawer>
               </div>
+
+              {/* divider */}
+              <div className="bg-gray-200/40 w-full h-[0.25px] "></div>
+              {/* inputs */}
+              <div></div>
               <div>
                 <div className="flex flex-col pt-4">
                   <div className="font-medium text-lg">Additional Info</div>
@@ -366,15 +443,6 @@ const Billing = (props: Props) => {
                     className="resize-none focus-visible:outline-green-400/40 focus-visible:border-none"
                   />
                 </div>
-              </div>
-              <div className="flex items-center gap-3 pt-4">
-                <Checkbox />
-                <label
-                  htmlFor="terms"
-                  className=" text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Save details for next time.
-                </label>
               </div>
             </div>
           </div>
