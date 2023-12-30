@@ -1,13 +1,19 @@
 "use client";
 import { Button, ClientOnly, Container } from "@/components/common";
 import SideMenu from "@/components/common/layout/side-menu";
-import { Input } from "@/components/common/ui/input";
 
 import React, { useState } from "react";
-import { CitySelect, ProvinceSelect } from "../Billing/selectcomponent";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { AddressDetails } from "@/data/address-book";
 import SideMenuMobile from "@/components/common/layout/side-menu-mobile";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/common/ui/dialog";
+import { AddAddress } from "./add-address/add-address";
+import EditAddress from "./edit-address/edit-address";
 
 export default function AddressBookPage() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -35,98 +41,26 @@ export default function AddressBookPage() {
             <div className="block lg:hidden">
               <SideMenuMobile />
             </div>
-            <div className="gap-8 w-full border border-gray-50 rounded-lg pt-4 px-4">
-              <div className="font-medium py-4 text-lg">Address Settings</div>
-              <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
-              <div className="flex flex-col gap-4 py-6">
-                <div>
-                  <div className="">Address name</div>
-                  <div className="pt-2">
-                    <Input
-                      className=" rounded-md border-gray-200/40"
-                      placeholder="Your first name"
-                      defaultValue="Home address"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col md:flex-row gap-4">
-                  {" "}
-                  {/* input name */}
-                  <div className="flex-1 ">
-                    <div>First name</div>
-                    <div className="pt-2">
-                      <Input
-                        className=" rounded-md border-gray-200/40"
-                        placeholder="Your first name"
-                      />
+            <div className="w-full border border-gray-50 rounded-lg px-4">
+              <div className="flex items-center justify-between py-2">
+                <div className="font-medium py-4 text-lg">Address Settings</div>
+                <Dialog>
+                  <DialogTrigger>
+                    <Button size="sm" variant="outline">
+                      Add address
+                      <PlusIcon className="w-[12px] ml-2" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-gray-0">
+                    <DialogHeader className="text-lg font-medium">
+                      Address Details
+                    </DialogHeader>
+                    <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
+                    <div>
+                      <AddAddress />
                     </div>
-                  </div>
-                  <div className="flex-1">
-                    <div>Last name</div>
-                    <div className="pt-2">
-                      <Input
-                        className="rounded-md border-gray-200/40"
-                        placeholder="Your last name"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  {" "}
-                  {/* input street */}
-                  <div>Street Address</div>
-                  <div className="pt-2">
-                    <Input
-                      className="rounded-md border-gray-200/40"
-                      placeholder="Your address"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col md:flex-row lg:gap-5 gap-2">
-                  <div className="flex-1">
-                    <div>Province/state</div>
-                    <div className=" pt-2">
-                      <ProvinceSelect />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div>City</div>
-                    <div className="pt-2">
-                      <CitySelect />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex">Zip Code</div>
-                    <div className="pt-2">
-                      <Input
-                        className="rounded-md border-gray-200/40"
-                        placeholder="Zip Code"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col md:flex-row gap-4">
-                  {" "}
-                  {/* input name */}
-                  <div className="flex-1 ">
-                    <div>Email</div>
-                    <div className="pt-2">
-                      <Input
-                        className=" rounded-md border-gray-200/40"
-                        placeholder="Email address"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div>Phone</div>
-                    <div className="pt-2">
-                      <Input
-                        className="rounded-md border-gray-200/40"
-                        placeholder="Phone number"
-                      />
-                    </div>
-                  </div>
-                </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -152,10 +86,9 @@ export default function AddressBookPage() {
                         {card.contactNumber}
                       </div>
                       <div className="pt-4">
-                        <Button variant="ghost" size="sm">
-                          Edit Address
-                          <Pencil className="w-[12px] ml-2" />
-                        </Button>
+                        <div>
+                          <EditAddress param={"params"} />
+                        </div>
                       </div>
                     </div>
                     <div>

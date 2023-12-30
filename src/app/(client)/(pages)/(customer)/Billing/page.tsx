@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { CitySelect, ProvinceSelect } from "./selectcomponent";
 import {
   Accordion,
   AccordionContent,
@@ -24,6 +23,7 @@ import {
 } from "./form/select";
 import { Summary } from "./summary";
 import productList from "@/data/products/product-details";
+import { CitySelect, ProvinceSelect } from "./selectcomponent";
 
 type Props = {};
 const Billing = (props: Props) => {
