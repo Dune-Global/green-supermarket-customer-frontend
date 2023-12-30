@@ -28,3 +28,10 @@ export const createOrder = async (
     throw error;
   }
 };
+
+export const orderSuccess = async (orderId: number) => {
+  try {
+    const response = await axios.get(`/order/payment-success/${orderId}`);
+    return response.data;
+  } catch (error) {}
+};
