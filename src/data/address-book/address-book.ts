@@ -9,7 +9,8 @@ const card = [
         province: "Western",
         zipcode: "10500",
         email: "johnsmith@gmail.com",
-        contactNumber: "(+94) 77 1234567"
+        contactNumber: "(+94) 77 1234567",
+        button: "Edit address"
     },
     {
         id: 2,
@@ -21,7 +22,8 @@ const card = [
         province: "Western",
         zipcode: "10500",
         email: "johnsmith@gmail.com",
-        contactNumber: "(+94) 77 1234567"
+        contactNumber: "(+94) 77 1234567",
+        button: "Edit address"
     },
     {
         id: 3,
@@ -33,7 +35,8 @@ const card = [
         province: "Western",
         zipcode: "10500",
         email: "johnsmith@gmail.com",
-        contactNumber: "(+94) 77 1234567"
+        contactNumber: "(+94) 77 1234567",
+        button: "Edit address"
     },
     {
         id: 4,
@@ -45,10 +48,11 @@ const card = [
         province: "Western",
         zipcode: "10500",
         email: "johnsmith@gmail.com",
-        contactNumber: "(+94) 77 1234567"
+        contactNumber: "(+94) 77 1234567",
+        button: "Edit address"
     },
     {
-        id: 4,
+        id: 5,
         addressName: "Home",
         firstName: "John",
         lastName: "Smith",
@@ -57,7 +61,8 @@ const card = [
         province: "Western",
         zipcode: "10500",
         email: "johnsmith@gmail.com",
-        contactNumber: "(+94) 77 1234567"
+        contactNumber: "(+94) 77 1234567",
+        button: "Edit address"
     },
 ];
   

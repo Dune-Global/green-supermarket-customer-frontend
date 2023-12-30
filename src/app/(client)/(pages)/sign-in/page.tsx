@@ -53,7 +53,7 @@ const Signin = (props: Props) => {
   const backToHome = () => {
     setTimeout(() => {
       window.location.href = "/";
-    }, 2000);
+    }, 800);
   };
 
   const form = useForm<z.infer<typeof formSchema>>({

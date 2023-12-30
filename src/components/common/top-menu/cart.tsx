@@ -25,15 +25,16 @@ import { Skeleton } from "@/components/common/ui/skeleton";
 const Cart = () => {
   const [cart, setCart] = useState([]);
 
-  const totalPrice = cart.reduce(
-    (total, product: any) => total + product.product.currentPrice,
-    0
-  );
+  // const totalPrice = cart.reduce(
+  //   (total, product: any) => total + product.product.cartItems.currentPrice,
+  //   0
+  // );
 
   const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const [user, setUser] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const decode = async () => {
@@ -48,7 +49,8 @@ const Cart = () => {
         const { data } = res;
         const { cartId } = data;
         const cartItems = await getCartItems(cartId);
-        setCart(cartItems);
+        setTotal(cartItems.totalAmount);
+        setCart(cartItems.cartItems);
         setUser(true);
         setLoading(false);
       } catch (error) {
@@ -65,12 +67,14 @@ const Cart = () => {
     }
   }, [cart, loading]);
 
+ 
+
   return (
     <ClientOnly>
       {loading ? (
         <div className="flex flex-row justify-center items-center gap-2">
-        <Skeleton className="w-[100px] h-[20px] rounded-md" />
-      </div>
+          <Skeleton className="w-[100px] h-[20px] rounded-md" />
+        </div>
       ) : (
         <div className="flex justify-end">
           <Sheet>
@@ -86,7 +90,9 @@ const Cart = () => {
                     {cart.length}
                   </span>
                 </div>
-                <span className="text-xs pl-4">{formatPrice(totalPrice)}</span>
+                <span className="text-xs pl-4">
+                  {formatPrice(total)}
+                </span>
               </SheetTrigger>
             )}
             {isMobile && (
@@ -112,9 +118,10 @@ const Cart = () => {
                     </SheetHeader>
                     <div className="flex w-full flex-col pr-6 overflow-y-auto max-h-[calc(100dvh-230px)] md:max-h-[calc(100dvh-250px)]">
                       {/* TODO: Cart logic */}
-                      {cart.map((product:any, index) => (
+                      {cart.map((product: any, index) => (
                         <div key={index}>
                           <ProductCard
+                            quantity={product.quantity}
                             mainCategoryId={product.product.mainCategoryId}
                             subCatOneId={product.product.l1CategoryId}
                             subCatOneName={product.product.subCatOneName}
@@ -140,14 +147,16 @@ const Cart = () => {
                       </div>
                       <div className="flex text-xs md:text-sm">
                         <span className="flex-1">Total</span>
-                        <span>{formatPrice(totalPrice)}</span>
+                        <span>
+                          {formatPrice(total)}
+                          </span>
                       </div>
                     </div>
                     <div className="h-full flex flex-col w-full">
                       <SheetFooter>
                         <div className="flex flex-col w-full gap-y-4">
                           <SheetTrigger asChild>
-                            <Link href="/checkout">
+                            <Link href="/Billing">
                               <Button className="w-full">Checkout</Button>
                             </Link>
                           </SheetTrigger>
@@ -162,9 +171,7 @@ const Cart = () => {
               ) : (
                 <>
                   <SheetHeader className="space-y-2.5 pr-6">
-                    <SheetTitle>
-                      Shopping Cart ({cart.length})
-                    </SheetTitle>
+                    <SheetTitle>Shopping Cart ({cart.length})</SheetTitle>
                   </SheetHeader>
                   <div className="flex h-full flex-col items-center justify-center space-y-1">
                     <div

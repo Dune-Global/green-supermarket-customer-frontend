@@ -172,7 +172,7 @@ export default function NavigationMenuAvatar() {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <Link href="sign-in">
+                <Link href="/sign-in">
                   <span>{AvatarNavDetails[5].name}</span>
                 </Link>
               </DropdownMenuItem>

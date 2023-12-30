@@ -398,6 +398,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@payhere-js-sdk/client@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@payhere-js-sdk/client/-/client-1.0.4.tgz#24f559c923d04f90ad70600c679291a644e803d2"
+  integrity sha512-1TwaItrlY8RqYsvPGgNS+7bCZmCzCynZN3tFxg9K9128170kKR+yLw8YjdCiVoaTSnV+RirCjmKUf5wx82sN0w==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"

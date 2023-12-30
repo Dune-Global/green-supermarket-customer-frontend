@@ -16,6 +16,7 @@ type CardProps = {
   subCatTwoId?: number;
   subCatTwoName?: string;
   cartItemId?: number;
+  quantity?: number;
   productId: number;
   productName: string;
   productImage: string;
@@ -38,6 +39,7 @@ const ProductCard: React.FC<CardProps> = ({
   measuringUnit,
   discountRate,
   cartItemId,
+  quantity,
   variant = "default",
 }: CardProps) => {
   const showOutOfStock = stockAvailableUnits === 0;
@@ -161,9 +163,12 @@ const ProductCard: React.FC<CardProps> = ({
             />
             <div className="flex flex-col">
               <h3 className="text-sm ">{productName}</h3>
-              <span className="font-semibold text-xs">
-                {formatPrice(currentPrice)}
-              </span>
+              <div className="flex flex-row w-full gap-3">
+                <span className="font-semibold text-xs ">
+                  {formatPrice(currentPrice)}
+                </span>
+                <span className="font-semibold text-xs text-gray-400">X {quantity}</span>
+              </div>
             </div>
           </div>
           <div className="transition-all group hover:border-red-400 border border-gray-400 rounded-full p-[2px] cursor-pointer">
