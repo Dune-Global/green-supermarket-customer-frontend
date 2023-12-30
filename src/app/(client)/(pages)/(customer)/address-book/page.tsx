@@ -3,7 +3,7 @@ import { Button, ClientOnly, Container } from "@/components/common";
 import SideMenu from "@/components/common/layout/side-menu";
 
 import React, { useState } from "react";
-import { Trash2, Pencil, PlusIcon } from "lucide-react";
+import { Trash2, PlusIcon } from "lucide-react";
 import { AddressDetails } from "@/data/address-book";
 import SideMenuMobile from "@/components/common/layout/side-menu-mobile";
 import {
@@ -12,22 +12,26 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/common/ui/dialog";
+
 import { AddAddress } from "./add-address/add-address";
 import EditAddress from "./edit-address/edit-address";
+import { useRouter } from "next/navigation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/common/layout/alert-dialog";
 
 export default function AddressBookPage() {
-  const [showConfirmation, setShowConfirmation] = useState(false);
-
-  const handleDeleteAddress = () => {
-    setShowConfirmation(true);
-  };
-
-  const handleConfirmDelete = () => {
-    setShowConfirmation(false);
-  };
-
-  const handleCancelDelete = () => {
-    setShowConfirmation(false);
+  const router = useRouter();
+  const removeAddress = () => {
+    router.push("/address-book");
   };
 
   return (
@@ -91,10 +95,38 @@ export default function AddressBookPage() {
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <button onClick={handleDeleteAddress}>
-                        <Trash2 className="w-[20px] text-gray-400 hover:text-red-400/80 fill-gray-" />
-                      </button>
+                    <div className="flex items-start justify-end pt-1 pr-1">
+                      <AlertDialog>
+                        <AlertDialogTrigger>
+                          <Trash2
+                            size={20}
+                            strokeWidth={2}
+                            className="text-gray-200 hover:text-red-400/80"
+                          />
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you sure you want to delete?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This address will be removed from your saved
+                              addresses. application.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel className="border-red-400 text-red-400 hover:border-red-400/80 hover:text-red-400/80">
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={removeAddress}
+                              className="bg-red-400 hover:bg-red-400/90"
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </div>
                 </div>
@@ -102,31 +134,6 @@ export default function AddressBookPage() {
             </div>
           </div>
         </div>
-
-        {showConfirmation && (
-          <div className=" fixed inset-0 flex items-center justify-center bg-gray-0 z-40">
-            <div className="bg-white p-4 border border-gray-50 rounded-lg ">
-              <div className="text-center ">
-                <div className="text-lg pb-5">Delete Address</div>
-                <p>Are you sure you want to delete this address?</p>
-              </div>
-              <div className="flex justify-center mt-4">
-                <Button
-                  onClick={handleConfirmDelete}
-                  className="bg-red-400 hover:bg-red-600"
-                >
-                  Delete
-                </Button>
-                <Button
-                  onClick={handleCancelDelete}
-                  className="ml-2 bg-gray-0 border-2 border-red-400 text-gray-200 hover:border-red-600 hover:bg-gray-0"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
       </Container>
     </ClientOnly>
   );

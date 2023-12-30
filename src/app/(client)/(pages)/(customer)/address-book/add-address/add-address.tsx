@@ -81,6 +81,7 @@ export function AddAddress() {
     toast({
       title: "You have successfully added a new address!",
     });
+    window.location.reload();
   }
 
   return (
@@ -267,5 +268,8 @@ export function AddAddress() {
         </div>
       </form>
     </Form>
+    
   );
 }
+
+
