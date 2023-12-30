@@ -137,9 +137,11 @@ const ProductCard: React.FC<CardProps> = ({
             {productName}
           </h3>
           <div className="flex flex-col md:flex-row mt-2 md:mt-0 md:gap-3 justify-center items-center ">
-            <span className=" md:mt-0 md:-mb-0 text-xs text-gray-400 line-through">
-              {originalPrice && formatPrice(originalPrice)}
-            </span>
+            {discountRate && (
+              <span className=" md:mt-0 md:-mb-0 text-xs text-gray-400 line-through">
+                {originalPrice && formatPrice(originalPrice)}
+              </span>
+            )}
             <div className="flex justify-center items-center">
               <span className="text-xs text-green-400 font-medium">
                 {formatPrice(currentPrice)}
@@ -167,7 +169,9 @@ const ProductCard: React.FC<CardProps> = ({
                 <span className="font-semibold text-xs ">
                   {formatPrice(currentPrice)}
                 </span>
-                <span className="font-semibold text-xs text-gray-400">X {quantity}</span>
+                <span className="font-semibold text-xs text-gray-400">
+                  X {quantity}
+                </span>
               </div>
             </div>
           </div>

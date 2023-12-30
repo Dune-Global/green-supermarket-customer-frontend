@@ -22,9 +22,7 @@ import { HomeIcon, ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { Separator } from "@/components/common/top-menu/separator";
-
 import { useToast } from "@/components/common/ui/toast/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
@@ -226,7 +224,7 @@ export default function Page({ params }: { params: { item: number } }) {
             {loading ? (
               imageSkeleton()
             ) : (
-              <div className="flex gap-0 md:gap-4 w-60">
+              <div className="flex gap-0 md:gap-4 w-60 md:w-auto">
                 <div>
                   <Image
                     src={product.productImage}
