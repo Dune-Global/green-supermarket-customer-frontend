@@ -1,17 +1,32 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 
-const Counter: React.FC = () => {
-  const [count, setCount] = useState<number>(0.5);
+interface CounterProps {
+  measuringUnit: string;
+}
+
+const Counter: React.FC<CounterProps> = ({ measuringUnit }) => {
+  const initialCount = measuringUnit === "kg" ? 0.5 : 1;
+  const [count, setCount] = useState<number>(initialCount);
 
   const increment = () => {
-    setCount((prevCount) => parseFloat((prevCount + 0.1).toFixed(1)));
+    const step = measuringUnit === "kg" ? 0.1 : 1;
+    const newCount = count + step;
+    if (measuringUnit === "kg" && newCount >= 0.5) {
+      setCount(parseFloat(newCount.toFixed(1)));
+    } else if (measuringUnit === "unit" && newCount >= 1) {
+      setCount(Math.floor(newCount));
+    }
   };
 
   const decrement = () => {
-    if (count > 0) {
-      setCount((prevCount) => parseFloat((prevCount - 0.1).toFixed(1)));
+    const step = measuringUnit === "kg" ? 0.1 : 1;
+    const newCount = count - step;
+    if (measuringUnit === "kg" && newCount >= 0.5) {
+      setCount(parseFloat(newCount.toFixed(1)));
+    } else if (measuringUnit === "unit" && newCount >= 1) {
+      setCount(Math.floor(newCount));
     }
   };
 
@@ -20,13 +35,13 @@ const Counter: React.FC = () => {
       <div className="text-xl">
         <button
           onClick={decrement}
-          disabled={count === 0.5}
+          disabled={(measuringUnit === "kg" && count === 0.5) || (measuringUnit === "unit" && count === 1)}
           className="hover:bg-gray-50 hover:rounded-full px-2"
         >
           -
         </button>
       </div>
-      <div className="text-lg">{count.toFixed(1)}</div>
+      <div className="text-lg">{count}</div>
       <div className="text-xl">
         <button
           onClick={increment}

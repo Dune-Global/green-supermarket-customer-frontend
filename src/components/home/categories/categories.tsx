@@ -53,7 +53,7 @@ export default function Categories() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {loading
               ? renderSkeletons()
-              : categories.map((component) => (
+              : categories?.map((component) => (
                   <div key={component.mainCategoryId}>
                     <Link href={`/products/${component.mainCategoryId}`}>
                       <div className="border border-gray-50 hover:border-green-400 hover:shadow-md hover:shadow-green-400/20 rounded-lg flex flex-col items-center p-4 py-6">

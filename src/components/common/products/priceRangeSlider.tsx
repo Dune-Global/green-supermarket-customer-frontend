@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { ProductList } from "@/data"; // Import your product data file
+import { IProductDetailsData } from "@/types";
+import { getAllProducts } from "@/helpers";
+import { getAllProductsWithSub } from "@/helpers/getAllProductsWithSub";
 
 interface RangeType {
   min: number;
@@ -21,6 +24,30 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
   selectedCategoryId,
   selectedSubCategory,
 }) => {
+  const [allProducts, setAllProducts] = useState<IProductDetailsData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const fetchedCategories: IProductDetailsData[] =
+          await getAllProductsWithSub();
+        setAllProducts(fetchedCategories);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(allProducts);
+    }
+  }, [allProducts, loading]);
+
   const [maxCurrentPrice, setMaxCurrentPrice] = useState<number>(50000);
   const [range, setRange] = useState<RangeType>({
     min: 0,
@@ -29,7 +56,7 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
 
   useEffect(() => {
     const updateMaxCurrentPrice = () => {
-      const filteredProducts = ProductList.filter(
+      const filteredProducts = allProducts.filter(
         (product) =>
           (!selectedSubCategory ||
             product.l1Category.subCatOneName === selectedSubCategory) &&
@@ -46,7 +73,7 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
 
     // Update maxCurrentPrice after the initial render
     updateMaxCurrentPrice();
-  }, [selectedCategoryId, selectedSubCategory]);
+  }, [allProducts, selectedCategoryId, selectedSubCategory]);
 
   const handlePriceRangeChange = (value: number | number[]) => {
     if (Array.isArray(value)) {
@@ -57,6 +84,8 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
       onPriceRangeChange({ min: 0, max: value });
     }
   };
+
+  console.log(selectedCategoryId, selectedSubCategory);
 
   return (
     <div className="flex flex-col gap-2 px-3 mt-6">

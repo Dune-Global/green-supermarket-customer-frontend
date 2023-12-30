@@ -24,6 +24,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+      <head>
+        {/* Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-4GFZCSLYWR"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-4GFZCSLYWR');
+              `,
+          }}
+        ></script>
+      </head>
       <body className={cn("relative h-full antialiased", poppins.className)}>
         <main className="relative flex flex-col min-h-screen">
           <Toaster />
