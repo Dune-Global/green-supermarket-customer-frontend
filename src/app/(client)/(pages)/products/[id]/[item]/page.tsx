@@ -211,7 +211,7 @@ export default function Page({ params }: { params: { item: number } }) {
               breadSkeleton()
             ) : (
               <>
-                <Link href={`/products/${product.mainCategory.mainCategoryId}`}>
+                <Link href={`/products/${product.l1Category.mainCategoryId}`}>
                   <div className={style.path}>{product.mainCategoryName}</div>
                 </Link>
                 <div className="text-md md:text-xl">&gt;</div>
@@ -287,6 +287,7 @@ export default function Page({ params }: { params: { item: number } }) {
                 <div className="pt-6 md:pt-10 flex items-center gap-4 w-full">
                   <div className="w-full">
                     <Button
+                      onClick={handleAddToCart}
                       className={`w-full ${
                         product.stockAvailableUnits > 0
                           ? ""
