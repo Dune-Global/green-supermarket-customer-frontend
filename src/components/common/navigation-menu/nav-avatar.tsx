@@ -121,12 +121,12 @@ export default function NavigationMenuAvatar() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+                <Link href="/profile">
               <DropdownMenuItem className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
-                <Link href="/profile">
                   <span>{AvatarNavDetails[2].name}</span>
-                </Link>
               </DropdownMenuItem>
+                </Link>
             </DropdownMenuGroup>
             <DropdownMenuItem className="cursor-pointer">
               <LogOut className="mr-2 h-4 w-4" />
@@ -170,18 +170,18 @@ export default function NavigationMenuAvatar() {
             <DropdownMenuLabel>{AvatarNavDetails[4].name}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <Link href="/sign-in">
+              <Link href="/sign-in">
+                <DropdownMenuItem>
+                  <User className="mr-2 h-4 w-4" />
                   <span>{AvatarNavDetails[5].name}</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <Link href="/create-account">
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/create-account" className="!cursor-pointer">
+                <DropdownMenuItem>
+                  <CreditCard className="mr-2 h-4 w-4" />
                   <span>{AvatarNavDetails[6].name}</span>
-                </Link>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -89,6 +89,7 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
           </ToastAction>
         ),
       });
+      window.location.reload();
     }
   }, [email]);
 
