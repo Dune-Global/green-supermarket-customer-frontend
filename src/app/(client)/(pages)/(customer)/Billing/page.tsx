@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CitySelect, ProvinceSelect } from "./selectcomponent";
 import {
   Accordion,
@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./form/accordion";
-import { Button, ClientOnly, Container } from "@/components/common";
+import { AuthLoader, Button, ClientOnly, Container } from "@/components/common";
 import { Checkbox } from "./form/checkbox";
 import { Input } from "@/components/common/ui/input";
 import shippinginfo from "./shippinginfo";
@@ -24,9 +24,172 @@ import {
 } from "./form/select";
 import { Summary } from "./summary";
 import productList from "@/data/products/product-details";
+import { decodeToken, getCartItems, viewAllAddresses } from "@/helpers";
+import { formatPrice } from "@/utils/shad-utils";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Payhere, AccountCategory } from "@payhere-js-sdk/client";
+import {
+  Customer,
+  CurrencyType,
+  PayhereCheckout,
+  CheckoutParams,
+} from "@payhere-js-sdk/client";
 
 type Props = {};
+
+Payhere.init(
+  "1225382",
+  AccountCategory.SANDBOX,
+  "MTM4OTgyOTM5ODQxNDUzODM3OTgyMzMxMjA1OTEzMTQ4MzIzNzgwNA=="
+);
+
 const Billing = (props: Props) => {
+  const [user, setUser] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([]);
+
+  const [total, setTotal] = useState(0);
+
+  const [generatedHash, setGeneratedHash] = useState("");
+
+  function onPayhereCheckoutError(errorMsg: any) {
+    alert(errorMsg);
+  }
+
+  function checkout(hash: any) {
+    const customer = new Customer({
+      first_name: "Demo",
+      last_name: "User",
+      phone: "+94771234567",
+      email: "user@example.com",
+      address: "No. 50, Highlevel Road",
+      city: "Panadura",
+      country: "Sri Lanka",
+    });
+
+    const checkoutData = new CheckoutParams({
+      returnUrl: `http://localhost:3000/return${hash}`,
+      cancelUrl: "http://localhost:3000/cancel",
+      notifyUrl: "https://www.green-supermarket.com/api/v1/order/payhere",
+      order_id: "112233",
+      itemTitle: "Demo Item",
+      currency: CurrencyType.LKR,
+      amount: total,
+      deliveryAddress: "No. 46, Galle Road, Kalutara South",
+      deliveryCity: "Kalutara",
+      deliveryCountry: "Sri Lanka",
+      hash: hash,
+      custom1: "",
+      custom2: "",
+      platform: "",
+    });
+
+    const checkout = new PayhereCheckout(
+      customer,
+      checkoutData,
+      onPayhereCheckoutError
+    );
+    checkout.start();
+  }
+
+  const generateHash = async () => {
+    try {
+      const response = await axios.post(
+        "https://www.green-supermarket.com/api/v1/payhere/generate-hash",
+        {
+          merchantID: 1225382,
+          merchantSecret:
+            "OTI2NDg2NDc5MzkyNzQyNDU2NjU2MzM1NTExOTExODk4NzQzODA=",
+          orderID: 112233,
+          amount: total,
+          currency: "LKR",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        const generatedHash = data.hash;
+        console.log(generatedHash);
+        setGeneratedHash(generatedHash);
+        checkout(generatedHash);
+      } else {
+        console.error("Failed to generate hash");
+        throw new Error("Failed to generate hash");
+      }
+    } catch (error) {
+      console.error("Error generating hash:", error);
+    }
+  };
+
+  useEffect(() => {
+    const decode = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+      if (!jwtToken) {
+        setUser(false);
+        setLoading(false);
+        return;
+      }
+      try {
+        const res = await decodeToken(jwtToken!);
+        const { data } = res;
+        const { cartId } = data;
+        const cartItems = await getCartItems(cartId);
+        setTotal(cartItems.totalAmount);
+        setCart(cartItems.cartItems);
+        setUser(true);
+        setLoading(false);
+      } catch (error) {
+        setUser(false);
+        setLoading(false);
+      }
+    };
+    decode();
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(cart);
+    }
+  }, [cart, loading]);
+
+  const router = useRouter();
+  const [tokenValid, setTokenValid] = useState(false);
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+
+      if (!jwtToken) {
+        router.push("/");
+        return;
+      }
+
+      try {
+        const { status } = await decodeToken(jwtToken);
+        if (status === 200) {
+          setTokenValid(true);
+        } else {
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        router.push("/");
+      }
+    };
+
+    checkTokenValidity();
+  }, [router]);
+
+  if (!tokenValid) {
+    return <AuthLoader />;
+  }
+
   return (
     <ClientOnly>
       <Container>
@@ -70,6 +233,7 @@ const Billing = (props: Props) => {
                         <Input
                           className=" rounded-md border-gray-200/40"
                           placeholder="Your first name"
+                          name="items"
                         />
                       </div>
                     </div>
@@ -199,12 +363,12 @@ const Billing = (props: Props) => {
             <div className="flex flex-col gap-3">
               <div className="flex w-full flex-col  overflow-y-auto max-h-[calc(100vh-230px)] md:max-h-[calc(100vh-250px)]">
                 {/* TODO: Cart logic */}
-                {productList.map((product, index) => (
+                {cart.map((product: any, index) => (
                   <div key={index} className="pr-5 py-2">
                     <Summary
-                      imageSrc={product.productImage}
-                      name={product.productName}
-                      price={product.currentPrice}
+                      imageSrc={product.product.productImage}
+                      name={product.product.productName}
+                      price={product.product.currentPrice}
                     />
                   </div>
                 ))}
@@ -219,7 +383,7 @@ const Billing = (props: Props) => {
                   </div>
                   <div className="flex text-sm pt-2 pb-4">
                     <span className="flex-1">Total</span>
-                    {/* <span>{formatPrice(total)}</span> */}
+                    <span>{formatPrice(total)}</span>
                   </div>
                   <div className="bg-gray-200/40 w-full h-[0.25px] mr-5"></div>
                 </div>
@@ -240,7 +404,9 @@ const Billing = (props: Props) => {
                   </div>
                 </div>
                 <div className="py-4">
-                  <Button className="w-full">Place Order</Button>
+                  <Button className="w-full" onClick={generateHash}>
+                    Place Order
+                  </Button>
                 </div>
               </div>
             </div>
@@ -252,3 +418,63 @@ const Billing = (props: Props) => {
 };
 
 export default Billing;
+
+// const [formData, setFormData] = useState({
+//   merchant_id: "1225340",
+//   return_url: "http://localhost:3001",
+//   cancel_url: "http://localhost:8080/api/v1/payhere/generate-hash",
+//   notify_url: "https://green-supermarket-customer-frontend.vercel.app/",
+//   order_id: "ItemNo12345",
+//   items: "Door bell wirelesss",
+//   currency: "LKR",
+//   amount: "100",
+//   first_name: "Samaan",
+//   last_name: "Pereraa",
+//   email: "wasath.vt@gmail.com",
+//   phone: "0771234561",
+//   address: "No.1, Galle Road,Col",
+//   city: "Colombos",
+//   country: "Sri Lankas",
+//   delivery_address: "No. 46, Galle road, Kalutara South",
+// });
+
+// console.log(total.toString());
+// console.log(formData.amount);
+
+// <div>
+//   <input
+//     type="text"
+//     name="order_id"
+//     value={formData.order_id}
+//     onChange={(e) =>
+//       setFormData({ ...formData, order_id: e.target.value })
+//     }
+//   />
+//   {/* Other form inputs... */}
+//   <button onClick={generateHash}>Generate Hash & Pay</button>
+// </div>
+
+// const redirectToPaymentCheckout = (hash: any) => {
+//   const form = document.createElement("form");
+//   form.method = "POST";
+//   form.action = "https://sandbox.payhere.lk/pay/checkout";
+
+//   Object.keys(formData).forEach((key) => {
+//     if (key !== "hash") {
+//       const input = document.createElement("input");
+//       input.type = "hidden";
+//       input.name = key;
+//       input.value = formData[key as keyof typeof formData];
+//       form.appendChild(input);
+//     }
+//   });
+
+//   const hashInput = document.createElement("input");
+//   hashInput.type = "hidden";
+//   hashInput.name = "hash";
+//   hashInput.value = hash;
+//   form.appendChild(hashInput);
+
+//   document.body.appendChild(form);
+//   form.submit();
+// };
