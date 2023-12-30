@@ -42,16 +42,6 @@ export default function Page({ params }: { params: { id: number } }) {
           style={{ width: "80%" }}
         />
       </div>
-      // <div
-      //   key={index}
-      //   className="border border-gray-50 flex items-center space-x-4 rounded-lg justify-between flex-col  p-4 py-8 h-64 md:h-[350px] gap-3"
-      // >
-      //   <Skeleton className="h-10 md:h-56 md:w-[170px] rounded-md" />
-      //   <div className="space-y-2">
-      //     <Skeleton className="h-4 w-[250px]" />
-      //     <Skeleton className="h-4 w-[200px]" />
-      //   </div>
-      // </div>
     ));
   };
 
