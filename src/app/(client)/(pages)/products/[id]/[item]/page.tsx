@@ -200,7 +200,9 @@ export default function Page({ params }: { params: { item: number } }) {
         <div key={product.productId}>
           <div className="flex items-center gap-2 md:gap-3">
             <div className="text-gray-600">
-              <HomeIcon className="h-[14px] md:h-[20px]" />
+              <Link href="/">
+                <HomeIcon className="h-[14px] md:h-[20px]" />
+              </Link>
             </div>
             <div className="text-md md:text-xl">&gt;</div>
             <div className={style.path}>Category</div>
