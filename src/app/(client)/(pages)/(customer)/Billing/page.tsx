@@ -29,6 +29,17 @@ import {
 } from "@/components/common/ui/drawer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/common/ui/hover-card";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/common/ui/alert";
+import { Terminal, CreditCard } from "lucide-react";
 
 type Props = {};
 
@@ -49,7 +60,10 @@ const Billing = (props: Props) => {
   const [isBillingDrawerOpen, setIsBillingDrawerOpen] = useState(false);
   const [isShippingDrawerOpen, setIsShippingDrawerOpen] = useState(false);
   const [billingAddress, setBillingAddress] = useState(1);
-  const [shippingAddress, setShippingAddress] = useState(1);
+  const [shippingAddress, setShippingAddress] = useState(0);
+  const [dontPay, setDontPay] = useState(false);
+
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   function onPayhereCheckoutError(errorMsg: any) {
     alert(errorMsg);
@@ -70,7 +84,7 @@ const Billing = (props: Props) => {
     });
 
     const checkoutData = new CheckoutParams({
-      returnUrl: `http://localhost:3000/return${hash}`,
+      returnUrl: `${BASE_URL}/order-success/${orderId}`,
       cancelUrl: "http://localhost:3000/cancel",
       notifyUrl: `https://www.green-supermarket.com/api/v1/order/payhere/${orderId}`,
       order_id: orderId.toString(),
@@ -95,7 +109,7 @@ const Billing = (props: Props) => {
   }
 
   const generateHash = async () => {
-setGlobalLoading(true);
+    setGlobalLoading(true);
     try {
       const res = await createOrder(
         userId,
@@ -240,6 +254,33 @@ setGlobalLoading(true);
   return (
     <ClientOnly>
       <Container>
+        <div className="mt-5 flex">
+          <div>
+            <Alert variant={"destructive"}>
+              <CreditCard className="h-4 w-4" />
+              <AlertTitle>Sandbox Alert!</AlertTitle>
+              <div>
+                <AlertDescription>
+                  Please make sure to COPY one of the following card numbers{" "}
+                </AlertDescription>
+                <div className="mt-3">
+                  <AlertDescription>
+                    <span className="font-medium">VISA:</span>{" "}
+                    <samp>4916217501611292</samp>
+                  </AlertDescription>
+                  <AlertDescription>
+                    <span className="font-medium">MASTER:</span>{" "}
+                    <samp>5307732125531191</samp>
+                    <AlertDescription>
+                      <span className="font-medium">AMEX:</span>{" "}
+                      <samp>346781005510225</samp>
+                    </AlertDescription>
+                  </AlertDescription>
+                </div>
+              </div>
+            </Alert>
+          </div>
+        </div>
         <div className="flex md:flex-row flex-col gap-8 lg:my-5 my-3 pt-[24px]">
           <div className="w-full flex flex-col ">
             <div className=" flex flex-col  gap-4">
@@ -295,7 +336,10 @@ setGlobalLoading(true);
                                 ? "border-green-400"
                                 : "border-gray-50"
                             } rounded-lg p-4`}
-                            onClick={() => handleBillingDrawerClose(card.id)}
+                            onClick={() => {
+                              setDontPay(true);
+                              handleBillingDrawerClose(card.id);
+                            }}
                           >
                             <div className="flex gap-4 justify-between">
                               <div className="flex flex-col gap-3">
@@ -370,7 +414,10 @@ setGlobalLoading(true);
                                 ? "border-green-400"
                                 : "border-gray-50"
                             } rounded-lg p-4`}
-                            onClick={() => handleShippingDrawerClose(card.id)}
+                            onClick={() => {
+                              setDontPay(true);
+                              handleShippingDrawerClose(card.id);
+                            }}
                           >
                             <div className="flex gap-4 justify-between">
                               <div className="flex flex-col gap-3">
@@ -452,25 +499,20 @@ setGlobalLoading(true);
                   <div className="bg-gray-200/40 w-full h-[0.25px] mr-5"></div>
                 </div>
                 {/* Radio Group */}
-                <div className="flex flex-col gap-3 pt-4">
-                  <div>Payment Method</div>
-                  <div>
-                    <RadioGroup defaultValue="comfortable" className="text-sm">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="default" id="r1" />
-                        <label htmlFor="r1">Cash on Delivery</label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="comfortable" id="r2" />
-                        <label htmlFor="r2">Credit / Debit Card</label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-                </div>
-                <div className="py-4">
-                  <Button className="w-full" onClick={generateHash} loading={globalLoading}>
+                <div className="py-4 flex flex-col w-full justify-center items-center gap-4">
+                  <Button
+                    disabled={!dontPay}
+                    className="w-full"
+                    onClick={generateHash}
+                    loading={globalLoading}
+                  >
                     Place Order
                   </Button>
+                  {!dontPay && (
+                    <div className="text-sm text-red-400 ">
+                      *Please select a shipping address
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -482,4 +524,3 @@ setGlobalLoading(true);
 };
 
 export default Billing;
-
