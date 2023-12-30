@@ -64,7 +64,7 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
   useEffect(() => {
     const sendOrderSuccessEmail = async () => {
       try {
-        const res = await orderSuccess(49);
+        const res = await orderSuccess(params.id);
         console.warn(res);
         await sendMail(
           email,
