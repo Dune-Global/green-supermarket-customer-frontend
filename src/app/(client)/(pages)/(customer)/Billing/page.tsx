@@ -69,6 +69,7 @@ const Billing = (props: Props) => {
   const [user, setUser] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
+  const [globalLoading, setGlobalLoading] = useState(false);
 
   const [total, setTotal] = useState(0);
   const [generatedHash, setGeneratedHash] = useState("");
@@ -121,6 +122,7 @@ const Billing = (props: Props) => {
   }
 
   const generateHash = async () => {
+setGlobalLoading(true);
     try {
       const res = await createOrder(
         userId,
@@ -138,9 +140,8 @@ const Billing = (props: Props) => {
         const response = await axios.post(
           "https://www.green-supermarket.com/api/v1/payhere/generate-hash",
           {
-            merchantID: 1225382,
-            merchantSecret:
-              "OTI2NDg2NDc5MzkyNzQyNDU2NjU2MzM1NTExOTExODk4NzQzODA=",
+            merchantID: process.env.NEXT_PUBLIC_MERCHANT_ID,
+            merchantSecret: process.env.NEXT_PUBLIC_MERCHANT_SECRET as string,
             orderID: updatedOrderId,
             amount: total,
             currency: "LKR",
@@ -162,6 +163,7 @@ const Billing = (props: Props) => {
           console.error("Failed to generate hash");
           throw new Error("Failed to generate hash");
         }
+        setGlobalLoading(false);
       } catch (error) {
         console.error("Error generating hash:", error);
       }
@@ -493,7 +495,7 @@ const Billing = (props: Props) => {
                   </div>
                 </div>
                 <div className="py-4">
-                  <Button className="w-full" onClick={generateHash}>
+                  <Button className="w-full" onClick={generateHash} loading={globalLoading}>
                     Place Order
                   </Button>
                 </div>
