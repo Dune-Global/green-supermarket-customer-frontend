@@ -41,8 +41,8 @@ export default function RootLayout({
           }}
         ></script>
       </head>
-      <body className={cn("relative h-full antialiased", poppins.className)}>
-        <main className="relative flex flex-col min-h-screen">
+      <body  className={cn("relative h-full antialiased", poppins.className)}>
+        <main vaul-drawer-wrapper="" className="z-20 relative flex flex-col min-h-screen bg-gray-0">
           <Toaster />
           <div className="sticky top-0 z-50">
             <TopMenu />
