@@ -1,30 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { CitySelect, ProvinceSelect } from "./selectcomponent";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./form/accordion";
 import { AuthLoader, Button, ClientOnly, Container } from "@/components/common";
-import { Checkbox } from "./form/checkbox";
-import { Input } from "@/components/common/ui/input";
-import shippinginfo from "./shippinginfo";
 import { Textarea } from "./form/textarea";
 import { RadioGroup, RadioGroupItem } from "./form/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectLabel,
-  SelectGroup,
-} from "./form/select";
 import { Summary } from "./summary";
-import productList from "@/data/products/product-details";
 
 import {
   decodeToken,
@@ -42,20 +21,14 @@ import {
   PayhereCheckout,
   CheckoutParams,
 } from "@payhere-js-sdk/client";
-import { AddressDetails } from "@/data/address-book";
-import EditAddress from "../address-book/edit-address/edit-address";
-import { Trash2 } from "lucide-react";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/common/ui/drawer";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
