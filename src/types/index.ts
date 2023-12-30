@@ -10,3 +10,5 @@ export * from "./main-category";
 export * from "./main-category-nav";
 export * from "./product-details";
 export * from "./best-selling-details";
+export * from "./order-history";
+export * from "./customer-details";

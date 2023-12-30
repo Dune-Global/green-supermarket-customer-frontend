@@ -7,7 +7,8 @@ import Link from "next/link";
 
 export default function ShoppingCart() {
   const totalPrice = ProductList.reduce(
-    (total, product) => total + product.currentPrice,
+    (total: number, product: { currentPrice: number }) =>
+      total + product.currentPrice,
     0
   );
 

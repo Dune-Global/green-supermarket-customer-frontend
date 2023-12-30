@@ -17,6 +17,7 @@ import { HomeIcon, ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Separator } from "@/components/common/top-menu/separator";
 
 export default function Page({ params }: { params: { item: number } }) {
   const [product, setProduct] = useState<IProductDetailsData>({} as any);
@@ -99,7 +100,7 @@ export default function Page({ params }: { params: { item: number } }) {
 
   return (
     <Container>
-      <div className="pt-[60px]">
+      <div className="pt-[15px] md:pt-[45px] lg:pt-[60px]">
         <div key={product.productId}>
           <div className="flex items-center gap-2 md:gap-3">
             <div className="text-gray-600">
@@ -112,7 +113,9 @@ export default function Page({ params }: { params: { item: number } }) {
               breadSkeleton()
             ) : (
               <>
-                <div className={style.path}>{product.mainCategoryName}</div>
+                <Link href={`/products/${product.mainCategory.mainCategoryId}`}>
+                  <div className={style.path}>{product.mainCategoryName}</div>
+                </Link>
                 <div className="text-md md:text-xl">&gt;</div>
                 <div className="font-medium text-xs md:text-sm lg:text-lg text-green-400">
                   {product.productName}
@@ -120,18 +123,19 @@ export default function Page({ params }: { params: { item: number } }) {
               </>
             )}
           </div>
-          <div className="flex flex-col md:flex-row pt-[60px] items-center justify-center gap-16 md:gap-12 lg:gap-24">
+          <Separator className="bg-green-400/20 my-3" />
+          <div className="flex flex-col md:flex-row pt-[12px] md:pt-[60px] items-center justify-center gap-4 md:gap-12 lg:gap-24">
             {loading ? (
               imageSkeleton()
             ) : (
-              <div className="flex gap-4">
+              <div className="flex gap-0 md:gap-4 w-60">
                 <div>
                   <Image
                     src={product.productImage}
                     alt="hero1"
                     width={120}
                     height={40}
-                    className="border-2 border-green-400 rounded-xl p-2"
+                    className="hidden md:flex border-2 border-green-400 rounded-xl p-2"
                   />
                 </div>
                 <div>
@@ -149,8 +153,8 @@ export default function Page({ params }: { params: { item: number } }) {
               textSkeleton()
             ) : (
               <div>
-                <div className="flex gap-2 md:gap-8 lg:gap-16">
-                  <div className="text-3xl lg:text-5xl font-semibold">
+                <div className="flex flex-wrap justify-between gap-4 md:gap-8 lg:gap-6">
+                  <div className="text-2xl lg:text-5xl font-semibold">
                     {product.productName}
                   </div>
                   <div
@@ -165,20 +169,32 @@ export default function Page({ params }: { params: { item: number } }) {
                       : "Out of Stock"}
                   </div>
                 </div>
-                <div className="pt-6 flex flex-row md:flex-col lg:flex-row gap-4 md:gap-2 lg:gap-4 text-gray-400 text-lg">
-                  <div className="flex gap-2">
-                    <div className="flex items-center">{product.rate}</div>
+                <div className="pt-5 md:pt-6 flex flex-row md:flex-col lg:flex-row gap-4 md:gap-2 lg:gap-4 text-gray-400 text-lg">
+                  <div className="flex gap-2 items-center">
+                    <div className="flex items-center text-sm md:text-lg">
+                      {product.rating.avgRating}
+                    </div>
                     <div className="flex items-center">
-                      <StarRating rating={product.rate} size={20} />
+                      <StarRating rating={product.rating.avgRating} size={18} />
+                    </div>
+                    <div className="flex items-center text-sm md:text-lg">
+                      ({product.rating.noOfRatings})
                     </div>
                   </div>
                 </div>
-                <div className="pt-10 text-2xl lg:text-4xl font-medium">
+                <div className="pt-6 md:pt-10 text-xl lg:text-4xl font-medium">
                   {formatPrice(product.currentPrice)} {product.measuringUnit}
                 </div>
-                <div className="pt-10 flex items-center gap-4 w-full">
+                <div className="pt-6 md:pt-10 flex items-center gap-4 w-full">
                   <div className="w-full">
-                    <Button className="w-full">
+                    <Button
+                      className={`w-full ${
+                        product.stockAvailableUnits > 0
+                          ? ""
+                          : "cursor-not-allowed opacity-50"
+                      }`}
+                      disabled={product.stockAvailableUnits <= 0}
+                    >
                       Add to cart
                       <ShoppingCartIcon className="pl-2 h-4" />
                     </Button>

@@ -43,5 +43,8 @@ export interface IProductDetailsData {
     discountEndDate: string;
     productId: number;
   } | null;
-  rate?: number;
+  rating: {
+    avgRating: float;
+    noOfRatings: number;
+  };
 }
