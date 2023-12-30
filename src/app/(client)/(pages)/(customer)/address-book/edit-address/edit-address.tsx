@@ -85,7 +85,7 @@ const formSchema = z.object({
 });
 
 const formStyles = {
-    errorMessage: "text-red-400 font-medium text-sm",
+  errorMessage: "text-red-400 font-medium text-sm",
 };
 
 function EditAddress({ param }: Props) {
@@ -95,9 +95,18 @@ function EditAddress({ param }: Props) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      addressName: "",
+      firstName: "",
+      lastName: "",
+      streetAddress: "",
+      province: "",
+      city: "",
+      zipcode: "",
+      email: "",
+      contactNumber: "",
+    },
   });
-
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -327,11 +336,8 @@ function EditAddress({ param }: Props) {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className="bg-gray-0 py-2">
-                                {CityNames.map((city) => (
-                                    <SelectItem
-                                      key={city.id}
-                                      value={city.name}
-                                    >
+                                  {CityNames.map((city) => (
+                                    <SelectItem key={city.id} value={city.name}>
                                       {city.name}
                                     </SelectItem>
                                   ))}

@@ -109,34 +109,28 @@ const SideMenu = (props: Props) => {
             </Link>
           ))}
           <AlertDialog>
-                  <AlertDialogTrigger
-                    className={`p-6 flex gap-3 border-l-4 border-gray-0 hover:bg-gray-50 hover:border-gray-50`}
-                  >
-                    <LogOut
-                      size={22}
-                      strokeWidth={2}
-                      className="text-gray-200"
-                    />
-                    <h2 className="text-gray-600">Sign Out</h2>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        You will be signed out of the application. You will need
-                        to sign in again to continue using the application.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={signOut}>
-                        Continue
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+            <AlertDialogTrigger
+              className={`p-6 flex gap-3 border-l-4 border-gray-0 hover:bg-gray-50 hover:border-gray-50`}
+            >
+              <LogOut size={22} strokeWidth={2} className="text-gray-200" />
+              <h2 className="text-gray-600">Sign Out</h2>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You will be signed out of the application. You will need to
+                  sign in again to continue using the application.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={signOut}>
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </div>
