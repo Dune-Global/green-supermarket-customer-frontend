@@ -1,0 +1,1 @@
+export { default as CityNames } from "./cities";
