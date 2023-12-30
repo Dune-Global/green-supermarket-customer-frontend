@@ -40,7 +40,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 1,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 2,
@@ -81,7 +84,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 2,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 3,
@@ -122,7 +128,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 2,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 4,
@@ -163,7 +172,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 4,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 5,
@@ -204,7 +216,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 5,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 6,
@@ -245,7 +260,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 6,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 7,
@@ -291,7 +309,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 7,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 8,
@@ -337,7 +358,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 8,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 9,
@@ -383,7 +407,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 9,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 10,
@@ -429,7 +456,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 10,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 11,
@@ -470,7 +500,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 11,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 12,
@@ -511,7 +544,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 12,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 13,
@@ -552,7 +588,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 13,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
   {
     productId: 14,
@@ -593,7 +632,10 @@ const productList: IProductDetailsData[] = [
       discountEndDate: "2021-01-31",
       productId: 14,
     },
-    rate: 4.5,
+    rating: {
+      avgRating: 4.0,
+      noOfRatings: 1,
+    },
   },
 ];
 
