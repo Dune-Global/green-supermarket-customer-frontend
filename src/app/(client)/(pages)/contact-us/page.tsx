@@ -6,50 +6,53 @@ export default function ContactUs() {
     <>
       <div className="items-center flex flex-col py-5 ">
         <Container>
-          <div className="flex flex-col text-center md:text-left gap-2 p-12 shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] rounded-xl my-12">
-            <div className="font-semibold">We are here to help you!</div>
-            <div className="md:w-[500px] text-left  text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              nec leo fringilla, aliquet risus a, porttitor mauris.
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <div className="flex md:flex-row flex-col items-center gap-2 ">
-                <Input
-                  type="/"
-                  placeholder="First Name"
-                  className="rounded-md md:w-[300px] focus-visible:outline-green-400/40  "
-                />
-                <Input
-                  type="/"
-                  placeholder="Last Name"
-                  className="rounded-md md:w-[300px] focus-visible:outline-green-400/40 "
-                />
+          <form
+            action="https://getform.io/f/3c176d14-2903-4ec9-b1f4-6ded5808a222"
+            method="POST"
+            className="space-y-3"
+          >
+            <div className="flex flex-col text-center md:text-left gap-2 p-12 shadow-[0_0px_15px_-3px_rgba(0,0,0,0.25)] rounded-xl my-12">
+              <div className="font-medium text-xl">We are here to help you!</div>
+              <div className="md:w-[500px] text-left  text-xs py-4">
+              We are here and ready to assist you every step of the way, drop us a message for personalized support and solutions crafted just for you!
               </div>
 
-              <div className="flex flex-col gap-2  ">
-                <div className=" items-center  text-center">
+              <div className="flex flex-col gap-2">
+                <div className="flex md:flex-row flex-col items-center gap-2 ">
                   <Input
-                    type="email"
-                    placeholder="Email"
-                    className="rounded-md focus-visible:outline-green-400/40   "
+                    placeholder="First Name"
+                    className="rounded-md md:w-[300px] focus-visible:outline-green-400/40  "
+                  />
+                  <Input
+                    placeholder="Last Name"
+                    className="rounded-md md:w-[300px] focus-visible:outline-green-400/40 "
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Message"
-                    className=" md:w-[610px] h-[100px] rounded-md   md:h-28  outline-none items-center md:py-1 md:px-3 resize-none leading-6 p-2 focus-visible:outline-green-400/40 "
-                  ></textarea>
 
-                  <div className="">
-                    <Button>Send Message</Button>
+                <div className="flex flex-col gap-2  ">
+                  <div className=" items-center  text-center">
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      className="rounded-md focus-visible:outline-green-400/40   "
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <textarea
+                      id="message"
+                      name="message"
+                      placeholder="Message"
+                      className="placeholder:text-sm placeholder:pt-2 border border-gray-50 md:w-[610px] h-[100px] rounded-md md:h-28  items-center md:py-1 md:px-3 resize-none leading-6 p-2 focus-visible:outline-green-400/40 "
+                    ></textarea>
+
+                    <div className="pt-4 w-full">
+                      <Button className="w-full">Send Message</Button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </Container>
       </div>
       <div>
