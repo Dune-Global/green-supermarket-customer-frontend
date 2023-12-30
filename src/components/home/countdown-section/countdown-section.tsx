@@ -9,10 +9,11 @@ export default function CountdownSec() {
       <div className="bg-green-0 flex flex-col md:flex-row items-center justify-center text-center">
         <div className="px-8 pt-8 visible md:invisible lg:visible">
           <Image
-            src="/assets/images/countdown/countdown-left.png"
+            src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/00ae8188-2cca-43f2-be6f-1d18fce8be6f.png"
             alt="countdown-left"
             width={600}
             height={600}
+            quality={100}
           />
         </div>
         <div>
@@ -32,10 +33,11 @@ export default function CountdownSec() {
         </div>
         <div className="px-10 visible md:invisible lg:visible">
           <Image
-            src="/assets/images/countdown/countdown-right.png"
+            src="https://greensupermarket-egadf4bnddgcene0.z02.azurefd.net/greensupermarketblogcontainer/9206a88a-8f8d-42b7-b7c5-e423b45b5182.png"
             alt="countdown-right"
             width={500}
             height={100}
+            quality={100}
           />
         </div>
       </div>
