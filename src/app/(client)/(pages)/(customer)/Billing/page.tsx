@@ -24,7 +24,12 @@ import {
 } from "./form/select";
 import { Summary } from "./summary";
 import productList from "@/data/products/product-details";
-import { decodeToken, getCartItems, viewAllAddresses } from "@/helpers";
+import {
+  decodeToken,
+  getCartItems,
+  viewAllAddresses,
+  createOrder,
+} from "@/helpers";
 import { formatPrice } from "@/utils/shad-utils";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -51,13 +56,18 @@ const Billing = (props: Props) => {
 
   const [total, setTotal] = useState(0);
 
-  const [generatedHash, setGeneratedHash] = useState("");
 
+
+  
+  
+  const [generatedHash, setGeneratedHash] = useState("");
+  
   function onPayhereCheckoutError(errorMsg: any) {
     alert(errorMsg);
   }
+  const [orderId, setOrderId] = useState(0);
 
-  function checkout(hash: any) {
+  function checkout(hash: any, orderId: any) {
     const customer = new Customer({
       first_name: "Demo",
       last_name: "User",
@@ -71,8 +81,8 @@ const Billing = (props: Props) => {
     const checkoutData = new CheckoutParams({
       returnUrl: `http://localhost:3000/return${hash}`,
       cancelUrl: "http://localhost:3000/cancel",
-      notifyUrl: "https://www.green-supermarket.com/api/v1/order/payhere",
-      order_id: "112233",
+      notifyUrl: `https://www.green-supermarket.com/api/v1/order/payhere/${orderId}`,
+      order_id: orderId.toString(),
       itemTitle: "Demo Item",
       currency: CurrencyType.LKR,
       amount: total,
@@ -94,6 +104,11 @@ const Billing = (props: Props) => {
   }
 
   const generateHash = async () => {
+  try {
+    const res = await createOrder(5, 0, 0, "Card", 1, 1);
+    const updatedOrderId = res.orderId;
+    setOrderId(updatedOrderId);
+    
     try {
       const response = await axios.post(
         "https://www.green-supermarket.com/api/v1/payhere/generate-hash",
@@ -101,7 +116,7 @@ const Billing = (props: Props) => {
           merchantID: 1225382,
           merchantSecret:
             "OTI2NDg2NDc5MzkyNzQyNDU2NjU2MzM1NTExOTExODk4NzQzODA=",
-          orderID: 112233,
+          orderID: updatedOrderId, // Use the updated order ID here
           amount: total,
           currency: "LKR",
         },
@@ -115,9 +130,9 @@ const Billing = (props: Props) => {
       if (response.status === 200) {
         const data = response.data;
         const generatedHash = data.hash;
-        console.log(generatedHash);
         setGeneratedHash(generatedHash);
-        checkout(generatedHash);
+        console.log("this is " ,updatedOrderId)
+        checkout(generatedHash, updatedOrderId); // Pass the updated order ID to checkout
       } else {
         console.error("Failed to generate hash");
         throw new Error("Failed to generate hash");
@@ -125,7 +140,10 @@ const Billing = (props: Props) => {
     } catch (error) {
       console.error("Error generating hash:", error);
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   useEffect(() => {
     const decode = async () => {
