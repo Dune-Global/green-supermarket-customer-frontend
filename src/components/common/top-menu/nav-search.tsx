@@ -9,11 +9,17 @@ import {
   Smile,
   User,
   Search,
+  Apple,
+  SearchIcon,
+  Loader2,
+  Edit3Icon,
+  ShoppingBagIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/common";
 
 import {
+  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -23,13 +29,17 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/common/top-menu/command";
+import { globalSearch, getAllProductsWitoutSub } from "@/helpers";
+import _ from "lodash";
+import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 export default function SearchBar() {
   const [open, setOpen] = React.useState(false);
-
-  const toggleDialog = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  const [search, setSearch] = React.useState("rich");
+  const [items, setItems] = React.useState([]);
+  const [allProducts, setAllProducts] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -43,6 +53,76 @@ export default function SearchBar() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+  const debouncedGlobalSearch = React.useCallback(
+    _.debounce((query) => {
+      if (query.trim() !== "") {
+        globalSearch(query)
+          .then((searchResult) => {
+            setItems(searchResult);
+            console.log(searchResult);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        setItems([]);
+      }
+    }, 1000),
+    []
+  );
+
+  React.useEffect(() => {
+    if (search.trim() !== "") {
+      debouncedGlobalSearch(search);
+    } else {
+      setItems([]);
+    }
+  }, [search, debouncedGlobalSearch]);
+
+  const toggleDialog = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  React.useEffect(() => {
+    // console.log(items);
+  }, [items]);
+
+  const handleInputChange = (event: any) => {
+    setSearch(event.target.value);
+  };
+
+  React.useEffect(() => {
+    getAllProductsWitoutSub()
+      .then((data) => {
+        console.log(data);
+        setAllProducts(data);
+        setLoading(false); // Set loading to false after data is fetched
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false); // In case of error, set loading to false as well
+      });
+  }, []);
+
+  // const toggleDialog = () => {
+  //   // Implement your toggleDialog functionality here
+  // };
+
+  // React.useEffect(() => {
+  //   getAllProductsWitoutSub()
+  //     .then((data) => {
+  //       console.log(data);
+  //       setAllProducts(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  React.useEffect(() => {}, []);
+
   return (
     <>
       <div className="py-6 flex justify-center items-center">
@@ -52,7 +132,7 @@ export default function SearchBar() {
         >
           <div className="flex justify-around items-center gap-3">
             <Search className="pl-4" size={32} />
-            <p className=" text-gray-200 text-xs">Search for products</p>
+            <p className="text-gray-200 text-xs">Search for products</p>
           </div>
           <Button>Search</Button>
         </div>
@@ -67,47 +147,43 @@ export default function SearchBar() {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>
+            {loading ? (
+              <div className="w-full flex justify-center items-center">
+                <Loader2 className="animate-spin" />
+              </div>
+            ) : (
+              <h1>No products found!</h1>
+            )}
+          </CommandEmpty>
           <CommandGroup heading="Suggestions">
             <CommandItem>
-              <Calendar className="mr-2 h-4 w-4" />
-              <span>Calendar</span>
+              <Edit3Icon className="mr-2 h-4 w-4" />
+              <span>Profile</span>
             </CommandItem>
             <CommandItem>
-              <Smile className="mr-2 h-4 w-4" />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <Calculator className="mr-2 h-4 w-4" />
-              <span>Calculator</span>
+              <ShoppingBagIcon className="mr-2 h-4 w-4" />
+              <span>Cart</span>
             </CommandItem>
           </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <CreditCard className="mr-2 h-4 w-4" />
-              <span>Billing</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
+          <CommandGroup heading="All Products">
+            {loading ? (
+              <div className="w-full flex justify-center items-center">
+                <Loader2 className="animate-spin mb-2" />
+              </div>
+            ) : null}
+            {allProducts.map((product: any) => (
+              <Link
+                onClick={() => setOpen(!open)}
+                key={product.productId}
+                href={`${BASE_URL}/products/${product.mainCategoryId}/${product.productId}`}
+              >
+                <CommandItem>{product.productName}</CommandItem>
+              </Link>
+            ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-      {/* <p className="text-sm text-muted-foreground">
-          Press{" "}
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-            <span className="text-xs">⌘</span>J
-          </kbd>
-        </p> */}
     </>
   );
 }

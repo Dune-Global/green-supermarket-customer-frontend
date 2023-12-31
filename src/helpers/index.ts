@@ -13,3 +13,4 @@ export * from "./getCustomerById";
 
 export * from "./addressHelper";
 export * from "./orderHelper";
+export * from "./globalSearch";

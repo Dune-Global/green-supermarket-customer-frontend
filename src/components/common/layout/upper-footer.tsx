@@ -31,7 +31,7 @@ const UpperFooter = (props: Props) => {
       e.preventDefault();
       setLoading(true);
       const res = await newsletter(email);
-      await sendMail(email, email, "Thank you for subscribing to our newsletter", "Thank you for subscribing to our newsletter");
+      // await sendMail(email, email, "Thank you for subscribing to our newsletter", "Thank you for subscribing to our newsletter");
       toast({
         variant: "default",
         title: "Subscribed!",
