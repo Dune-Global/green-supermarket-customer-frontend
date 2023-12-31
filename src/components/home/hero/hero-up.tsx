@@ -3,6 +3,11 @@ import { Button } from "../../common";
 import Image from "next/image";
 import Conainer from "@/components/common/container";
 
+
+const goToFreshVegetablesPage = () => {
+  window.location.href = 'https://shop.green-supermarket.com/products/1';
+};
+
 export default function HeroUp() {
   return (
     <Conainer>
@@ -36,7 +41,7 @@ export default function HeroUp() {
               <p className="pt-4 md:pb-8 invisible md:visible text-sm font-normal">
                 Free shipping on all your orders.
               </p>
-              <Button variant="white" size="lg" arrow>
+              <Button variant="white" size="lg" arrow onClick={goToFreshVegetablesPage}>
                 Shop now
               </Button>
             </div>
@@ -60,7 +65,7 @@ export default function HeroUp() {
               <span>Only Fruits & Vegetables</span>
             </div>
             <div className="pt-2">
-              <Button variant="secondary" size="lg" arrow>
+              <Button variant="secondary" size="lg" arrow onClick={goToFreshVegetablesPage}>
                 Shop now
               </Button>
             </div>
@@ -83,7 +88,7 @@ export default function HeroUp() {
                 <span>Deal of the Month</span>
               </div>
               <div className="pt-2">
-                <Button variant="secondary" size="lg" arrow>
+                <Button variant="secondary" size="lg" arrow onClick={goToFreshVegetablesPage}>
                   Shop now
                 </Button>
               </div>

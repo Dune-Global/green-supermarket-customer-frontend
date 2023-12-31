@@ -5,6 +5,7 @@ const sections = [
         title: "ONLINE DEAL",
         description1: "Save 20% on",
         description2: "Every Order",
+        buttonLink: "https://shop.green-supermarket.com/products/1",
     },
     {
         id: 2,
@@ -12,6 +13,7 @@ const sections = [
         title: "CHIRSTMAS SALE",
         description1: "10% off for",
         description2: "All Alcohol",
+        buttonLink: "https://shop.green-supermarket.com/products/10",
     },
     {
         id: 3,
@@ -19,6 +21,7 @@ const sections = [
         title: "MEAT SALE",
         description1: "Starting from",
         description2: "Rs. 899",
+        buttonLink: "https://shop.green-supermarket.com/products/3",
     },
 ];
   

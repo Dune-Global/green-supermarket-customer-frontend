@@ -1,8 +1,18 @@
+"use client";
+
 import React from "react";
 import { HeroDow } from "@/data/hero";
 import Image from "next/image";
 import { Button } from "../../common";
 import Container from "@/components/common/container";
+
+// import { useNavigate } from 'react-router-dom';
+
+  const handleButtonClick = (url: string) => {
+    window.location.href = url;
+  };
+
+// const navigate = useNavigate();
 
 export default function HeroDown() {
   return (
@@ -34,7 +44,7 @@ export default function HeroDown() {
                   </p>
                 </div>
                 <div className="pt-8">
-                  <Button variant="white" size="lg" arrow>
+                  <Button variant="white" size="lg" arrow onClick={() => handleButtonClick(components.buttonLink)}>
                     Shop now
                   </Button>
                 </div>

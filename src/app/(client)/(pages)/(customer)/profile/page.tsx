@@ -14,9 +14,12 @@ import { updateCustomer } from "@/helpers";
 import { getCustomerById } from "@/helpers";
 import ICustomerDetailsData from "@/types/customer-details";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/components/common/ui/toast/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
 
 export default function Profile() {
   const router = useRouter();
+  const { toast } = useToast();
 
   // State to hold token validity, customer data, and image URL
   const [tokenValid, setTokenValid] = useState(false);
@@ -30,6 +33,8 @@ export default function Profile() {
 
   // Form handling with react-hook-form
   const { register, handleSubmit, setValue, getValues } = useForm();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // Effect to fetch customer data when the component mounts
   useEffect(() => {
@@ -119,6 +124,7 @@ export default function Profile() {
 
   // Function to handle form submission
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
     const jwtToken = localStorage.getItem("jwtToken");
 
     if (!jwtToken) {
@@ -147,9 +153,25 @@ export default function Profile() {
         try {
           const response = await updateCustomer(customerId, formData);
           console.log("Customer data updated successfully", response);
-          logout();
+          toast({
+            variant: "default",
+            title: "Changes saved",
+            description:
+              "Your changes have been saved successfully, please Sign In again to continue.",
+            duration: 3000,
+          });
+          setTimeout(() => {
+            logout();
+            router.push("/sign-in");
+          }, 3000);
         } catch (error) {
           console.error("Error updating customer data", error);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "An error occurred while saving your changes",
+            duration: 3000,
+          });
         }
       } else {
         router.push("/");
@@ -159,6 +181,10 @@ export default function Profile() {
       router.push("/");
     }
   };
+
+  if (isLoading) {
+    return <AuthLoader />;
+  }
 
   // If token is not valid, show AuthLoader
   if (!tokenValid) {
@@ -288,7 +314,11 @@ export default function Profile() {
                       onChange={handleImageUpload}
                       style={{ display: "none" }}
                     />
-                    <Button variant="outline" onClick={handleButtonClick}>
+                    <Button
+                      loading={isLoading}
+                      variant="outline"
+                      onClick={handleButtonClick}
+                    >
                       Upload Image
                     </Button>
                   </div>

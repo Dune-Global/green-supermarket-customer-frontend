@@ -3,6 +3,10 @@ import Countdown from "../countdown/countdown";
 import { Button } from "../../common";
 import Image from "next/image";
 
+const goToFreshVegetablesPage = () => {
+  window.location.href = 'https://shop.green-supermarket.com/products/1';
+};
+
 export default function CountdownSec() {
   return (
     <div>
@@ -26,7 +30,7 @@ export default function CountdownSec() {
             <Countdown />
           </div>
           <div className="pb-11">
-            <Button size="lg" arrow>
+            <Button size="lg" arrow onClick={goToFreshVegetablesPage}>
               Shop now
             </Button>
           </div>
