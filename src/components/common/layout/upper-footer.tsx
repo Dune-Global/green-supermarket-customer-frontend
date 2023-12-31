@@ -93,7 +93,7 @@ const UpperFooter = (props: Props) => {
             <div className="flex-col flex gap-2 md:gap-0 md:flex-row md:relative mt-5 md:mt-0">
               <Input
                 type="email"
-                className="md:pr-32 font-light"
+                className="md:pr-32 font-light rounded-r-full rounded-l-full"
                 placeholder="Enter Your Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} 
