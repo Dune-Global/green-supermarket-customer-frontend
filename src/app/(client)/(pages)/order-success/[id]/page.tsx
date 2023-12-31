@@ -89,7 +89,14 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
           </ToastAction>
         ),
       });
-      window.location.reload();
+      setTimeout(() => {
+        toast({
+          variant: "default",
+          title: "You are being redirected!",
+          description: "Redirecting you to home page.",
+        });
+        window.location.href = "/";
+      }, 5000);
     }
   }, [email]);
 
