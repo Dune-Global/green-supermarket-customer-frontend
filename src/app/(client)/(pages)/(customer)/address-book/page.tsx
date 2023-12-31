@@ -1,8 +1,8 @@
 "use client";
-import { Button, ClientOnly, Container } from "@/components/common";
+import { AuthLoader, Button, ClientOnly, Container } from "@/components/common";
 import SideMenu from "@/components/common/layout/side-menu";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Trash2, PlusIcon } from "lucide-react";
 import { AddressDetails } from "@/data/address-book";
 import SideMenuMobile from "@/components/common/layout/side-menu-mobile";
@@ -28,11 +28,103 @@ import {
   AlertDialogTrigger,
 } from "@/components/common/layout/alert-dialog";
 
+import { decodeToken, getAllAddresses, deleteAddress } from "@/helpers";
+import { ICustomerAddressData } from "@/types";
+import { set } from "react-hook-form";
+
 export default function AddressBookPage() {
   const router = useRouter();
-  const removeAddress = () => {
-    router.push("/address-book");
+  //
+
+  const [loading, setLoading] = useState(true);
+  const [addresses, setAddresses] = useState<any>(null);
+  const [tokenValid, setTokenValid] = useState(false);
+  const [addressId, setAddressId] = useState<any>(null);
+  const [addId, setAddId] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchAddressData = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+
+      if (!jwtToken) {
+        router.push("/");
+        return;
+      }
+
+      try {
+        const { status, data } = await decodeToken(jwtToken);
+        if (status === 200) {
+          setTokenValid(true);
+
+          console.log("Token Decoded:", data.id);
+
+          // Fetch customer details using getAllAddresses
+          const customerId = data.id;
+          setAddId(customerId);
+          try {
+            const fetchedAddresses = await getAllAddresses(customerId);
+            setAddresses(fetchedAddresses);
+
+            setLoading(false);
+            console.log(fetchedAddresses);
+          } catch (error) {
+            console.error("Failed to fetch address data", error);
+          }
+        } else {
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        router.push("/");
+      }
+    };
+
+    fetchAddressData();
+  }, [router, setAddresses]);
+
+  const handleDeleteClick = async (addressId: any) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    console.log("JWT Token:", jwtToken);
+
+    if (!jwtToken) {
+      console.log("Token is missing. Redirecting to login page.");
+      router.push("/");
+      return;
+    }
+    try {
+      const { status, data } = await decodeToken(jwtToken);
+      console.log("Token Decoded:", data);
+
+      if (status === 200) {
+        setTokenValid(true);
+
+        console.log("Deleting address with id:", addressId);
+
+        const res = await deleteAddress(addressId, jwtToken);
+        console.log("Delete request response:", res);
+
+        console.log("Delete request successful");
+
+        setAddresses(
+          addresses.filter((address: any) => address.id !== addressId)
+        );
+      } else {
+        console.log("Token is invalid. Redirecting to login page.");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error deleting address:", error);
+    }
   };
+
+  const checkCustomer = async () => {
+    console.log("Checking customer", addId);
+  };
+
+  if (!tokenValid) {
+    return <AuthLoader />;
+  }
 
   return (
     <ClientOnly>
@@ -57,80 +149,85 @@ export default function AddressBookPage() {
                   </DialogTrigger>
                   <DialogContent className="bg-gray-0">
                     <DialogHeader className="text-lg font-medium">
+                      <Button onClick={checkCustomer}>Check customer</Button>
                       Address Details
                     </DialogHeader>
                     <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
                     <div>
-                      <AddAddress />
+                      <AddAddress customerId={addId} />
                     </div>
                   </DialogContent>
                 </Dialog>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {AddressDetails.map((card) => (
-                <div
-                  key={card.id}
-                  className="border border-gray-50 rounded-lg p-4"
-                >
-                  <div className="flex gap-4 justify-between">
-                    <div className="flex flex-col gap-3">
-                      <div className="uppercase text-sm font-medium text-gray-200 pb-2">
-                        {card.addressName} address
-                      </div>
-                      <div className="font-medium text-base">
-                        {card.firstName} {card.lastName}
-                      </div>
-                      <div className="text-sm text-gray-200">
-                        {card.streetAddress}, {card.city}, {card.province}{" "}
-                        {card.zipcode}
-                      </div>
-                      <div className="font-medium text-sm">{card.email}</div>
-                      <div className="font-medium text-sm">
-                        {card.contactNumber}
-                      </div>
-                      <div className="pt-4">
-                        <div>
-                          <EditAddress param={"params"} />
+              {addresses &&
+                addresses.map((address: any) => (
+                  <div
+                    key={address.id}
+                    className="border border-gray-50 rounded-lg p-4"
+                  >
+                    <div className="flex gap-4 justify-between">
+                      <div className="flex flex-col gap-3">
+                        <div className="uppercase text-sm font-medium text-gray-200 pb-2">
+                          {address.locationName} address
+                        </div>
+                        <div className="font-medium text-base">
+                          {address.firstName} {address.lastName}
+                        </div>
+                        <div className="text-sm text-gray-200">
+                          {address.address}, {address.city}, {address.province}{" "}
+                          {address.postalCode}
+                        </div>
+                        <div className="font-medium text-sm">
+                          {address.email}
+                        </div>
+                        <div className="font-medium text-sm">
+                          {address.phoneNumber}
+                        </div>
+                        <div className="pt-4">
+                          <div></div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-start justify-end pt-1 pr-1">
-                      <AlertDialog>
-                        <AlertDialogTrigger>
-                          <Trash2
-                            size={20}
-                            strokeWidth={2}
-                            className="text-gray-200 hover:text-red-400/80"
-                          />
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Are you sure you want to delete?
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This address will be removed from your saved
-                              addresses. application.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel className="border-red-400 text-red-400 hover:border-red-400/80 hover:text-red-400/80">
-                              Cancel
-                            </AlertDialogCancel>
-                            <AlertDialogAction
-                              onClick={removeAddress}
-                              className="bg-red-400 hover:bg-red-400/90"
-                            >
-                              Delete
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                      <div className="flex items-start justify-end pt-1 pr-1">
+                        <AlertDialog>
+                          <AlertDialogTrigger>
+                            <Trash2
+                              size={20}
+                              strokeWidth={2}
+                              className="text-gray-200 hover:text-red-400/80"
+                            />
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                Are you sure you want to delete?
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This address will be removed from your saved
+                                addresses. application.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel className="border-red-400 text-red-400 hover:border-red-400/80 hover:text-red-400/80">
+                                Cancel
+                              </AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={async () =>
+                                  await handleDeleteClick(address.id)
+                                }
+                                data-address-id={address.id}
+                                className="bg-red-400 hover:bg-red-400/90"
+                              >
+                                Delete
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
