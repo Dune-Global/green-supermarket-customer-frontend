@@ -11,3 +11,10 @@ export interface IOrderHistoryData {
   billingAddressId: number;
   shippingAddressId: number;
 }
+
+export type OrderHistoryTable = {
+  orderId: string;
+  date: string;
+  total: string;
+  status: string;
+};
