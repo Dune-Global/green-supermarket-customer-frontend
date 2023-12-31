@@ -12,3 +12,4 @@ export * from "./product-details";
 export * from "./best-selling-details";
 export * from "./order-history";
 export * from "./customer-details";
+export * from "./customer-address";

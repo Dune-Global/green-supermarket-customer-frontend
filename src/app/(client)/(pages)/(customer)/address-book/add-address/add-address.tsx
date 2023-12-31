@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Button } from "@/components/common";
@@ -28,9 +28,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../Billing/form/select";
+import { addAddress } from "@/helpers";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  addressName: z
+  locationName: z
     .string()
     .min(1, { message: "Username must be at least 1 character." })
     .max(20, { message: "Username must be at most 20 characters." })
@@ -45,20 +48,20 @@ const formSchema = z.object({
     .min(2, { message: "Last name must be at least 2 characters." })
     .max(20, { message: "Last name must be at most 20 characters." })
     .trim(),
-  streetAddress: z
+  address: z
     .string()
     .min(1, { message: "Street address must be at least 1 character." })
     .max(100, { message: "Street address must be at most 100 characters." })
     .trim(),
   province: z.string(),
   city: z.string(),
-  zipcode: z
+  postalCode: z
     .string()
     .min(5, { message: "Zip code must have 5 numbers." })
     .max(5, { message: "Zip code should only have 5 numbers." })
     .trim(),
   email: z.string().email({ message: "invalid email" }).trim(),
-  contactNumber: z
+  phoneNumber: z
     .string()
     .min(1, { message: "Should have at least 1 character" })
     .max(10, { message: "Cannot contain more than 10 characters" })
@@ -69,20 +72,52 @@ const formStyles = {
   errorMessage: "text-red-400 font-light text-xs",
 };
 
-export function AddAddress() {
+export function AddAddress({ customerId }: { customerId: number }) {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      addressName: "Home",
+      locationName: "Home",
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast({
-      title: "You have successfully added a new address!",
-    });
-    window.location.reload();
-  }
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    console.log("Submitting form with data:", data);
+    if (customerId === undefined) {
+      console.error("Customer ID is undefined");
+      return;
+    }
+    try {
+      console.log("Calling addAddress with data:", data);
+      const res = await addAddress(
+        data.locationName,
+        data.firstName,
+        data.lastName,
+        data.address,
+        data.postalCode,
+        data.city,
+        data.province,
+        data.email,
+        data.phoneNumber,
+        customerId
+      );
+      form.reset();
+      console.log("Address added successfully");
+      setIsLoading(false);
+
+      toast({
+        variant: "default",
+        title: "Added new address",
+        description: "You have successfully added a new address!",
+      });
+      router.push("/address-book");
+      router.refresh();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding address:", error);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -90,7 +125,7 @@ export function AddAddress() {
         <div>
           <FormField
             control={form.control}
-            name="addressName"
+            name="locationName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-normal">Address name</FormLabel>
@@ -141,7 +176,7 @@ export function AddAddress() {
         <div>
           <FormField
             control={form.control}
-            name="streetAddress"
+            name="address"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-normal">Street Address</FormLabel>
@@ -190,24 +225,10 @@ export function AddAddress() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-normal">City</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="text-gray-200 border-gray-50">
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent className="bg-gray-0 py-2">
-                      {CityNames.map((city) => (
-                        <SelectItem key={city.id} value={city.name}>
-                          {city.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                    <FormMessage className={`${formStyles.errorMessage}`} />
-                  </Select>
+                  <FormControl>
+                    <Input placeholder="City" {...field} />
+                  </FormControl>
+                  <FormMessage className={`${formStyles.errorMessage}`} />
                 </FormItem>
               )}
             />
@@ -215,7 +236,7 @@ export function AddAddress() {
           <div className="flex-1">
             <FormField
               control={form.control}
-              name="zipcode"
+              name="postalCode"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-normal">Zip code</FormLabel>
@@ -247,7 +268,7 @@ export function AddAddress() {
           <div className="flex-1">
             <FormField
               control={form.control}
-              name="contactNumber"
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-normal">Contact number</FormLabel>
@@ -268,8 +289,5 @@ export function AddAddress() {
         </div>
       </form>
     </Form>
-    
   );
 }
-
-
