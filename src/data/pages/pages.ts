@@ -9,7 +9,7 @@ const pages = [
   },
   {
     title: "Account",
-    path: "/profile-and-password",
+    path: "/profile",
   },
   {
     title: "About Us",
