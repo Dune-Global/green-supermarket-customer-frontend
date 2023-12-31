@@ -3,12 +3,12 @@ import { INavigationText } from "@/types";
 const account: INavigationText[] = [
   {
     title: "Profile & Password",
-    href: "/profile-and-password",
+    href: "/profile",
     description: "Manage your personal details and enhance account security.",
   },
   {
     title: "Addresses",
-    href: "/addresses",
+    href: "/address-book",
     description:
       "Update, add, or remove addresses to streamline your grocery shopping experience.",
   },
