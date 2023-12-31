@@ -21,3 +21,12 @@ export const getAllProductsWitoutSub = async () => {
     console.error(error);
   }
 };
+
+export const topSelling = async () => {
+  try {
+    const response = await axios.get("/products/top-selling");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

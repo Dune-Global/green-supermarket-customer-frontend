@@ -61,7 +61,7 @@ export default function SearchBar() {
         globalSearch(query)
           .then((searchResult) => {
             setItems(searchResult);
-            console.log(searchResult);
+            // console.log(searchResult);
           })
           .catch((error) => {
             console.log(error);
@@ -96,7 +96,7 @@ export default function SearchBar() {
   React.useEffect(() => {
     getAllProductsWitoutSub()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setAllProducts(data);
         setLoading(false); // Set loading to false after data is fetched
       })
