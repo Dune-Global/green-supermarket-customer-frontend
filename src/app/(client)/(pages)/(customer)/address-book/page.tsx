@@ -118,10 +118,6 @@ export default function AddressBookPage() {
     }
   };
 
-  const checkCustomer = async () => {
-    console.log("Checking customer", addId);
-  };
-
   if (!tokenValid) {
     return <AuthLoader />;
   }
@@ -149,7 +145,6 @@ export default function AddressBookPage() {
                   </DialogTrigger>
                   <DialogContent className="bg-gray-0">
                     <DialogHeader className="text-lg font-medium">
-                      <Button onClick={checkCustomer}>Check customer</Button>
                       Address Details
                     </DialogHeader>
                     <div className="bg-gray-200/40 w-full h-[0.25px]"></div>
