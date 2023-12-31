@@ -66,12 +66,12 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
       try {
         const res = await orderSuccess(params.id);
         console.warn(res);
-        await sendMail(
-          email,
-          email,
-          `Order #${params.id} Success!`,
-          `Your order has been placed successfully! Please check your order history for more details. If you have any questions, please contact us. Thank you!. Order Reciept: ${BASE_URL}/order-history/${random}/${params.id}`
-        );
+        // await sendMail(
+        //   email,
+        //   email,
+        //   `Order #${params.id} Success!`,
+        //   `Your order has been placed successfully! Please check your order history for more details. If you have any questions, please contact us. Thank you!. Order Reciept: ${BASE_URL}/order-history/${random}/${params.id}`
+        // );
       } catch (error) {
         console.error("Error processing order or sending mail:", error);
       }

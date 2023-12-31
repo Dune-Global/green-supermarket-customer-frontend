@@ -12,3 +12,12 @@ export const getAllProducts = async (id: number) => {
     throw error;
   }
 };
+
+export const getAllProductsWitoutSub = async () => {
+  try {
+    const response = await axios.get("/products/all-products-without-subs");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -95,12 +95,12 @@ const CreateAccount = (props: Props) => {
       );
       setLoading(false);
       localStorage.setItem("jwtToken", res.token);
-      await sendMail(
-        email,
-        email,
-        `Welcome to Green Supermarket!`,
-        `Hi ${firstname} ${lastname}, Welcome to Green Supermarket! Stay in Green Supermarket and enjoy the best shopping experience.`
-      );
+      // await sendMail(
+      //   email,
+      //   email,
+      //   `Welcome to Green Supermarket!`,
+      //   `Hi ${firstname} ${lastname}, Welcome to Green Supermarket! Stay in Green Supermarket and enjoy the best shopping experience.`
+      // );
       toast({
         variant: "default",
         title: "Welcome to the family!",

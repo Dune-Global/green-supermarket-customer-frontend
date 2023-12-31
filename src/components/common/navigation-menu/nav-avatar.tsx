@@ -76,6 +76,7 @@ export default function NavigationMenuAvatar() {
   const logout = () => {
     localStorage.removeItem("jwtToken");
     setUser(false);
+    window.location.reload();
     router.push("/");
   };
 
