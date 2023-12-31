@@ -17,7 +17,7 @@ export default function BestSelling() {
   useEffect(() => {
     topSelling()
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         setProducts(res);
         setLoading(false);
       })
@@ -27,15 +27,15 @@ export default function BestSelling() {
       });
   }, []);
 
-  function shuffleArray(array: any) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+  // function shuffleArray(array: any) {
+  //   for (let i = array.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [array[i], array[j]] = [array[j], array[i]];
+  //   }
+  //   return array;
+  // }
 
-  const shuffledProducts = shuffleArray(products);
+  // const shuffledProducts = shuffleArray(products);
 
   const SkeletonComp = () => {
     return (
@@ -67,7 +67,7 @@ export default function BestSelling() {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {shuffledProducts.slice(0, 4).map((product: any, index: any) => (
+            {products.slice(0, 4).map((product: any, index: any) => (
               <Link
                 href={`${BASE_URL}/products/${product.l1Category.mainCategoryId}/${product.productId}`}
                 key={product.productId}
