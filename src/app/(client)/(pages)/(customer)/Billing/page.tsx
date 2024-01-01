@@ -85,7 +85,7 @@ const Billing = (props: Props) => {
 
     const checkoutData = new CheckoutParams({
       returnUrl: `${BASE_URL}/order-success/${orderId}`,
-      cancelUrl: "http://localhost:3000/cancel",
+      cancelUrl: `${BASE_URL}/order-cancel/${orderId}`,
       notifyUrl: `https://www.green-supermarket.com/api/v1/order/payhere/${orderId}`,
       order_id: orderId.toString(),
       itemTitle: "Demo Item",
