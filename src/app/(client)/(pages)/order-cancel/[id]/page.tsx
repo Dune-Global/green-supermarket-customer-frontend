@@ -16,7 +16,7 @@ import { useToast } from "@/components/common/ui/toast/use-toast";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const OrderSuccess = ({ params }: { params: { id: any } }) => {
+const OrderCancell = ({ params }: { params: { id: any } }) => {
   const [tokenValid, setTokenValid] = useState(false);
   const router = useRouter();
 
@@ -61,44 +61,44 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
 
   const { toast } = useToast();
 
-  useEffect(() => {
-    const sendOrderSuccessEmail = async () => {
-      try {
-        const res = await orderSuccess(params.id);
-        console.warn(res);
-        // await sendMail(
-        //   email,
-        //   email,
-        //   `Order #${params.id} Success!`,
-        //   `Your order has been placed successfully! Please check your order history for more details. If you have any questions, please contact us. Thank you!. Order Reciept: ${BASE_URL}/order-history/${random}/${params.id}`
-        // );
-      } catch (error) {
-        console.error("Error processing order or sending mail:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const sendOrderSuccessEmail = async () => {
+  //     try {
+  //       const res = await orderSuccess(params.id);
+  //       console.warn(res);
+  //       // await sendMail(
+  //       //   email,
+  //       //   email,
+  //       //   `Order #${params.id} Success!`,
+  //       //   `Your order has been placed successfully! Please check your order history for more details. If you have any questions, please contact us. Thank you!. Order Reciept: ${BASE_URL}/order-history/${random}/${params.id}`
+  //       // );
+  //     } catch (error) {
+  //       console.error("Error processing order or sending mail:", error);
+  //     }
+  //   };
 
-    if (email !== "") {
-      sendOrderSuccessEmail();
-      toast({
-        variant: "default",
-        title: "Email sent!",
-        description: "We have sent you an email with your order details.",
-        action: (
-          <ToastAction onClick={backToHome} altText="Try again">
-            Go to home
-          </ToastAction>
-        ),
-      });
-      setTimeout(() => {
-        toast({
-          variant: "default",
-          title: "You are being redirected!",
-          description: "Redirecting you to home page.",
-        });
-        window.location.href = "/";
-      }, 5000);
-    }
-  }, [email]);
+  //   if (email !== "") {
+  //     sendOrderSuccessEmail();
+  //     toast({
+  //       variant: "default",
+  //       title: "Email sent!",
+  //       description: "We have sent you an email with your order details.",
+  //       action: (
+  //         <ToastAction onClick={backToHome} altText="Try again">
+  //           Go to home
+  //         </ToastAction>
+  //       ),
+  //     });
+  //     setTimeout(() => {
+  //       toast({
+  //         variant: "default",
+  //         title: "You are being redirected!",
+  //         description: "Redirecting you to home page.",
+  //       });
+  //       window.location.href = "/";
+  //     }, 5000);
+  //   }
+  // }, [email]);
 
   useEffect(() => {
     if (!loading) {
@@ -126,17 +126,17 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
           <h1 className="text-xl text-gray-200">Order Number #{params.id}</h1>
         </div>
         <div className="flex flex-col text-center">
-          <h1 className="text-3xl font-bold">Thank you for your order!</h1>
-          <p className="text-xl">
-            We will send you a confirmation email shortly.
+          <h1 className="text-3xl font-bold text-red-400">Something went wrong!</h1>
+          <p className="text-xl text-red-400">
+            Please try again later or contact us if the problem persists.
           </p>
         </div>
         <div className="flex flex-col md:flex-row gap-4 mt-4">
           <Button variant={"default"} arrow onClick={() => router.replace("/")}>
             Continue Shopping
           </Button>
-          <Link href={`/order-history`}>
-            <Button variant={"ghost"}>View Order</Button>
+          <Link href={`/contact-us`}>
+            <Button variant={"destructive"}>Contact Us</Button>
           </Link>
         </div>
       </div>
@@ -144,4 +144,4 @@ const OrderSuccess = ({ params }: { params: { id: any } }) => {
   );
 };
 
-export default OrderSuccess;
+export default OrderCancell;
