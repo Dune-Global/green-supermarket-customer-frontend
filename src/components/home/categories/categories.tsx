@@ -29,7 +29,7 @@ export default function Categories() {
     return Array.from({ length: 10 }).map((_, index) => (
       <div
         key={index}
-        className="border border-gray-50 rounded-lg flex flex-col items-center p-4 py-6"
+        className="border border-gray-50 rounded-lg  items-center p-4 py-6"
       >
         <Skeleton className="w-auto h-24 md:h-32" />
         <Skeleton
