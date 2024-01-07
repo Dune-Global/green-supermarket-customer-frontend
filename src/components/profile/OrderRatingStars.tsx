@@ -63,7 +63,7 @@ const OrderRatingStars: React.FC<StarRatingProps> = ({
                     }
 
                     return (
-                        <div className="flex">
+                        <div className="flex" key={index}>
                             <div
                                 key={index}
                                 className="relative"
