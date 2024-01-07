@@ -30,3 +30,12 @@ export const topSelling = async () => {
     console.error(error);
   }
 };
+
+export const topDeals = async () => {
+  try {
+    const response = await axios.get("/products/top-deals");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

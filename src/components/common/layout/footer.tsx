@@ -16,7 +16,9 @@ const Footer = (props: Props) => {
 
   return (
     <footer className="mt-16 sticky top-full">
-      <UpperFooter />
+      <div className="" id="newsletter">
+        <UpperFooter />
+      </div>
       <div className="bg-gray-900 text-gray-0 mt-12">
         <Container>
           <div className="">

@@ -5,7 +5,7 @@ const pages = [
   },
   {
     title: "Offers",
-    path: "/",
+    path: "/top-deals",
   },
   {
     title: "Account",
