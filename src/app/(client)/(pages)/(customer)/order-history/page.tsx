@@ -35,7 +35,7 @@ export default function OrderHistory() {
     }
 
     getCustomerData()
-  }, [])
+  }, [router])
 
   return (
     <Container>

@@ -1,5 +1,6 @@
 "use client"
 
+import { OrderReviewDetails } from "@/components";
 import { Button } from "@/components/common";
 import { OrderHistoryTable } from "@/types";
 import { ColumnDef } from "@tanstack/react-table"
@@ -29,7 +30,7 @@ export const columns: ColumnDef<OrderHistoryTable>[] = [
 
             return (
                 <div>
-                    <Button variant={"link"}>View Details</Button>
+                    <OrderReviewDetails param={itemId} />
                 </div>
             )
         }

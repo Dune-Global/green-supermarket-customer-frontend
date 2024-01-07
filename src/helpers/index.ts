@@ -18,3 +18,4 @@ export * from "./globalSearch";
 
 export * from "./customerAddress";
 export * from "./getCustomerOrderHistory";
+export * from "./getOrderDetailsById";
