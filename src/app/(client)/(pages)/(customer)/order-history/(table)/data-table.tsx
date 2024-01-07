@@ -12,12 +12,14 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 import { Input } from "@/components/common/ui/input"
+
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu"
+} from "@/components/common/navigation-menu/avatar-menu"
+
 
 import {
     Table,
