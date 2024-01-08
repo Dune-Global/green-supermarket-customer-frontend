@@ -1,10 +1,11 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Slider from "react-slick";
-import { Testimonials as TestimonialsData } from "@/data";
 import Image from "next/image";
 import { StarRating } from "../common/star-rating";
+import {ITestimonials} from "@/types"
+import axios from "axios";
 
 const Testimonials = () => {
   var settings = {
@@ -44,6 +45,23 @@ const Testimonials = () => {
       },
     ],
   };
+
+  const [TestimonialsData, setTestimonialsData] = useState<ITestimonials[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("/customers/testimonials/all-testimonials");
+        setTestimonialsData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   return (
     <div className="bg-green-0 p-12 grid grid-cols-1">
       <div className="">
@@ -54,8 +72,10 @@ const Testimonials = () => {
           What our Clients Say
         </h1>
         <Slider {...settings}>
-          {TestimonialsData.map((item) => (
-            <div key={item.id}>
+
+          {
+          TestimonialsData.map((item,index) => (
+            <div key={index}>
               <div className="bg-gray-0 mt-4 mb-4 sm:mx-4 p-8">
                 <div>
                   <Image
@@ -65,12 +85,12 @@ const Testimonials = () => {
                     height={50}
                   />
                 </div>
-                <p className="text-base my-5">{item.description}</p>
+                <p className="text-base my-5">{item.review}</p>
                 <div className="flex flex-row">
                   <div className="">
                     <div className="w-12 h-12 rounded-full overflow-hidden">
                       <Image
-                        src={item.image as string}
+                        src={item.reviwer.imageUrl as string}
                         alt="person"
                         width={50}
                         height={50}
@@ -80,14 +100,14 @@ const Testimonials = () => {
                   <div className="flex flex-col lg:flex-row xl:flex-col xxl:flex-row grow">
                     <div>
                       <div className="font-medium pl-5 lg:pl-4">
-                        {item.name}
+                        {item.reviwer.firstname +" "+ item.reviwer.lastname}
                       </div>
                       <div className="-2 text-gray-200 pl-5 lg:pl-4">
-                        {item.role}
+                        {"Customer"}
                       </div>
                     </div>
                     <div className="flex flex-row grow lg:justify-end pt-2 lg:pt-0 xl:pt-2 xxl:pt-0 xl:justify-start xxl:justify-end xl:pl-4 items-center pl-5 lg:pl-0 xxl:pl-0">
-                      <StarRating rating={item.rate} />
+                      <StarRating rating={item.rating} />
                     </div>
                   </div>
                 </div>
