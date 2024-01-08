@@ -14,3 +14,4 @@ export * from "./order-history";
 export * from "./customer-details";
 export * from "./customer-address";
 export * from "./order-review";
+export * from "./sub-categories";

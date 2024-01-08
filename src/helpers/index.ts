@@ -1,5 +1,6 @@
 export { DateMonthYear, Year } from "./getDate";
 export * from "./getMainCategories";
+export * from "./getL1SubCategories";
 export * from "./userAuth";
 export * from "./newsletter";
 export * from "./emailSender";

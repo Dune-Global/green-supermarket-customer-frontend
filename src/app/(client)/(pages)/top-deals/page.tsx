@@ -50,7 +50,6 @@ export default function BestSelling() {
 
   return (
     <Container>
-      <>Search: {search}</>
       <div className="pb-[60px]">
         <div className="pb-10">
           <p className="uppercase text-green-400 text-center">Best Deals</p>
