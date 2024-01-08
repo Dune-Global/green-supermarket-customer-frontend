@@ -1,8 +1,13 @@
-export interface ITestimonials{
-    id:decimal,
-    description:String,
-    image:String,
-    name:String,
-    role:String,
-    rate:number
+export interface ITestimonials {
+    id: number;
+  review: string;
+  rating: number;
+  writtenDate: string;
+  reviwer: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: string;
+    imageUrl: string;
+  };
 }
