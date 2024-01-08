@@ -20,7 +20,7 @@ export const getCustomerOrderHistory = async (
           day: "numeric",
         }),
         total: `${order.totalAmount.toFixed(2)} LKR`,
-        status: order.orderStatus === "Received" ? "Processing" : "Failed",
+        status: order.orderStatus,
       };
     });
 

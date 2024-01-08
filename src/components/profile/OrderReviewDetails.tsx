@@ -34,7 +34,6 @@ function OrderReviewDetails({ param }: Props) {
             }));
 
             setProductsArray(arrayOfProductDetails)
-            console.log(arrayOfProductDetails)
 
         } catch (error) {
             console.log("Error: ", error)
@@ -48,7 +47,7 @@ function OrderReviewDetails({ param }: Props) {
                 <Button onClick={handleDetails} variant={"link"}>View Details</Button>
             </DialogTrigger>
             <DialogContent className='bg-gray-0'>
-                <DialogHeader>
+                <DialogHeader className='text-left'>
                     <DialogTitle className='font-medium'>Order Details</DialogTitle>
                 </DialogHeader>
                 <div className='border-t w-full p-4'>
@@ -59,7 +58,7 @@ function OrderReviewDetails({ param }: Props) {
                             <th className='text-left font-medium'>Quantity</th>
                             <th className='text-left font-medium'>Discount</th>
                             <th className='text-left font-medium'>Subtotal</th>
-                            <th className='text-left font-medium'>Ratings</th>
+                            {/*<th className='text-left font-medium'>Ratings</th>*/}
                         </tr>
                         <tbody>
                             {productsArray.map((product, index) => (
